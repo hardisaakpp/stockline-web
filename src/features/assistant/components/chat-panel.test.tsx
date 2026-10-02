@@ -16,6 +16,8 @@ const answered = (text: string): AskResult => ({
   answer: {
     text,
     sources: [{ path: "orders-import.md", title: "Importing an order" }],
+    tools: [],
+    references: [],
     noAnswer: false,
     quota,
   },
@@ -121,7 +123,14 @@ describe("ChatPanel", () => {
   it("explains in the interface language when the documentation does not cover the question", async () => {
     askAssistant.mockResolvedValue({
       ok: true,
-      answer: { text: "No encontré información sobre eso.", sources: [], noAnswer: true, quota },
+      answer: {
+        text: "No encontré información sobre eso.",
+        sources: [],
+        tools: [],
+        references: [],
+        noAnswer: true,
+        quota,
+      },
     });
     renderPanel();
 

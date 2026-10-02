@@ -52,8 +52,9 @@ connection drops it reconnects and refreshes again.
 
 ## The assistant says it has no information
 
-Xia only answers from the Stockline documentation, and says so when it does not cover the question. It does not know
-live data such as the status of a particular order. Try rephrasing, or ask about how a step works.
+For "how does it work" questions Xia only answers from the Stockline documentation, and says so when it does not cover
+the question. For questions about your orders it looks them up with your own access, so an order you cannot see will not
+appear. Try rephrasing, or give the order code exactly (for example PO-2026-017).
 
 ## Where do I change the language or the theme?
 

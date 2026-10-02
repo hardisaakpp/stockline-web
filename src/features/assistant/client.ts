@@ -1,15 +1,9 @@
 import "server-only";
 import type { AppLocale } from "@/i18n/config";
-import { toXiaHistory } from "./history";
-import {
-  xiaAnswerSchema,
-  xiaErrorSchema,
-  type Answer,
-  type AssistantErrorCode,
-  type ChatTurn,
-} from "./schemas";
+import type { ToolDefinition } from "./tools/definitions";
+import { xiaErrorSchema, xiaStepSchema, type AssistantErrorCode, type XiaStep } from "./schemas";
 
-/** A question can wait for the model to load from disk: this is a language model, not a database query. */
+/** A step can wait for the model to load from disk: this is a language model, not a database query. */
 const TIMEOUT_MS = 120_000;
 
 export class AssistantError extends Error {
@@ -42,31 +36,37 @@ async function failure(response: Response): Promise<AssistantError> {
   );
 }
 
-export type AskInput = {
+/** One message of the conversation as Xia wants it: the person, the assistant (maybe asking for tools), or a tool result. */
+export type XiaWireMessage =
+  | {
+      rol: "user" | "assistant";
+      texto: string;
+      llamadas?: { nombre: string; argumentos: Record<string, unknown> }[];
+    }
+  | { rol: "tool"; herramienta: string; texto: string };
+
+export type StepInput = {
   baseUrl: string;
   token: string;
-  question: string;
-  history: readonly ChatTurn[];
+  messages: readonly XiaWireMessage[];
+  tools: readonly ToolDefinition[];
+  /** Rules of this application that Xia adds to its own. Trusted: written here, never by the person. */
+  instructions: string;
   locale: AppLocale;
 };
 
-/** Asks Xia one question. Throws `AssistantError` for anything that is not an answer. */
-export async function askXia({
-  baseUrl,
-  token,
-  question,
-  history,
-  locale,
-}: AskInput): Promise<Answer> {
+/** Asks Xia for the next step. Throws `AssistantError` for anything that is not a well-formed step. */
+export async function askXiaStep(input: StepInput): Promise<XiaStep> {
   let response: Response;
   try {
-    response = await fetch(`${baseUrl}/v1/preguntar`, {
+    response = await fetch(`${input.baseUrl}/v1/agente`, {
       method: "POST",
-      headers: { "content-type": "application/json", authorization: `Bearer ${token}` },
+      headers: { "content-type": "application/json", authorization: `Bearer ${input.token}` },
       body: JSON.stringify({
-        pregunta: question,
-        historial: toXiaHistory(history),
-        idioma: locale,
+        mensajes: input.messages,
+        herramientas: input.tools,
+        instrucciones: input.instructions,
+        idioma: input.locale,
       }),
       signal: AbortSignal.timeout(TIMEOUT_MS),
       cache: "no-store",
@@ -77,19 +77,7 @@ export async function askXia({
 
   if (!response.ok) throw await failure(response);
 
-  const parsed = xiaAnswerSchema.safeParse(await response.json().catch(() => null));
+  const parsed = xiaStepSchema.safeParse(await response.json().catch(() => null));
   if (!parsed.success) throw new AssistantError("unavailable");
-
-  const { respuesta, fuentes, sin_contexto, cuota } = parsed.data;
-  return {
-    text: respuesta,
-    sources: fuentes.map((source) => ({ path: source.documento, title: source.titulo })),
-    noAnswer: sin_contexto,
-    quota: {
-      limit: cuota.limite,
-      remaining: cuota.restantes,
-      renewsInSeconds: cuota.renueva_en_segundos,
-      warning: cuota.advertencia,
-    },
-  };
+  return parsed.data;
 }

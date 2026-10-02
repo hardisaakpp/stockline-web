@@ -36,6 +36,11 @@ button to switch between light and dark. Dates follow the language; amounts alwa
 
 ## The assistant
 
-Xia, the assistant, answers questions about how Stockline works using this documentation. It does not see live data:
-it cannot tell you the status of a particular order and it cannot perform actions for you. Each person has a limited
-number of questions per period, and the remaining count is shown in the chat.
+Xia, the assistant, does two things.
+
+- **Explains how Stockline works**, using this documentation, and cites the documents it used.
+- **Looks up your orders** (read-only): how many are waiting for you, orders in a given status, or the details of an order by its code. It uses your own access, so it only shows what you are allowed to see, and when it answers with order data it shows which lookup it used and offers a link to open each order.
+
+It cannot act for you: it cannot cancel, confirm, send or edit anything. For that it explains the steps and you do them
+in the application. Each person has a limited number of questions per period, and the remaining count is shown in the
+chat. It never asks for your password or any other secret.

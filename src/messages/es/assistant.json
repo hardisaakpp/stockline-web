@@ -3,11 +3,12 @@
   "subtitle": "Asistente de Stockline",
   "open": "Preguntar a Xia",
   "close": "Cerrar",
-  "description": "Pregunta cómo funciona Stockline. Xia responde con la documentación; no ve datos en vivo ni actúa por ti.",
+  "description": "Pregunta cómo funciona Stockline o por tus órdenes. Xia lee tus órdenes (solo lectura); no actúa por ti.",
   "welcomeTitle": "Hola, soy Xia",
   "welcomeBody": "Puedo explicarte cómo funcionan las órdenes, la redistribución, el ERP y el panel.",
   "suggestionsLabel": "Prueba preguntando",
   "suggestions": {
+    "pending": "¿Qué está esperando por mí?",
     "statuses": "¿Qué significan los estados de una orden?",
     "importOrder": "¿Cómo importo una orden?",
     "redistribution": "¿Cómo funciona la redistribución?",
@@ -44,5 +45,12 @@
     "invalid": "No se pudo enviar esa pregunta. Intenta reformularla.",
     "unavailable": "Xia no responde en este momento. Inténtalo más tarde."
   },
-  "noAnswerText": "No encontré eso en la documentación. Prueba a reformularlo, o pregunta por órdenes, redistribución, el ERP o el panel."
+  "noAnswerText": "No encontré eso en la documentación. Prueba a reformularlo, o pregunta por órdenes, redistribución, el ERP o el panel.",
+  "tools": {
+    "search_orders": "Búsqueda de órdenes",
+    "get_order": "Detalle de la orden",
+    "orders_summary": "Tus cifras de órdenes"
+  },
+  "consulted": "Consultó",
+  "openOrder": "Abrir {code}"
 }

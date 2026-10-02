@@ -1,22 +1,22 @@
 import { describe, expect, it } from "vitest";
-import { MAX_HISTORY_TURNS, toXiaHistory } from "./history";
+import { MAX_HISTORY_TURNS, toXiaMessages } from "./history";
 
-describe("toXiaHistory", () => {
-  it("renames roles to Xia's wording and keeps the order", () => {
+describe("toXiaMessages", () => {
+  it("keeps roles and order in Xia's message shape", () => {
     expect(
-      toXiaHistory([
+      toXiaMessages([
         { role: "user", text: "How do I import?" },
         { role: "assistant", text: "Go to Orders." },
       ]),
     ).toEqual([
       { rol: "user", texto: "How do I import?" },
-      { rol: "bot", texto: "Go to Orders." },
+      { rol: "assistant", texto: "Go to Orders." },
     ]);
   });
 
   it("keeps only the most recent turns Xia accepts", () => {
     const turns = Array.from({ length: 14 }, (_, i) => ({ role: "user" as const, text: `q${i}` }));
-    const result = toXiaHistory(turns);
+    const result = toXiaMessages(turns);
 
     expect(result).toHaveLength(MAX_HISTORY_TURNS);
     expect(result[0]?.texto).toBe("q4");
@@ -24,7 +24,7 @@ describe("toXiaHistory", () => {
   });
 
   it("drops empty turns and truncates very long ones", () => {
-    const result = toXiaHistory([
+    const result = toXiaMessages([
       { role: "user", text: "   " },
       { role: "assistant", text: "x".repeat(5000) },
     ]);

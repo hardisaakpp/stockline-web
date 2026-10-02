@@ -7,6 +7,8 @@ const answer = (text: string): ChatMessage => ({
   answer: {
     text,
     sources: [],
+    tools: [],
+    references: [],
     noAnswer: false,
     quota: { limit: 30, remaining: 29, renewsInSeconds: 100, warning: false },
   },

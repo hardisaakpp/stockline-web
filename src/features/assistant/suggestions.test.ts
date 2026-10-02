@@ -3,8 +3,9 @@ import { suggestionsFor } from "./suggestions";
 
 describe("suggestionsFor", () => {
   it("offers only questions the person could use the answer for", () => {
-    expect(suggestionsFor(["orders.view"])).toEqual(["statuses"]);
+    expect(suggestionsFor(["orders.view"])).toEqual(["pending", "statuses"]);
     expect(suggestionsFor(["orders.view", "orders.import", "erp.submit"])).toEqual([
+      "pending",
       "statuses",
       "importOrder",
       "erpRetry",

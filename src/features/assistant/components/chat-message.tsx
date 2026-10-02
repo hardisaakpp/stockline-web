@@ -1,6 +1,7 @@
 "use client";
 
-import { FileText, TriangleAlert } from "lucide-react";
+import { Database, FileText, TriangleAlert } from "lucide-react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -60,6 +61,41 @@ function ErrorBubble({
   );
 }
 
+/** Where the data in an answer came from, and a way to open the orders it was about. */
+function ToolTrail({ answer }: { answer: Extract<ChatMessage, { role: "assistant" }>["answer"] }) {
+  const t = useTranslations("assistant");
+  if (answer.tools.length === 0) return null;
+
+  return (
+    <div className="space-y-1.5 text-xs text-muted-foreground">
+      <p className="flex flex-wrap items-center gap-1.5">
+        <Database className="size-3" aria-hidden="true" />
+        <span>{t("consulted")}:</span>
+        {answer.tools.map((tool) => (
+          <span key={tool} className="rounded-full border bg-background px-2 py-0.5">
+            {t.has(`tools.${tool}` as "tools.get_order")
+              ? t(`tools.${tool}` as "tools.get_order")
+              : tool}
+          </span>
+        ))}
+      </p>
+      {answer.references.length > 0 && (
+        <p className="flex flex-wrap gap-1.5">
+          {answer.references.map((reference) => (
+            <Link
+              key={reference.id}
+              href={`/orders/${encodeURIComponent(reference.id)}`}
+              className="rounded-full border border-primary/30 bg-primary/5 px-2 py-0.5 font-medium text-primary hover:bg-primary/10"
+            >
+              {t("openOrder", { code: reference.code })}
+            </Link>
+          ))}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function ChatMessageView(props: Props) {
   const t = useTranslations("assistant");
   const { message } = props;
@@ -91,6 +127,7 @@ export function ChatMessageView(props: Props) {
           <span className="sr-only">{t("title")}: </span>
           {answer.noAnswer ? t("noAnswerText") : <MarkdownText text={answer.text} />}
         </div>
+        <ToolTrail answer={answer} />
         {answer.sources.length > 0 && (
           <div className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
             <span>{t("sources")}:</span>

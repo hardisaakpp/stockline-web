@@ -32,8 +32,10 @@ real company, product or system name in code, copy, data or docs: the domain is 
 - `src/components/ui` — shadcn/ui primitives (Base UI). Generated: edit sparingly. `src/components/layout`, `feedback`, `brand` — shared building blocks.
 - `src/lib` — framework-agnostic utilities (`format`, `locale`, `api` client, `actions` result/runner/error messages, `env`).
 - Links that look like buttons use `ButtonLink`/`ButtonAnchor` (never `<Button render={<Link/>}>`: it adds `role="button"`).
-- `src/features/assistant` — Xia, the documentation assistant. The server signs a short-lived JWT (identity + permissions) and
-  calls the Xia engine (`client.ts`); `assistant/knowledge/*.md` is its only source and `assistant/sources.yaml` maps each
+- `src/features/assistant` — Xia, the assistant. The server signs a short-lived JWT (identity + permissions) and runs the
+  agent loop (`agent.ts`): Xia proposes tools, `tools/executors.ts` runs them read-only with the user's own session. New tool →
+  definition in `tools/definitions.ts` (gated by permission), a Zod-validated executor that returns structured fields only
+  (never free text written by others), a test, and a line in `assistant/knowledge`. Tools must never change anything. `assistant/knowledge/*.md` is its only source and `assistant/sources.yaml` maps each
   document to the permission that unlocks it. New feature or changed behaviour → update the matching document there and
   re-index (`npm run dev:xia -- index`). Never put anything in the knowledge base that a role should not read.
 - Sign-in has two providers (`local`, `directory`, see `features/auth/login-form-schema.ts`). The web app never talks to the

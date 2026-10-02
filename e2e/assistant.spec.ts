@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { asRole, type RoleName } from "./helpers/orders";
+import { asRole, importOrder, uniqueCode, type RoleName } from "./helpers/orders";
 
 /**
  * Needs the assistant switched on in the web app (XIA_URL and XIA_JWT_SECRET) and Xia running with the Stockline
@@ -97,5 +97,53 @@ test.describe("assistant", () => {
 
     await expect(conversation(page).getByText("Fuentes:")).toBeVisible({ timeout: 150_000 });
     await expect(page.getByText(/\d+ preguntas? restantes? de \d+/)).toBeVisible();
+  });
+
+  test("looks up the person's own numbers and the answer matches the dashboard", async ({
+    browser,
+  }) => {
+    const page = await asRole(browser, "buyer");
+    await page.goto("/dashboard");
+    const waiting = (await page.getByRole("link", { name: /Waiting for you/ }).innerText()).match(
+      /\d+/,
+    )?.[0];
+    expect(waiting).toBeTruthy();
+
+    await page.getByRole("button", { name: "Ask Xia" }).click();
+    await page.getByRole("button", { name: "What is waiting for me?" }).click();
+
+    await expect(conversation(page).getByText("Looked up:")).toBeVisible({ timeout: 150_000 });
+    await expect(conversation(page)).toContainText(String(waiting));
+  });
+
+  test("finds an order by its code and offers a link that opens it", async ({ browser }) => {
+    const buyer = await asRole(browser, "buyer");
+    const code = uniqueCode("AI");
+    const id = await importOrder(buyer, code);
+
+    await buyer.getByRole("button", { name: "Ask Xia" }).click();
+    await ask(buyer, `What is the status of order ${code}?`);
+
+    const link = buyer.getByRole("link", { name: `Open ${code}` });
+    await expect(link).toBeVisible({ timeout: 150_000 });
+    await expect(conversation(buyer)).toContainText("Draft");
+    await link.click();
+    await expect(buyer).toHaveURL(new RegExp(`/orders/${id}$`));
+  });
+
+  test("never shows what the API hides from the role", async ({ browser }) => {
+    const buyer = await asRole(browser, "buyer");
+    const code = uniqueCode("HID");
+    await importOrder(buyer, code); // a draft: supplier production cannot see it
+
+    const production = await asRole(browser, "production");
+    await production.goto("/dashboard");
+    await production.getByRole("button", { name: "Ask Xia" }).click();
+    await ask(production, `What is the status of order ${code}?`);
+
+    await expect(production.getByText("Looked up:")).toBeVisible({ timeout: 150_000 });
+    await expect(production.getByRole("status")).toBeHidden({ timeout: 150_000 });
+    await expect(conversation(production)).not.toContainText("Draft");
+    await expect(production.getByRole("link", { name: `Open ${code}` })).toHaveCount(0);
   });
 });

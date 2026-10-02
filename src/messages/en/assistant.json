@@ -3,11 +3,12 @@
   "subtitle": "Stockline assistant",
   "open": "Ask Xia",
   "close": "Close",
-  "description": "Ask how Stockline works. Xia answers from the documentation; it can't see live data or act for you.",
+  "description": "Ask how Stockline works, or about your orders. Xia reads your orders (read-only); it can't act for you.",
   "welcomeTitle": "Hi, I'm Xia",
   "welcomeBody": "I can explain how orders, redistribution, the ERP and the dashboard work.",
   "suggestionsLabel": "Try asking",
   "suggestions": {
+    "pending": "What is waiting for me?",
     "statuses": "What do the order statuses mean?",
     "importOrder": "How do I import an order?",
     "redistribution": "How does redistribution work?",
@@ -44,5 +45,12 @@
     "invalid": "That question couldn't be sent. Try rewording it.",
     "unavailable": "Xia isn't responding right now. Try again later."
   },
-  "noAnswerText": "I couldn't find that in the documentation. Try rephrasing it, or ask about orders, redistribution, the ERP or the dashboard."
+  "noAnswerText": "I couldn't find that in the documentation. Try rephrasing it, or ask about orders, redistribution, the ERP or the dashboard.",
+  "tools": {
+    "search_orders": "Order search",
+    "get_order": "Order details",
+    "orders_summary": "Your order numbers"
+  },
+  "consulted": "Looked up",
+  "openOrder": "Open {code}"
 }

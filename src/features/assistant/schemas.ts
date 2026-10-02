@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-/** What Xia sends back for a question (its contract is in Spanish; the rest of the app uses these English names). */
+/** What Xia sends back for one step of a conversation (its contract is in Spanish; the rest of the app uses English names). */
 export const xiaQuotaSchema = z.object({
   limite: z.number(),
   restantes: z.number(),
@@ -8,12 +8,28 @@ export const xiaQuotaSchema = z.object({
   advertencia: z.boolean(),
 });
 
-export const xiaAnswerSchema = z.object({
-  respuesta: z.string(),
-  fuentes: z.array(z.object({ documento: z.string(), titulo: z.string() })),
-  sin_contexto: z.boolean(),
-  cuota: xiaQuotaSchema,
-});
+/** Xia either answers, or asks this application to run tools and come back with the results. */
+export const xiaStepSchema = z.discriminatedUnion("tipo", [
+  z.object({
+    tipo: z.literal("respuesta"),
+    respuesta: z.string(),
+    fuentes: z.array(z.object({ documento: z.string(), titulo: z.string() })),
+    sin_contexto: z.boolean(),
+    cuota: xiaQuotaSchema,
+  }),
+  z.object({
+    tipo: z.literal("llamadas"),
+    llamadas: z.array(
+      z.object({
+        id: z.string(),
+        nombre: z.string(),
+        argumentos: z.record(z.string(), z.unknown()),
+      }),
+    ),
+    cuota: xiaQuotaSchema,
+  }),
+]);
+export type XiaStep = z.infer<typeof xiaStepSchema>;
 
 /** The error body Xia uses for every failure: callers decide by `error`, not by the HTTP status. */
 export const xiaErrorSchema = z.object({
@@ -32,9 +48,16 @@ export type Quota = {
 
 export type Source = { path: string; title: string };
 
+/** A way to open an order the answer is about. */
+export type OrderReference = { id: string; code: string };
+
 export type Answer = {
   text: string;
   sources: Source[];
+  /** Names of the tools consulted to answer, so the person can see where the data came from. */
+  tools: string[];
+  /** Orders the consulted data was about, as links built from data (not from the model's words). */
+  references: OrderReference[];
   /** The documentation does not cover the question. Not an error: the text is Xia's polite refusal. */
   noAnswer: boolean;
   quota: Quota;

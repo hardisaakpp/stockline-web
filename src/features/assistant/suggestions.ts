@@ -2,6 +2,7 @@ import { can, PERMISSIONS, type Permission } from "@/features/auth";
 
 /** Starter questions, most distinctive first so a short list still covers each kind of permission. Each one is a key of `assistant.suggestions`; it is only offered to people who could use the answer. */
 const SUGGESTIONS = [
+  { key: "pending", permission: PERMISSIONS.ordersView },
   { key: "statuses", permission: PERMISSIONS.ordersView },
   { key: "importOrder", permission: PERMISSIONS.ordersImport },
   { key: "resetPassword", permission: PERMISSIONS.adminUsers },
