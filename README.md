@@ -101,7 +101,7 @@ Defences, each of them measured or tested (`eval/run_tools.py` in Xia, `src/feat
 - **Identity without sharing the session.** A five-minute HS256 token carries only who is asking and their permissions; the user's API token never leaves this server.
 - **Its own engine instance** (`npm run dev:xia`: own database, signing key and organisation name), so nothing else Xia may know can leak in. It follows the interface language, degrades quietly (no `XIA_URL` → no button) and renders answers as React elements, never HTML.
 
-Model choice was measured, not assumed (18 scenarios x 5 runs: tool choice, valid arguments, follow-ups, injection):
+Model choice was measured, not assumed (23 scenarios x 5 runs: tool choice, valid arguments, follow-ups, injection):
 
 | Model                 | Result                                           |
 | --------------------- | ------------------------------------------------ |
