@@ -1,0 +1,138 @@
+{
+  "app": {
+    "name": "Stockline",
+    "description": "Purchase order management for buyers and suppliers.",
+    "skipToContent": "Skip to content"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "theme": {
+    "switchTo": "Switch to {theme} theme",
+    "light": "light",
+    "dark": "dark"
+  },
+  "nav": {
+    "main": "Main",
+    "navigation": "Navigation",
+    "menuDescription": "Main navigation menu",
+    "openMenu": "Open menu",
+    "dashboard": "Dashboard",
+    "orders": "Orders",
+    "administration": "Administration",
+    "users": "Users",
+    "roles": "Roles",
+    "locations": "Locations",
+    "notifications": "Notifications"
+  },
+  "auth": {
+    "login": {
+      "metaTitle": "Sign in",
+      "tagline": "Purchase orders, under control.",
+      "highlightTrack": "Follow every order from draft to delivery",
+      "highlightConfirm": "Confirm quantities and redistribute stock across stores",
+      "highlightRoles": "Role-based access for buyers and suppliers",
+      "footer": "Stockline · Order management",
+      "heading": "Welcome back",
+      "subtitle": "Sign in to manage your orders.",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "signInWith": "Sign in with",
+      "username": "Username or email",
+      "usernamePlaceholder": "ada.admin",
+      "usernameHint": "The account you use for the rest of the organisation's systems.",
+      "provider": {
+        "directory": "Directory account",
+        "local": "Local account"
+      }
+    },
+    "errors": {
+      "emailRequired": "Enter your email.",
+      "emailInvalid": "Enter a valid email.",
+      "passwordRequired": "Enter your password.",
+      "invalidCredentials": "Invalid email or password.",
+      "tooManyAttempts": "Too many attempts. Wait a minute and try again.",
+      "unreachable": "We couldn't reach the service. Try again in a moment.",
+      "usernameRequired": "Enter your username.",
+      "notAuthorized": "Your account is recognised, but it isn't authorized to use Stockline. Ask an administrator.",
+      "emailConflict": "A local account already uses the email of this directory account. Ask an administrator.",
+      "directoryUnavailable": "We couldn't reach the directory. Try again in a moment, or use a local account."
+    },
+    "roles": {
+      "Buyer": "Buyer",
+      "Supplier": "Supplier",
+      "SupplierProduction": "Supplier production"
+    },
+    "userMenu": {
+      "account": "Account menu",
+      "signOut": "Sign out"
+    }
+  },
+  "dashboard": {
+    "metaTitle": "Dashboard",
+    "greeting": "Hello, {name}",
+    "description": "Here is what is happening with your orders.",
+    "kpis": {
+      "total": "Total orders",
+      "open": "Open orders",
+      "awaiting": "Waiting for you",
+      "failures": "ERP failures",
+      "totalHint": "All time",
+      "openHint": "Not yet closed",
+      "awaitingHint": "Orders where it's your turn",
+      "failuresHint": "Need a retry or a fix",
+      "viewList": "View"
+    },
+    "volume": {
+      "title": "Orders in the last 30 days",
+      "description": "New orders per day",
+      "total": "{count, plural, one {# order} other {# orders}} in the period",
+      "bar": "{date}: {count, plural, one {# order} other {# orders}}",
+      "chartLabel": "Bar chart of new orders per day over the last 30 days",
+      "empty": "No orders in the last 30 days."
+    },
+    "status": {
+      "title": "Orders by status",
+      "chartLabel": "Distribution of orders by status",
+      "empty": "There are no orders to chart yet."
+    },
+    "recent": {
+      "title": "Recent orders",
+      "viewAll": "View all",
+      "empty": "No orders yet."
+    }
+  },
+  "forbidden": {
+    "metaTitle": "Access denied",
+    "title": "You don't have access to this page",
+    "description": "Ask an administrator if you think you should.",
+    "back": "Back to dashboard"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for doesn't exist or was moved.",
+    "back": "Go to dashboard"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred. You can try again; if it keeps happening, share this reference with support.",
+    "retry": "Try again"
+  },
+  "errors": {
+    "unauthorized": "Your session ended. Sign in again.",
+    "forbidden": "You don't have permission to do that.",
+    "notFound": "That order no longer exists.",
+    "conflict": "The order changed in the meantime. Reload the page and try again.",
+    "invalid": "Some values are not valid.",
+    "unavailable": "The service is busy or unreachable. Try again in a moment.",
+    "unknown": "Something went wrong. Try again."
+  },
+  "issues": {
+    "TOTAL_MISMATCH": "The distributed units don't match the confirmed quantity.",
+    "DIFFERENCE_NOT_ACKNOWLEDGED": "Some units are missing. Skip them or create child orders.",
+    "INVALID_SPLIT": "The child orders must cover exactly the missing units.",
+    "NO_DIFFERENCE": "There are no missing units to split."
+  }
+}

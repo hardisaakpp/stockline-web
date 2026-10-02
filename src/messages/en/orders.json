@@ -1,0 +1,372 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "saving": "Saving…",
+    "close": "Close",
+    "back": "Back",
+    "clear": "Clear",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "status": {
+    "Draft": "Draft",
+    "Submitted": "Submitted",
+    "UnderReview": "Under review",
+    "ProductionConfirmed": "Production confirmed",
+    "SupplierConfirmed": "Supplier confirmed",
+    "ProductionPostponed": "Production postponed",
+    "ReadyForRedistribution": "Ready to redistribute",
+    "RedistributionConfirmed": "Redistribution confirmed",
+    "ErpSubmissionFailed": "ERP submission failed",
+    "LogisticsPending": "Logistics pending",
+    "Sent": "Sent",
+    "DispatchAndInvoice": "Dispatch & invoice",
+    "Completed": "Completed",
+    "Rejected": "Rejected",
+    "Cancelled": "Cancelled",
+    "CancelledBySupplier": "Cancelled by supplier"
+  },
+  "list": {
+    "metaTitle": "Orders",
+    "title": "Orders",
+    "description": "Track every purchase order from draft to delivery.",
+    "newOrder": "Import order",
+    "searchLabel": "Search orders",
+    "searchPlaceholder": "Search by order code or supplier",
+    "statusLabel": "Status",
+    "allStatuses": "All statuses",
+    "dateFrom": "From",
+    "dateTo": "To",
+    "pending": "Waiting for me",
+    "mine": "Created by me",
+    "clearFilters": "Clear filters",
+    "results": "{count, plural, one {# order} other {# orders}}",
+    "noOrdersTitle": "No orders yet",
+    "noOrdersDescription": "Import a purchase order from a spreadsheet to get started.",
+    "noResultsTitle": "No orders match your filters",
+    "noResultsDescription": "Try a different search or clear the filters.",
+    "childOrder": "Child order",
+    "columns": {
+      "code": "Order",
+      "supplier": "Supplier",
+      "status": "Status",
+      "orderDate": "Order date",
+      "delivery": "Delivery",
+      "lines": "Lines",
+      "requested": "Requested",
+      "confirmed": "Confirmed",
+      "updated": "Updated"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "pageOf": "Page {page} of {total}"
+    },
+    "sortBy": "Sort by {column}"
+  },
+  "detail": {
+    "metaTitle": "Order {code}",
+    "backToList": "All orders",
+    "supplier": "Supplier",
+    "orderDate": "Order date",
+    "delivery": "Delivery date",
+    "paymentTerms": "Payment terms",
+    "buyer": "Buyer",
+    "message": "Message",
+    "updated": "Last updated",
+    "live": "Live",
+    "liveHint": "This page updates automatically when someone changes the order.",
+    "tabs": {
+      "label": "Order sections",
+      "lines": "Lines",
+      "redistribution": "Redistribution",
+      "erp": "ERP",
+      "history": "History"
+    },
+    "totals": {
+      "requested": "Requested units",
+      "confirmed": "Confirmed units",
+      "allocated": "Allocated units",
+      "cost": "Total cost"
+    },
+    "progress": {
+      "label": "Order progress",
+      "offPath": "This order left the normal flow: {status}.",
+      "current": "current step",
+      "steps": {
+        "Draft": "Draft",
+        "Submitted": "Submitted",
+        "UnderReview": "Review",
+        "SupplierConfirmed": "Confirmed",
+        "RedistributionConfirmed": "Distributed",
+        "Sent": "Sent",
+        "Completed": "Completed"
+      }
+    },
+    "more": "More actions",
+    "export": "Export to Excel",
+    "sourceFile": "Download original file",
+    "discard": "Discard order",
+    "discardTitle": "Discard this order?",
+    "discardBody": "The draft is deleted for good. This cannot be undone.",
+    "discarded": "Order discarded.",
+    "attention": {
+      "SupplierConfirmed": "The supplier confirmed quantities. Distribute them across locations to continue.",
+      "ReadyForRedistribution": "A postponed order was accepted. Distribute the quantities across locations to continue.",
+      "ProductionPostponed": "This is a child order with the units production could not deliver. Accept or reject it.",
+      "ErpSubmissionFailed": "The ERP rejected this order. Review the documents, fix the product codes if needed and retry.",
+      "RedistributionConfirmed": "The distribution is confirmed. Send the order to the ERP.",
+      "LogisticsPending": "The ERP accepted the order but logistics is still pending."
+    },
+    "liveUpdated": "Order updated",
+    "viewParent": "This is a child order · view the parent order"
+  },
+  "actions": {
+    "label": {
+      "Submit": "Submit to supplier",
+      "Open": "Start review",
+      "ConfirmProduction": "Confirm production",
+      "ConfirmBySupplier": "Confirm order",
+      "CancelBySupplier": "Cancel order",
+      "AcceptPostponed": "Accept postponed order",
+      "Reject": "Reject",
+      "Cancel": "Cancel order",
+      "ConfirmRedistribution": "Go to redistribution",
+      "MarkDispatchAndInvoice": "Mark dispatched & invoiced",
+      "Complete": "Complete order"
+    },
+    "confirm": {
+      "Submit": {
+        "title": "Submit this order?",
+        "body": "The supplier will be able to review it. You won't be able to edit the quantities afterwards."
+      },
+      "ConfirmProduction": {
+        "title": "Confirm production?",
+        "body": "The quantities you entered become the production commitment."
+      },
+      "CancelBySupplier": {
+        "title": "Cancel this order?",
+        "body": "The buyer is notified and the order is closed. This cannot be undone."
+      },
+      "AcceptPostponed": {
+        "title": "Accept this postponed order?",
+        "body": "It will move on to redistribution."
+      },
+      "Reject": {
+        "title": "Reject this order?",
+        "body": "The order is closed. This cannot be undone."
+      },
+      "Cancel": {
+        "title": "Cancel this order?",
+        "body": "The order is closed. This cannot be undone."
+      },
+      "MarkDispatchAndInvoice": {
+        "title": "Mark as dispatched and invoiced?",
+        "body": "Confirms the goods left and were invoiced."
+      },
+      "Complete": {
+        "title": "Complete this order?",
+        "body": "The order is closed as delivered."
+      }
+    },
+    "done": "Done: {action}.",
+    "confirmButton": "Yes, continue"
+  },
+  "lines": {
+    "title": "Order lines",
+    "empty": "This order has no lines.",
+    "columns": {
+      "product": "Product",
+      "pack": "Pack",
+      "requested": "Requested",
+      "confirmed": "Confirmed",
+      "allocated": "Allocated",
+      "cost": "Cost",
+      "unitCost": "Unit cost",
+      "discount": "Discount",
+      "retail": "Retail price",
+      "comment": "Comment"
+    },
+    "expand": "Show distribution of {product}",
+    "collapse": "Hide distribution of {product}",
+    "distribution": "Distribution by location",
+    "quantityFor": "Confirmed quantity for {product}",
+    "costFor": "Cost for {product}",
+    "commentFor": "Comment for {product}",
+    "editComment": "Edit comment",
+    "addComment": "Add comment",
+    "commentPlaceholder": "Note for the other party…",
+    "saved": "Saved.",
+    "editableHint": "Enter the quantities you can deliver. Press Enter or leave the field to save.",
+    "differenceChip": "{count} short"
+  },
+  "difference": {
+    "title": "Confirm order",
+    "noDifference": "Everything requested was confirmed.",
+    "intro": "Production confirmed fewer units than requested for some products:",
+    "columns": {
+      "product": "Product",
+      "requested": "Requested",
+      "confirmed": "Confirmed",
+      "missing": "Missing"
+    },
+    "chooseLabel": "What happens with the missing units?",
+    "acknowledge": "Skip them",
+    "acknowledgeHint": "They will not be delivered on this order.",
+    "split": "Deliver them later in child orders",
+    "splitHint": "Each child order is a new order with its own delivery date.",
+    "childOrder": "Child order {number}",
+    "deliveryDate": "Delivery date",
+    "addChild": "Add child order",
+    "removeChild": "Remove child order {number}",
+    "portion": "Units of {product}",
+    "remaining": "{count, plural, =0 {Fully assigned} other {# left to assign}}",
+    "over": "{count} over-assigned",
+    "submit": "Confirm order",
+    "submitting": "Confirming…",
+    "createdChildren": "Order confirmed. Created {count, plural, one {child order {codes}} other {# child orders: {codes}}}.",
+    "confirmed": "Order confirmed."
+  },
+  "redistribution": {
+    "title": "Redistribution",
+    "intro": "Distribute the confirmed units of each product across locations. Each row must add up to the confirmed quantity.",
+    "readOnlyIntro": "The distribution of confirmed units across locations.",
+    "empty": "There is no distribution to show yet.",
+    "columns": {
+      "product": "Product",
+      "confirmed": "Confirmed",
+      "allocated": "Allocated",
+      "balance": "Balance"
+    },
+    "quantityIn": "{product} at {location}",
+    "balanceOk": "Balanced",
+    "balanceShort": "{count} to assign",
+    "balanceOver": "{count} over",
+    "useProposal": "Use proposal",
+    "useProposalHint": "Scales the original distribution to what was confirmed.",
+    "proposalLoaded": "Proposal loaded. Review it and save or confirm.",
+    "saveDraft": "Save draft",
+    "draftSaved": "Draft saved.",
+    "confirm": "Confirm redistribution",
+    "confirmTitle": "Confirm the redistribution?",
+    "confirmBody": "The distribution becomes final and the order can be sent to the ERP.",
+    "confirmed": "Redistribution confirmed.",
+    "unsaved": "You have unsaved changes.",
+    "hasDraft": "A saved draft was loaded.",
+    "problems": "Fix these problems to continue:",
+    "warehouse": "Warehouse",
+    "store": "Store"
+  },
+  "erp": {
+    "title": "ERP integration",
+    "intro": "Documents created in the ERP for this order.",
+    "send": "Send to ERP",
+    "retry": "Retry submission",
+    "sendTitle": "Send this order to the ERP?",
+    "sendBody": "Purchase orders and transfer requests are created in the ERP. It is safe to retry: documents already sent are not duplicated.",
+    "requested": "Submission requested. This page updates when the ERP answers.",
+    "noDocuments": "No documents yet.",
+    "notAvailable": "ERP documents are not available for your role.",
+    "columns": {
+      "kind": "Document",
+      "route": "Route",
+      "status": "Status",
+      "attempts": "Attempts",
+      "number": "ERP number",
+      "sent": "Sent"
+    },
+    "kind": {
+      "PurchaseOrder": "Purchase order",
+      "TransferRequest": "Transfer request"
+    },
+    "docStatus": {
+      "Pending": "Pending",
+      "Sent": "Sent",
+      "Failed": "Failed"
+    },
+    "pdf": "PDF",
+    "lastError": "Last error",
+    "fixCodesTitle": "Correct a product code",
+    "fixCodesIntro": "If the ERP rejected a product code, replace it with the right one and retry.",
+    "currentCode": "Current code",
+    "newCode": "New code",
+    "apply": "Replace code",
+    "codeCorrected": "Product code corrected. You can retry the submission."
+  },
+  "history": {
+    "title": "History",
+    "empty": "No activity yet.",
+    "statusChange": "Status changed from {from} to {to}",
+    "fieldChange": "{field} of {product} changed",
+    "fieldChangeOrder": "{field} changed",
+    "from": "from",
+    "to": "to",
+    "empty_value": "(empty)",
+    "actor": {
+      "Buyer": "Buyer",
+      "Supplier": "Supplier",
+      "SupplierProduction": "Supplier production",
+      "System": "System"
+    },
+    "fields": {
+      "ConfirmedQuantity": "Confirmed quantity",
+      "Cost": "Cost",
+      "UnitCost": "Unit cost",
+      "Comment": "Comment",
+      "ProductCode": "Product code",
+      "Status": "Status"
+    }
+  },
+  "import": {
+    "metaTitle": "Import order",
+    "title": "Import an order",
+    "description": "Upload the order spreadsheet. We check it first, so nothing is created until it is valid.",
+    "backToList": "Back to orders",
+    "step1": "Choose the file",
+    "step2": "Review the checks",
+    "step3": "Import",
+    "dropTitle": "Drop the spreadsheet here",
+    "dropHint": "or click to choose a .xlsx file (up to 10 MB)",
+    "chooseFile": "Choose file",
+    "changeFile": "Choose another file",
+    "downloadSample": "Download a sample template",
+    "remove": "Remove file",
+    "onlyXlsx": "Only .xlsx files are supported.",
+    "tooLarge": "The file is larger than 10 MB.",
+    "checkErp": "Also check the products against the ERP",
+    "checkErpHint": "Verifies that each product exists, is active and has the right pack and price.",
+    "validate": "Check file",
+    "validating": "Checking…",
+    "valid": "The file is valid",
+    "validWithWarnings": "The file can be imported, with warnings",
+    "invalid": "The file has errors",
+    "counts": "{errors, plural, one {# error} other {# errors}} · {warnings, plural, one {# warning} other {# warnings}}",
+    "issueColumns": {
+      "severity": "Level",
+      "where": "Where",
+      "message": "Message"
+    },
+    "severity": {
+      "Error": "Error",
+      "Warning": "Warning"
+    },
+    "row": "Row {row}",
+    "suggestions": "Did you mean: {values}?",
+    "import": "Import order",
+    "importing": "Importing…",
+    "imported": "Order imported.",
+    "viewOrder": "View order",
+    "importAnother": "Import another",
+    "fixAndRetry": "Fix the file and check it again.",
+    "duplicate": "An order with this code already exists.",
+    "uploadFailed": "The file could not be processed."
+  },
+  "errors": {
+    "loadFailed": "We couldn't load the orders.",
+    "retry": "Try again"
+  }
+}

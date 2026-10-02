@@ -1,0 +1,48 @@
+{
+  "title": "Xia",
+  "subtitle": "Stockline assistant",
+  "open": "Ask Xia",
+  "close": "Close",
+  "description": "Ask how Stockline works. Xia answers from the documentation; it can't see live data or act for you.",
+  "welcomeTitle": "Hi, I'm Xia",
+  "welcomeBody": "I can explain how orders, redistribution, the ERP and the dashboard work.",
+  "suggestionsLabel": "Try asking",
+  "suggestions": {
+    "statuses": "What do the order statuses mean?",
+    "importOrder": "How do I import an order?",
+    "redistribution": "How does redistribution work?",
+    "erpRetry": "How do I retry an order the ERP rejected?",
+    "dashboard": "What do the dashboard indicators mean?",
+    "resetPassword": "How do I reset a user's password?"
+  },
+  "input": {
+    "label": "Your question",
+    "placeholder": "Ask about Stockline…",
+    "send": "Send",
+    "hint": "Enter to send, Shift+Enter for a new line"
+  },
+  "thinking": "Xia is thinking…",
+  "slow": "The first answer can take a minute while the model loads.",
+  "you": "You",
+  "sources": "Sources",
+  "newConversation": "New conversation",
+  "retry": "Try again",
+  "quota": {
+    "left": "{remaining, plural, one {# question left} other {# questions left}} of {limit}"
+  },
+  "wait": {
+    "minutes": "{count, plural, one {# minute} other {# minutes}}",
+    "hours": "{count, plural, one {# hour} other {# hours}}"
+  },
+  "errors": {
+    "notConfigured": "The assistant isn't set up on this server.",
+    "unauthorized": "Your session ended. Sign in again to keep asking.",
+    "quotaExhausted": "You've used all your questions for now. They renew in {wait}.",
+    "quotaExhaustedShort": "You've used all your questions for now. They renew automatically.",
+    "busy": "Xia is busy right now. Try again in a moment.",
+    "noAccess": "Your account can't use the assistant yet. Ask an administrator.",
+    "invalid": "That question couldn't be sent. Try rewording it.",
+    "unavailable": "Xia isn't responding right now. Try again later."
+  },
+  "noAnswerText": "I couldn't find that in the documentation. Try rephrasing it, or ask about orders, redistribution, the ERP or the dashboard."
+}

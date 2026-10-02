@@ -1,0 +1,182 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving…",
+    "create": "Create",
+    "creating": "Creating…",
+    "edit": "Edit",
+    "close": "Close",
+    "active": "Active",
+    "inactive": "Inactive",
+    "none": "None"
+  },
+  "users": {
+    "metaTitle": "Users",
+    "title": "Users",
+    "description": "People who can sign in, their role and whether they can administer the system.",
+    "new": "New user",
+    "you": "(you)",
+    "columns": {
+      "name": "Name",
+      "role": "Role",
+      "status": "Status",
+      "created": "Created"
+    },
+    "adminBadge": "Admin",
+    "actions": {
+      "edit": "Edit user",
+      "resetPassword": "Reset password",
+      "menu": "Actions for {name}"
+    },
+    "form": {
+      "createTitle": "New user",
+      "editTitle": "Edit user",
+      "email": "Email",
+      "displayName": "Name",
+      "password": "Initial password",
+      "passwordHint": "At least 10 characters. Share it securely; they can be asked to change it.",
+      "role": "Role",
+      "isAdmin": "Administrator",
+      "isAdminHint": "Can manage users, locations and notifications.",
+      "isActive": "Active",
+      "isActiveHint": "Inactive users cannot sign in and their sessions end.",
+      "lastAdminHint": "This is the only active administrator, so this can't be turned off.",
+      "directoryManaged": "This account comes from the directory. Its name, role and administrator access follow its groups there; here you can only turn the account on or off."
+    },
+    "validation": {
+      "emailInvalid": "Enter a valid email.",
+      "nameRequired": "Enter a name.",
+      "passwordShort": "Use at least 10 characters."
+    },
+    "reset": {
+      "title": "Reset password",
+      "description": "Set a new password for {name}. Their current sessions end immediately.",
+      "newPassword": "New password",
+      "submit": "Reset password",
+      "done": "Password reset."
+    },
+    "toasts": {
+      "created": "User created.",
+      "updated": "User updated."
+    },
+    "errors": {
+      "emailTaken": "A user with this email already exists."
+    },
+    "directoryBadge": "Directory"
+  },
+  "roles": {
+    "metaTitle": "Roles and permissions",
+    "title": "Roles and permissions",
+    "description": "What each role can do. Administrator is an extra permission that can be added to any role.",
+    "permission": "Permission",
+    "adminColumn": "Administrator",
+    "granted": "Allowed",
+    "notGranted": "Not allowed",
+    "roles": {
+      "Buyer": "Buyer",
+      "Supplier": "Supplier",
+      "SupplierProduction": "Supplier production"
+    }
+  },
+  "permissions": {
+    "ordersView": "View orders",
+    "ordersImport": "Import orders",
+    "ordersAct": "Act on orders (confirm, edit, redistribute)",
+    "erpSubmit": "Send orders to the ERP",
+    "dashboardView": "View the dashboard",
+    "adminUsers": "Administer the system"
+  },
+  "locations": {
+    "metaTitle": "Locations",
+    "title": "Locations",
+    "description": "Warehouses and stores orders are distributed across.",
+    "new": "New location",
+    "columns": {
+      "code": "Code",
+      "name": "Name",
+      "kind": "Type",
+      "supplier": "Supplied by",
+      "status": "Status"
+    },
+    "kind": {
+      "Warehouse": "Warehouse",
+      "Store": "Store"
+    },
+    "form": {
+      "createTitle": "New location",
+      "editTitle": "Edit location",
+      "code": "Code",
+      "codeHint": "Cannot be changed later.",
+      "name": "Name",
+      "kind": "Type",
+      "supplier": "Supplying warehouse",
+      "supplierHint": "The warehouse that stocks this store.",
+      "isActive": "Active",
+      "isActiveHint": "Inactive locations are not offered in new imports."
+    },
+    "validation": {
+      "codeRequired": "Enter a code.",
+      "nameRequired": "Enter a name."
+    },
+    "toasts": {
+      "created": "Location created.",
+      "updated": "Location updated."
+    },
+    "errors": {
+      "exists": "A location with this code already exists."
+    },
+    "empty": "No locations yet."
+  },
+  "notifications": {
+    "metaTitle": "Notifications",
+    "title": "Email notifications",
+    "description": "Who gets an email when an order reaches each step.",
+    "audience": "For: {audience}",
+    "subscribers": "{count, plural, =0 {No subscribers} one {# subscriber} other {# subscribers}}",
+    "noSubscribers": "Nobody is subscribed yet.",
+    "addLabel": "Add an email to {topic}",
+    "emailPlaceholder": "name@company.com",
+    "add": "Add",
+    "remove": "Remove {email}",
+    "removed": "Subscription removed.",
+    "added": "Subscribed.",
+    "preview": "Preview email",
+    "previewTitle": "Email preview",
+    "previewHint": "How this email looks with sample data.",
+    "validation": {
+      "emailInvalid": "Enter a valid email."
+    },
+    "audiences": {
+      "Buyer": "Buyer",
+      "Supplier": "Supplier",
+      "SupplierProduction": "Supplier production"
+    },
+    "topics": {
+      "OrderSubmitted": {
+        "title": "Order submitted",
+        "description": "The buyer sent a new order to the supplier; production has to review it."
+      },
+      "OrderCancelledByBuyer": {
+        "title": "Order cancelled by the buyer",
+        "description": "The buyer cancelled an order."
+      },
+      "OrderRejected": {
+        "title": "Postponed order rejected",
+        "description": "The buyer rejected a postponed child order."
+      },
+      "OrderDiscarded": {
+        "title": "Order discarded",
+        "description": "The buyer discarded an order that had already been submitted."
+      },
+      "OrderCancelledBySupplier": {
+        "title": "Order cancelled by the supplier",
+        "description": "The supplier cancelled an order after confirming production."
+      }
+    }
+  },
+  "errors": {
+    "loadFailed": "We couldn't load this page.",
+    "retry": "Try again"
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "common": {
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "create": "Crear",
+    "creating": "Creando…",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "none": "Ninguna"
+  },
+  "users": {
+    "metaTitle": "Usuarios",
+    "title": "Usuarios",
+    "description": "Personas que pueden iniciar sesión, su rol y si pueden administrar el sistema.",
+    "new": "Nuevo usuario",
+    "you": "(tú)",
+    "columns": {
+      "name": "Nombre",
+      "role": "Rol",
+      "status": "Estado",
+      "created": "Creado"
+    },
+    "adminBadge": "Admin",
+    "actions": {
+      "edit": "Editar usuario",
+      "resetPassword": "Restablecer contraseña",
+      "menu": "Acciones de {name}"
+    },
+    "form": {
+      "createTitle": "Nuevo usuario",
+      "editTitle": "Editar usuario",
+      "email": "Correo electrónico",
+      "displayName": "Nombre",
+      "password": "Contraseña inicial",
+      "passwordHint": "Al menos 10 caracteres. Compártela de forma segura.",
+      "role": "Rol",
+      "isAdmin": "Administrador",
+      "isAdminHint": "Puede gestionar usuarios, ubicaciones y notificaciones.",
+      "isActive": "Activo",
+      "isActiveHint": "Los usuarios inactivos no pueden iniciar sesión y sus sesiones terminan.",
+      "lastAdminHint": "Es el único administrador activo, por eso esto no se puede desactivar.",
+      "directoryManaged": "Esta cuenta viene del directorio. Su nombre, rol y acceso de administrador siguen a sus grupos allí; aquí solo puedes activarla o desactivarla."
+    },
+    "validation": {
+      "emailInvalid": "Ingresa un correo electrónico válido.",
+      "nameRequired": "Ingresa un nombre.",
+      "passwordShort": "Usa al menos 10 caracteres."
+    },
+    "reset": {
+      "title": "Restablecer contraseña",
+      "description": "Define una contraseña nueva para {name}. Sus sesiones actuales terminan de inmediato.",
+      "newPassword": "Contraseña nueva",
+      "submit": "Restablecer contraseña",
+      "done": "Contraseña restablecida."
+    },
+    "toasts": {
+      "created": "Usuario creado.",
+      "updated": "Usuario actualizado."
+    },
+    "errors": {
+      "emailTaken": "Ya existe un usuario con este correo."
+    },
+    "directoryBadge": "Directorio"
+  },
+  "roles": {
+    "metaTitle": "Roles y permisos",
+    "title": "Roles y permisos",
+    "description": "Qué puede hacer cada rol. Administrador es un permiso adicional que se puede sumar a cualquier rol.",
+    "permission": "Permiso",
+    "adminColumn": "Administrador",
+    "granted": "Permitido",
+    "notGranted": "No permitido",
+    "roles": {
+      "Buyer": "Comprador",
+      "Supplier": "Proveedor",
+      "SupplierProduction": "Producción del proveedor"
+    }
+  },
+  "permissions": {
+    "ordersView": "Ver órdenes",
+    "ordersImport": "Importar órdenes",
+    "ordersAct": "Actuar sobre órdenes (confirmar, editar, redistribuir)",
+    "erpSubmit": "Enviar órdenes al ERP",
+    "dashboardView": "Ver el panel",
+    "adminUsers": "Administrar el sistema"
+  },
+  "locations": {
+    "metaTitle": "Ubicaciones",
+    "title": "Ubicaciones",
+    "description": "Bodegas y tiendas entre las que se distribuyen las órdenes.",
+    "new": "Nueva ubicación",
+    "columns": {
+      "code": "Código",
+      "name": "Nombre",
+      "kind": "Tipo",
+      "supplier": "Abastecida por",
+      "status": "Estado"
+    },
+    "kind": {
+      "Warehouse": "Bodega",
+      "Store": "Tienda"
+    },
+    "form": {
+      "createTitle": "Nueva ubicación",
+      "editTitle": "Editar ubicación",
+      "code": "Código",
+      "codeHint": "No se puede cambiar después.",
+      "name": "Nombre",
+      "kind": "Tipo",
+      "supplier": "Bodega que abastece",
+      "supplierHint": "La bodega que surte esta tienda.",
+      "isActive": "Activa",
+      "isActiveHint": "Las ubicaciones inactivas no se ofrecen en nuevas importaciones."
+    },
+    "validation": {
+      "codeRequired": "Ingresa un código.",
+      "nameRequired": "Ingresa un nombre."
+    },
+    "toasts": {
+      "created": "Ubicación creada.",
+      "updated": "Ubicación actualizada."
+    },
+    "errors": {
+      "exists": "Ya existe una ubicación con este código."
+    },
+    "empty": "Aún no hay ubicaciones."
+  },
+  "notifications": {
+    "metaTitle": "Notificaciones",
+    "title": "Notificaciones por correo",
+    "description": "Quién recibe un correo cuando una orden llega a cada paso.",
+    "audience": "Para: {audience}",
+    "subscribers": "{count, plural, =0 {Sin suscriptores} one {# suscriptor} other {# suscriptores}}",
+    "noSubscribers": "Todavía no hay nadie suscrito.",
+    "addLabel": "Agregar un correo a {topic}",
+    "emailPlaceholder": "nombre@empresa.com",
+    "add": "Agregar",
+    "remove": "Quitar a {email}",
+    "removed": "Suscripción eliminada.",
+    "added": "Suscripción creada.",
+    "preview": "Vista previa del correo",
+    "previewTitle": "Vista previa del correo",
+    "previewHint": "Cómo se ve este correo con datos de ejemplo.",
+    "validation": {
+      "emailInvalid": "Ingresa un correo electrónico válido."
+    },
+    "audiences": {
+      "Buyer": "Comprador",
+      "Supplier": "Proveedor",
+      "SupplierProduction": "Producción del proveedor"
+    },
+    "topics": {
+      "OrderSubmitted": {
+        "title": "Orden enviada",
+        "description": "El comprador envió una orden nueva al proveedor; producción debe revisarla."
+      },
+      "OrderCancelledByBuyer": {
+        "title": "Orden cancelada por el comprador",
+        "description": "El comprador canceló una orden."
+      },
+      "OrderRejected": {
+        "title": "Orden aplazada rechazada",
+        "description": "El comprador rechazó una orden hija aplazada."
+      },
+      "OrderDiscarded": {
+        "title": "Orden descartada",
+        "description": "El comprador descartó una orden que ya había sido enviada."
+      },
+      "OrderCancelledBySupplier": {
+        "title": "Orden cancelada por el proveedor",
+        "description": "El proveedor canceló una orden después de confirmar la producción."
+      }
+    }
+  },
+  "errors": {
+    "loadFailed": "No pudimos cargar esta página.",
+    "retry": "Reintentar"
+  }
+}

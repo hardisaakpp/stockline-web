@@ -1,0 +1,48 @@
+{
+  "title": "Xia",
+  "subtitle": "Asistente de Stockline",
+  "open": "Preguntar a Xia",
+  "close": "Cerrar",
+  "description": "Pregunta cómo funciona Stockline. Xia responde con la documentación; no ve datos en vivo ni actúa por ti.",
+  "welcomeTitle": "Hola, soy Xia",
+  "welcomeBody": "Puedo explicarte cómo funcionan las órdenes, la redistribución, el ERP y el panel.",
+  "suggestionsLabel": "Prueba preguntando",
+  "suggestions": {
+    "statuses": "¿Qué significan los estados de una orden?",
+    "importOrder": "¿Cómo importo una orden?",
+    "redistribution": "¿Cómo funciona la redistribución?",
+    "erpRetry": "¿Cómo reintento una orden que el ERP rechazó?",
+    "dashboard": "¿Qué significan los indicadores del panel?",
+    "resetPassword": "¿Cómo restablezco la contraseña de un usuario?"
+  },
+  "input": {
+    "label": "Tu pregunta",
+    "placeholder": "Pregunta sobre Stockline…",
+    "send": "Enviar",
+    "hint": "Enter para enviar, Shift+Enter para una nueva línea"
+  },
+  "thinking": "Xia está pensando…",
+  "slow": "La primera respuesta puede tardar un minuto mientras se carga el modelo.",
+  "you": "Tú",
+  "sources": "Fuentes",
+  "newConversation": "Nueva conversación",
+  "retry": "Reintentar",
+  "quota": {
+    "left": "{remaining, plural, one {# pregunta restante} other {# preguntas restantes}} de {limit}"
+  },
+  "wait": {
+    "minutes": "{count, plural, one {# minuto} other {# minutos}}",
+    "hours": "{count, plural, one {# hora} other {# horas}}"
+  },
+  "errors": {
+    "notConfigured": "El asistente no está configurado en este servidor.",
+    "unauthorized": "Tu sesión terminó. Inicia sesión de nuevo para seguir preguntando.",
+    "quotaExhausted": "Usaste todas tus preguntas por ahora. Se renuevan en {wait}.",
+    "quotaExhaustedShort": "Usaste todas tus preguntas por ahora. Se renuevan automáticamente.",
+    "busy": "Xia está ocupada ahora mismo. Inténtalo de nuevo en un momento.",
+    "noAccess": "Tu cuenta aún no puede usar el asistente. Pídelo a un administrador.",
+    "invalid": "No se pudo enviar esa pregunta. Intenta reformularla.",
+    "unavailable": "Xia no responde en este momento. Inténtalo más tarde."
+  },
+  "noAnswerText": "No encontré eso en la documentación. Prueba a reformularlo, o pregunta por órdenes, redistribución, el ERP o el panel."
+}

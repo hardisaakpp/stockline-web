@@ -1,0 +1,138 @@
+{
+  "app": {
+    "name": "Stockline",
+    "description": "Gestión de órdenes de compra para compradores y proveedores.",
+    "skipToContent": "Saltar al contenido"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "theme": {
+    "switchTo": "Cambiar al tema {theme}",
+    "light": "claro",
+    "dark": "oscuro"
+  },
+  "nav": {
+    "main": "Principal",
+    "navigation": "Navegación",
+    "menuDescription": "Menú de navegación principal",
+    "openMenu": "Abrir menú",
+    "dashboard": "Panel",
+    "orders": "Órdenes",
+    "administration": "Administración",
+    "users": "Usuarios",
+    "roles": "Roles",
+    "locations": "Ubicaciones",
+    "notifications": "Notificaciones"
+  },
+  "auth": {
+    "login": {
+      "metaTitle": "Iniciar sesión",
+      "tagline": "Órdenes de compra, bajo control.",
+      "highlightTrack": "Sigue cada orden desde el borrador hasta la entrega",
+      "highlightConfirm": "Confirma cantidades y redistribuye el stock entre tiendas",
+      "highlightRoles": "Acceso por roles para compradores y proveedores",
+      "footer": "Stockline · Gestión de órdenes",
+      "heading": "Bienvenido de nuevo",
+      "subtitle": "Inicia sesión para gestionar tus órdenes.",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión…",
+      "signInWith": "Iniciar sesión con",
+      "username": "Usuario o correo",
+      "usernamePlaceholder": "ada.admin",
+      "usernameHint": "La cuenta que usas en el resto de sistemas de la organización.",
+      "provider": {
+        "directory": "Cuenta del directorio",
+        "local": "Cuenta local"
+      }
+    },
+    "errors": {
+      "emailRequired": "Ingresa tu correo electrónico.",
+      "emailInvalid": "Ingresa un correo electrónico válido.",
+      "passwordRequired": "Ingresa tu contraseña.",
+      "invalidCredentials": "Correo electrónico o contraseña incorrectos.",
+      "tooManyAttempts": "Demasiados intentos. Espera un minuto e inténtalo de nuevo.",
+      "unreachable": "No pudimos comunicarnos con el servicio. Inténtalo de nuevo en un momento.",
+      "usernameRequired": "Ingresa tu usuario.",
+      "notAuthorized": "Tu cuenta se reconoce, pero no está autorizada para usar Stockline. Consulta con un administrador.",
+      "emailConflict": "Una cuenta local ya usa el correo de esta cuenta del directorio. Consulta con un administrador.",
+      "directoryUnavailable": "No pudimos conectar con el directorio. Inténtalo de nuevo en un momento o usa una cuenta local."
+    },
+    "roles": {
+      "Buyer": "Comprador",
+      "Supplier": "Proveedor",
+      "SupplierProduction": "Producción del proveedor"
+    },
+    "userMenu": {
+      "account": "Menú de cuenta",
+      "signOut": "Cerrar sesión"
+    }
+  },
+  "dashboard": {
+    "metaTitle": "Panel",
+    "greeting": "Hola, {name}",
+    "description": "Esto es lo que está pasando con tus órdenes.",
+    "kpis": {
+      "total": "Órdenes totales",
+      "open": "Órdenes abiertas",
+      "awaiting": "Esperan tu acción",
+      "failures": "Fallos del ERP",
+      "totalHint": "Histórico",
+      "openHint": "Aún sin cerrar",
+      "awaitingHint": "Órdenes en las que es tu turno",
+      "failuresHint": "Requieren reintento o corrección",
+      "viewList": "Ver"
+    },
+    "volume": {
+      "title": "Órdenes de los últimos 30 días",
+      "description": "Órdenes nuevas por día",
+      "total": "{count, plural, one {# orden} other {# órdenes}} en el período",
+      "bar": "{date}: {count, plural, one {# orden} other {# órdenes}}",
+      "chartLabel": "Gráfico de barras de órdenes nuevas por día en los últimos 30 días",
+      "empty": "No hay órdenes en los últimos 30 días."
+    },
+    "status": {
+      "title": "Órdenes por estado",
+      "chartLabel": "Distribución de las órdenes por estado",
+      "empty": "Todavía no hay órdenes para graficar."
+    },
+    "recent": {
+      "title": "Órdenes recientes",
+      "viewAll": "Ver todas",
+      "empty": "Aún no hay órdenes."
+    }
+  },
+  "forbidden": {
+    "metaTitle": "Acceso denegado",
+    "title": "No tienes acceso a esta página",
+    "description": "Consulta con un administrador si crees que deberías tenerlo.",
+    "back": "Volver al panel"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe o fue movida.",
+    "back": "Ir al panel"
+  },
+  "error": {
+    "title": "Algo salió mal",
+    "description": "Ocurrió un error inesperado. Puedes intentarlo de nuevo; si sigue pasando, comparte esta referencia con soporte.",
+    "retry": "Reintentar"
+  },
+  "errors": {
+    "unauthorized": "Tu sesión terminó. Inicia sesión de nuevo.",
+    "forbidden": "No tienes permiso para hacer eso.",
+    "notFound": "Esa orden ya no existe.",
+    "conflict": "La orden cambió mientras tanto. Recarga la página e inténtalo de nuevo.",
+    "invalid": "Algunos valores no son válidos.",
+    "unavailable": "El servicio está ocupado o no responde. Inténtalo de nuevo en un momento.",
+    "unknown": "Algo salió mal. Inténtalo de nuevo."
+  },
+  "issues": {
+    "TOTAL_MISMATCH": "Las unidades distribuidas no coinciden con la cantidad confirmada.",
+    "DIFFERENCE_NOT_ACKNOWLEDGED": "Faltan unidades. Omítelas o crea órdenes hijas.",
+    "INVALID_SPLIT": "Las órdenes hijas deben cubrir exactamente las unidades faltantes.",
+    "NO_DIFFERENCE": "No hay unidades faltantes que dividir."
+  }
+}

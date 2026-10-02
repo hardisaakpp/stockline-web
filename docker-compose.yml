@@ -1,0 +1,13 @@
+# Runs the web app next to an api-stockline that is already listening on the host (port 5182).
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      # host.docker.internal reaches the API running on the host machine.
+      STOCKLINE_API_URL: http://host.docker.internal:5182
+      # The compose setup serves plain http on localhost, so session cookies cannot be `Secure`.
+      COOKIE_SECURE: "false"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

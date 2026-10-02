@@ -1,0 +1,372 @@
+{
+  "common": {
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "close": "Cerrar",
+    "back": "Volver",
+    "clear": "Limpiar",
+    "none": "Ninguno",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "status": {
+    "Draft": "Borrador",
+    "Submitted": "Enviada",
+    "UnderReview": "En revisión",
+    "ProductionConfirmed": "Producción confirmada",
+    "SupplierConfirmed": "Confirmada por el proveedor",
+    "ProductionPostponed": "Producción aplazada",
+    "ReadyForRedistribution": "Lista para redistribuir",
+    "RedistributionConfirmed": "Redistribución confirmada",
+    "ErpSubmissionFailed": "Falló el envío al ERP",
+    "LogisticsPending": "Logística pendiente",
+    "Sent": "Enviada al ERP",
+    "DispatchAndInvoice": "Despacho y facturación",
+    "Completed": "Completada",
+    "Rejected": "Rechazada",
+    "Cancelled": "Cancelada",
+    "CancelledBySupplier": "Cancelada por el proveedor"
+  },
+  "list": {
+    "metaTitle": "Órdenes",
+    "title": "Órdenes",
+    "description": "Sigue cada orden de compra desde el borrador hasta la entrega.",
+    "newOrder": "Importar orden",
+    "searchLabel": "Buscar órdenes",
+    "searchPlaceholder": "Buscar por código de orden o proveedor",
+    "statusLabel": "Estado",
+    "allStatuses": "Todos los estados",
+    "dateFrom": "Desde",
+    "dateTo": "Hasta",
+    "pending": "Pendientes de mi acción",
+    "mine": "Creadas por mí",
+    "clearFilters": "Limpiar filtros",
+    "results": "{count, plural, one {# orden} other {# órdenes}}",
+    "noOrdersTitle": "Aún no hay órdenes",
+    "noOrdersDescription": "Importa una orden de compra desde una hoja de cálculo para empezar.",
+    "noResultsTitle": "Ninguna orden coincide con tus filtros",
+    "noResultsDescription": "Prueba con otra búsqueda o limpia los filtros.",
+    "childOrder": "Orden hija",
+    "columns": {
+      "code": "Orden",
+      "supplier": "Proveedor",
+      "status": "Estado",
+      "orderDate": "Fecha de orden",
+      "delivery": "Entrega",
+      "lines": "Líneas",
+      "requested": "Solicitado",
+      "confirmed": "Confirmado",
+      "updated": "Actualizada"
+    },
+    "pagination": {
+      "label": "Paginación",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "pageOf": "Página {page} de {total}"
+    },
+    "sortBy": "Ordenar por {column}"
+  },
+  "detail": {
+    "metaTitle": "Orden {code}",
+    "backToList": "Todas las órdenes",
+    "supplier": "Proveedor",
+    "orderDate": "Fecha de orden",
+    "delivery": "Fecha de entrega",
+    "paymentTerms": "Forma de pago",
+    "buyer": "Comprador",
+    "message": "Mensaje",
+    "updated": "Última actualización",
+    "live": "En vivo",
+    "liveHint": "Esta página se actualiza sola cuando alguien modifica la orden.",
+    "tabs": {
+      "label": "Secciones de la orden",
+      "lines": "Líneas",
+      "redistribution": "Redistribución",
+      "erp": "ERP",
+      "history": "Historial"
+    },
+    "totals": {
+      "requested": "Unidades solicitadas",
+      "confirmed": "Unidades confirmadas",
+      "allocated": "Unidades asignadas",
+      "cost": "Costo total"
+    },
+    "progress": {
+      "label": "Progreso de la orden",
+      "offPath": "Esta orden salió del flujo normal: {status}.",
+      "current": "paso actual",
+      "steps": {
+        "Draft": "Borrador",
+        "Submitted": "Enviada",
+        "UnderReview": "Revisión",
+        "SupplierConfirmed": "Confirmada",
+        "RedistributionConfirmed": "Distribuida",
+        "Sent": "Enviada al ERP",
+        "Completed": "Completada"
+      }
+    },
+    "more": "Más acciones",
+    "export": "Exportar a Excel",
+    "sourceFile": "Descargar archivo original",
+    "discard": "Descartar orden",
+    "discardTitle": "¿Descartar esta orden?",
+    "discardBody": "El borrador se elimina definitivamente. No se puede deshacer.",
+    "discarded": "Orden descartada.",
+    "attention": {
+      "SupplierConfirmed": "El proveedor confirmó las cantidades. Distribúyelas entre las ubicaciones para continuar.",
+      "ReadyForRedistribution": "Se aceptó una orden aplazada. Distribuye las cantidades entre las ubicaciones para continuar.",
+      "ProductionPostponed": "Esta es una orden hija con las unidades que producción no pudo entregar. Acéptala o recházala.",
+      "ErpSubmissionFailed": "El ERP rechazó esta orden. Revisa los documentos, corrige los códigos de producto si hace falta y reintenta.",
+      "RedistributionConfirmed": "La distribución está confirmada. Envía la orden al ERP.",
+      "LogisticsPending": "El ERP aceptó la orden, pero la logística sigue pendiente."
+    },
+    "liveUpdated": "Orden actualizada",
+    "viewParent": "Esta es una orden hija · ver la orden padre"
+  },
+  "actions": {
+    "label": {
+      "Submit": "Enviar al proveedor",
+      "Open": "Iniciar revisión",
+      "ConfirmProduction": "Confirmar producción",
+      "ConfirmBySupplier": "Confirmar orden",
+      "CancelBySupplier": "Cancelar orden",
+      "AcceptPostponed": "Aceptar orden aplazada",
+      "Reject": "Rechazar",
+      "Cancel": "Cancelar orden",
+      "ConfirmRedistribution": "Ir a redistribución",
+      "MarkDispatchAndInvoice": "Marcar despachada y facturada",
+      "Complete": "Completar orden"
+    },
+    "confirm": {
+      "Submit": {
+        "title": "¿Enviar esta orden?",
+        "body": "El proveedor podrá revisarla. Después no podrás editar las cantidades."
+      },
+      "ConfirmProduction": {
+        "title": "¿Confirmar la producción?",
+        "body": "Las cantidades que ingresaste pasan a ser el compromiso de producción."
+      },
+      "CancelBySupplier": {
+        "title": "¿Cancelar esta orden?",
+        "body": "Se avisa al comprador y la orden se cierra. No se puede deshacer."
+      },
+      "AcceptPostponed": {
+        "title": "¿Aceptar esta orden aplazada?",
+        "body": "Pasará a la redistribución."
+      },
+      "Reject": {
+        "title": "¿Rechazar esta orden?",
+        "body": "La orden se cierra. No se puede deshacer."
+      },
+      "Cancel": {
+        "title": "¿Cancelar esta orden?",
+        "body": "La orden se cierra. No se puede deshacer."
+      },
+      "MarkDispatchAndInvoice": {
+        "title": "¿Marcar como despachada y facturada?",
+        "body": "Confirma que la mercadería salió y fue facturada."
+      },
+      "Complete": {
+        "title": "¿Completar esta orden?",
+        "body": "La orden se cierra como entregada."
+      }
+    },
+    "done": "Listo: {action}.",
+    "confirmButton": "Sí, continuar"
+  },
+  "lines": {
+    "title": "Líneas de la orden",
+    "empty": "Esta orden no tiene líneas.",
+    "columns": {
+      "product": "Producto",
+      "pack": "Pack",
+      "requested": "Solicitado",
+      "confirmed": "Confirmado",
+      "allocated": "Asignado",
+      "cost": "Costo",
+      "unitCost": "Costo unitario",
+      "discount": "Descuento",
+      "retail": "Precio de venta",
+      "comment": "Comentario"
+    },
+    "expand": "Mostrar la distribución de {product}",
+    "collapse": "Ocultar la distribución de {product}",
+    "distribution": "Distribución por ubicación",
+    "quantityFor": "Cantidad confirmada de {product}",
+    "costFor": "Costo de {product}",
+    "commentFor": "Comentario de {product}",
+    "editComment": "Editar comentario",
+    "addComment": "Agregar comentario",
+    "commentPlaceholder": "Nota para la otra parte…",
+    "saved": "Guardado.",
+    "editableHint": "Ingresa las cantidades que puedes entregar. Presiona Enter o sal del campo para guardar.",
+    "differenceChip": "faltan {count}"
+  },
+  "difference": {
+    "title": "Confirmar orden",
+    "noDifference": "Se confirmó todo lo solicitado.",
+    "intro": "Producción confirmó menos unidades de las solicitadas en algunos productos:",
+    "columns": {
+      "product": "Producto",
+      "requested": "Solicitado",
+      "confirmed": "Confirmado",
+      "missing": "Faltante"
+    },
+    "chooseLabel": "¿Qué pasa con las unidades faltantes?",
+    "acknowledge": "Omitirlas",
+    "acknowledgeHint": "No se entregarán en esta orden.",
+    "split": "Entregarlas después en órdenes hijas",
+    "splitHint": "Cada orden hija es una orden nueva con su propia fecha de entrega.",
+    "childOrder": "Orden hija {number}",
+    "deliveryDate": "Fecha de entrega",
+    "addChild": "Agregar orden hija",
+    "removeChild": "Quitar la orden hija {number}",
+    "portion": "Unidades de {product}",
+    "remaining": "{count, plural, =0 {Totalmente asignado} other {Faltan # por asignar}}",
+    "over": "{count} de más",
+    "submit": "Confirmar orden",
+    "submitting": "Confirmando…",
+    "createdChildren": "Orden confirmada. Se {count, plural, one {creó la orden hija {codes}} other {crearon # órdenes hijas: {codes}}}.",
+    "confirmed": "Orden confirmada."
+  },
+  "redistribution": {
+    "title": "Redistribución",
+    "intro": "Distribuye las unidades confirmadas de cada producto entre las ubicaciones. Cada fila debe sumar la cantidad confirmada.",
+    "readOnlyIntro": "La distribución de las unidades confirmadas entre las ubicaciones.",
+    "empty": "Todavía no hay una distribución para mostrar.",
+    "columns": {
+      "product": "Producto",
+      "confirmed": "Confirmado",
+      "allocated": "Asignado",
+      "balance": "Saldo"
+    },
+    "quantityIn": "{product} en {location}",
+    "balanceOk": "Cuadrado",
+    "balanceShort": "Faltan {count}",
+    "balanceOver": "Sobran {count}",
+    "useProposal": "Usar propuesta",
+    "useProposalHint": "Ajusta la distribución original a lo que se confirmó.",
+    "proposalLoaded": "Propuesta cargada. Revísala y guarda o confirma.",
+    "saveDraft": "Guardar borrador",
+    "draftSaved": "Borrador guardado.",
+    "confirm": "Confirmar redistribución",
+    "confirmTitle": "¿Confirmar la redistribución?",
+    "confirmBody": "La distribución queda definitiva y la orden podrá enviarse al ERP.",
+    "confirmed": "Redistribución confirmada.",
+    "unsaved": "Tienes cambios sin guardar.",
+    "hasDraft": "Se cargó un borrador guardado.",
+    "problems": "Corrige estos problemas para continuar:",
+    "warehouse": "Bodega",
+    "store": "Tienda"
+  },
+  "erp": {
+    "title": "Integración con el ERP",
+    "intro": "Documentos creados en el ERP para esta orden.",
+    "send": "Enviar al ERP",
+    "retry": "Reintentar envío",
+    "sendTitle": "¿Enviar esta orden al ERP?",
+    "sendBody": "Se crean órdenes de compra y solicitudes de traslado en el ERP. Reintentar es seguro: los documentos ya enviados no se duplican.",
+    "requested": "Envío solicitado. Esta página se actualiza cuando responda el ERP.",
+    "noDocuments": "Todavía no hay documentos.",
+    "notAvailable": "Los documentos del ERP no están disponibles para tu rol.",
+    "columns": {
+      "kind": "Documento",
+      "route": "Ruta",
+      "status": "Estado",
+      "attempts": "Intentos",
+      "number": "Número en el ERP",
+      "sent": "Enviado"
+    },
+    "kind": {
+      "PurchaseOrder": "Orden de compra",
+      "TransferRequest": "Solicitud de traslado"
+    },
+    "docStatus": {
+      "Pending": "Pendiente",
+      "Sent": "Enviado",
+      "Failed": "Fallido"
+    },
+    "pdf": "PDF",
+    "lastError": "Último error",
+    "fixCodesTitle": "Corregir un código de producto",
+    "fixCodesIntro": "Si el ERP rechazó un código de producto, reemplázalo por el correcto y reintenta.",
+    "currentCode": "Código actual",
+    "newCode": "Código nuevo",
+    "apply": "Reemplazar código",
+    "codeCorrected": "Código de producto corregido. Ya puedes reintentar el envío."
+  },
+  "history": {
+    "title": "Historial",
+    "empty": "Todavía no hay actividad.",
+    "statusChange": "Estado cambiado de {from} a {to}",
+    "fieldChange": "Cambió {field} de {product}",
+    "fieldChangeOrder": "Cambió {field}",
+    "from": "de",
+    "to": "a",
+    "empty_value": "(vacío)",
+    "actor": {
+      "Buyer": "Comprador",
+      "Supplier": "Proveedor",
+      "SupplierProduction": "Producción del proveedor",
+      "System": "Sistema"
+    },
+    "fields": {
+      "ConfirmedQuantity": "Cantidad confirmada",
+      "Cost": "Costo",
+      "UnitCost": "Costo unitario",
+      "Comment": "Comentario",
+      "ProductCode": "Código de producto",
+      "Status": "Estado"
+    }
+  },
+  "import": {
+    "metaTitle": "Importar orden",
+    "title": "Importar una orden",
+    "description": "Sube la hoja de cálculo de la orden. Primero la revisamos, así no se crea nada hasta que sea válida.",
+    "backToList": "Volver a las órdenes",
+    "step1": "Elige el archivo",
+    "step2": "Revisa los controles",
+    "step3": "Importa",
+    "dropTitle": "Suelta aquí la hoja de cálculo",
+    "dropHint": "o haz clic para elegir un archivo .xlsx (hasta 10 MB)",
+    "chooseFile": "Elegir archivo",
+    "changeFile": "Elegir otro archivo",
+    "downloadSample": "Descargar una plantilla de ejemplo",
+    "remove": "Quitar archivo",
+    "onlyXlsx": "Solo se admiten archivos .xlsx.",
+    "tooLarge": "El archivo supera los 10 MB.",
+    "checkErp": "Verificar también los productos en el ERP",
+    "checkErpHint": "Comprueba que cada producto exista, esté activo y tenga el pack y el precio correctos.",
+    "validate": "Revisar archivo",
+    "validating": "Revisando…",
+    "valid": "El archivo es válido",
+    "validWithWarnings": "El archivo se puede importar, con advertencias",
+    "invalid": "El archivo tiene errores",
+    "counts": "{errors, plural, one {# error} other {# errores}} · {warnings, plural, one {# advertencia} other {# advertencias}}",
+    "issueColumns": {
+      "severity": "Nivel",
+      "where": "Dónde",
+      "message": "Mensaje"
+    },
+    "severity": {
+      "Error": "Error",
+      "Warning": "Advertencia"
+    },
+    "row": "Fila {row}",
+    "suggestions": "¿Quisiste decir: {values}?",
+    "import": "Importar orden",
+    "importing": "Importando…",
+    "imported": "Orden importada.",
+    "viewOrder": "Ver orden",
+    "importAnother": "Importar otra",
+    "fixAndRetry": "Corrige el archivo y revísalo de nuevo.",
+    "duplicate": "Ya existe una orden con este código.",
+    "uploadFailed": "No se pudo procesar el archivo."
+  },
+  "errors": {
+    "loadFailed": "No pudimos cargar las órdenes.",
+    "retry": "Reintentar"
+  }
+}

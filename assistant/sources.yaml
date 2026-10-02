@@ -1,0 +1,23 @@
+# Knowledge base of Xia, the Stockline assistant. The format is described in the sources.yaml of the Xia project.
+# Paths are relative to this file. After editing a document or a permission, re-run `npm run dev:xia -- index`.
+#
+# Access is by permission, taken from the signed-in user's permissions (the same `module.action` names the API uses):
+# a person only gets answers drawn from documents they are allowed to read.
+areas:
+  - codigo: stockline
+    nombre: Stockline
+    descripcion: How Stockline works - orders, supplier confirmation, redistribution, ERP, dashboard and administration.
+    ejemplos:
+      - "Who can import an order?"
+      - "Why does the redistribution not confirm?"
+      - "How do I retry an order the ERP rejected?"
+    permisos: ["*"]
+    permisos_por_patron:
+      - { patron: "orders-*.md", permisos: ["orders.view"] }
+      - { patron: "dashboard.md", permisos: ["dashboard.view"] }
+      - { patron: "administration.md", permisos: ["admin.users"] }
+    fuente:
+      tipo: carpeta
+      ruta: ./knowledge
+      patrones: ["*.md"]
+      excluir: []
