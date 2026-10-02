@@ -46,7 +46,8 @@
       "provider": {
         "directory": "Cuenta del directorio",
         "local": "Cuenta local"
-      }
+      },
+      "remember": "Recordar mi usuario"
     },
     "errors": {
       "emailRequired": "Ingresa tu correo electrónico.",

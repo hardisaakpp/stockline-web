@@ -132,13 +132,6 @@
     "metaTitle": "Notificaciones",
     "title": "Notificaciones por correo",
     "description": "Quién recibe un correo cuando una orden llega a cada paso.",
-    "audience": "Para: {audience}",
-    "subscribers": "{count, plural, =0 {Sin suscriptores} one {# suscriptor} other {# suscriptores}}",
-    "noSubscribers": "Todavía no hay nadie suscrito.",
-    "addLabel": "Agregar un correo a {topic}",
-    "emailPlaceholder": "nombre@empresa.com",
-    "add": "Agregar",
-    "remove": "Quitar a {email}",
     "removed": "Suscripción eliminada.",
     "added": "Suscripción creada.",
     "preview": "Vista previa del correo",
@@ -150,7 +143,8 @@
     "audiences": {
       "Buyer": "Comprador",
       "Supplier": "Proveedor",
-      "SupplierProduction": "Producción del proveedor"
+      "SupplierProduction": "Producción del proveedor",
+      "Technical": "Técnico"
     },
     "topics": {
       "OrderSubmitted": {
@@ -172,8 +166,45 @@
       "OrderCancelledBySupplier": {
         "title": "Orden cancelada por el proveedor",
         "description": "El proveedor canceló una orden después de confirmar la producción."
+      },
+      "ProductionConfirmed": {
+        "title": "Pedido confirmado por producción",
+        "description": "Producción del proveedor confirmó un pedido; la administración del proveedor ya puede revisarlo."
+      },
+      "RedistributionConfirmed": {
+        "title": "Redistribución confirmada",
+        "description": "El comprador confirmó la redistribución de un pedido."
+      },
+      "ReadyForDispatch": {
+        "title": "Orden de compra y traspasos listos para despacho",
+        "description": "Se crearon los documentos del ERP de un pedido."
+      },
+      "ErpSubmissionFailed": {
+        "title": "Envío al ERP fallido",
+        "description": "El ERP rechazó o no pudo recibir los documentos de un pedido."
       }
-    }
+    },
+    "searchLabel": "Buscar persona",
+    "searchPlaceholder": "Busca un usuario o escribe un correo externo",
+    "clearSearch": "Limpiar búsqueda",
+    "noMatches": "Ningún usuario registrado coincide. Pulsa Enter para agregar este correo.",
+    "allAudiences": "Todas las audiencias",
+    "noPeople": "Nadie recibe correos todavía. Busca a una persona arriba para empezar.",
+    "noPeopleFiltered": "Nadie recibe correos de esta audiencia.",
+    "noAssigned": "Sin correos asignados",
+    "removeTopic": "Quitar {topic} a {email}",
+    "removePerson": "Quitar a {email}",
+    "confirmRemoveTitle": "¿Quitar a esta persona?",
+    "confirmRemoveBody": "{email} dejará de recibir todos los correos de notificación.",
+    "confirmRemove": "Quitar",
+    "cancel": "Cancelar",
+    "alreadySubscribed": "{email} ya recibe «{topic}».",
+    "catalogTitle": "Catálogo de correos",
+    "catalogSearch": "Busca un correo o una audiencia",
+    "catalogCount": "{shown} de {total}",
+    "catalogNoMatch": "Ningún correo coincide con la búsqueda.",
+    "noTopics": "No hay correos en el catálogo.",
+    "previewTopic": "Vista previa de {topic}"
   },
   "errors": {
     "loadFailed": "No pudimos cargar esta página.",

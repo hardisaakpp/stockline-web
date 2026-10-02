@@ -182,26 +182,63 @@ test.describe("locations", () => {
 });
 
 test.describe("notifications", () => {
-  test("subscribes an email to a topic and removes it", async ({ browser }) => {
+  test("adds a person, assigns a topic by tapping, then removes it", async ({ browser }) => {
     const page = await asRole(browser, "admin");
     const email = `${uniqueCode("sub").toLowerCase()}@stockline.test`;
     await page.goto("/admin/notifications");
 
-    await page.getByLabel("Add an email to Order submitted").fill(email);
-    await page.getByLabel("Add an email to Order submitted").press("Enter");
-    await expect(page.getByText("Subscribed.")).toBeVisible();
-    await expect(page.getByText(email)).toBeVisible();
+    const search = page.getByRole("combobox", { name: "Find a person" });
+    await search.fill(email);
+    await search.press("Enter");
+    const card = page.getByTestId("person-card").filter({ hasText: email });
+    await expect(card.getByText("No emails assigned")).toBeVisible();
 
-    await page.getByRole("button", { name: `Remove ${email}` }).click();
+    await page.getByRole("button", { name: "Order submitted", exact: true }).click();
+    await card.getByRole("button").first().click();
+    await expect(page.getByText("Subscribed.")).toBeVisible();
+    await expect(card.getByText("Order submitted")).toBeVisible();
+
+    await card.getByRole("button", { name: `Remove Order submitted from ${email}` }).click();
     await expect(page.getByText("Subscription removed.")).toBeVisible();
-    await expect(page.getByText(email)).toHaveCount(0);
+    await expect(card.getByText("No emails assigned")).toBeVisible();
+  });
+
+  test("assigns a topic by dragging it onto a card and removes the whole person", async ({
+    browser,
+  }) => {
+    const page = await asRole(browser, "admin");
+    const email = `${uniqueCode("drag").toLowerCase()}@stockline.test`;
+    await page.goto("/admin/notifications");
+    const search = page.getByRole("combobox", { name: "Find a person" });
+    await search.fill(email);
+    await search.press("Enter");
+    const card = page.getByTestId("person-card").filter({ hasText: email });
+
+    await page.getByRole("button", { name: "Order discarded", exact: true }).dragTo(card);
+    await expect(card.getByText("Order discarded")).toBeVisible();
+
+    await card.getByRole("button", { name: `Remove ${email}` }).click();
+    await page.getByRole("dialog").getByRole("button", { name: "Remove", exact: true }).click();
+    await expect(page.getByTestId("person-card").filter({ hasText: email })).toHaveCount(0);
+  });
+
+  test("rejects text that is not an email", async ({ browser }) => {
+    const page = await asRole(browser, "admin");
+    await page.goto("/admin/notifications");
+    const search = page.getByRole("combobox", { name: "Find a person" });
+    await search.fill("not-an-email");
+    await search.press("Enter");
+    await expect(page.getByText("Enter a valid email.")).toBeVisible();
   });
 
   test("shows a sandboxed preview of the email", async ({ browser }) => {
     const page = await asRole(browser, "admin");
     await page.goto("/admin/notifications");
 
-    await page.getByRole("button", { name: "Preview email" }).first().click();
+    await page
+      .getByRole("button", { name: /^Preview / })
+      .first()
+      .click();
 
     const frame = page.getByRole("dialog").locator("iframe");
     await expect(frame).toBeVisible();

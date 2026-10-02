@@ -46,7 +46,8 @@
       "provider": {
         "directory": "Directory account",
         "local": "Local account"
-      }
+      },
+      "remember": "Remember my username"
     },
     "errors": {
       "emailRequired": "Enter your email.",

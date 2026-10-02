@@ -46,6 +46,29 @@ test.describe("signing in", () => {
   });
 });
 
+test.describe("remembering who signed in", () => {
+  test("prefills the username after signing out, and forgets it when asked to", async ({
+    page,
+  }) => {
+    await page.goto("/login");
+    await signInLocal(page, "buyer@stockline.test");
+    await expect(page).toHaveURL(/\/dashboard/);
+    await page.context().clearCookies();
+
+    await page.goto("/login");
+    await expect(page.getByLabel("Email")).toHaveValue("buyer@stockline.test");
+    await expect(page.getByLabel("Password")).toHaveValue("");
+
+    await page.getByLabel("Remember my username").uncheck();
+    await page.getByLabel("Password").fill("Demo-Pass-2026!");
+    await page.getByRole("button", { name: "Sign in" }).click();
+    await expect(page).toHaveURL(/\/dashboard/);
+    await page.context().clearCookies();
+    await page.goto("/login");
+    await expect(page.getByLabel("Email")).toHaveValue("");
+  });
+});
+
 test.describe("session lifecycle", () => {
   test("renews an expired access token transparently using the refresh token", async ({
     page,
@@ -96,9 +119,10 @@ test.describe("buyer session", () => {
     expect(session.map((c) => c.name).sort()).toEqual(["sl_access", "sl_refresh"]);
     expect(session.every((c) => c.httpOnly && c.sameSite === "Lax")).toBe(true);
     expect(await page.evaluate(() => document.cookie)).toBe("");
-    expect(await page.evaluate(() => JSON.stringify({ ...localStorage, ...sessionStorage }))).toBe(
-      "{}",
-    );
+    // Only the remembered username may live in browser storage: no token, no password.
+    const stored = await page.evaluate(() => ({ ...localStorage, ...sessionStorage }));
+    expect(Object.keys(stored).filter((key) => key !== "stockline.login")).toEqual([]);
+    expect(JSON.stringify(stored)).not.toMatch(/eyJ|Demo-Pass|password|token/i);
   });
 
   test("is bounced off the login page", async ({ page }) => {

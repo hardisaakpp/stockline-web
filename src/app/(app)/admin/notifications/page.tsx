@@ -9,15 +9,20 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AdminNotificationsPage() {
-  const [t, topics, subscriptions] = await Promise.all([
+  const [t, topics, subscriptions, users] = await Promise.all([
     getTranslations("admin.notifications"),
     adminApi.topics(),
     adminApi.subscriptions(),
+    adminApi.users(),
   ]);
   return (
     <div className="space-y-6">
       <PageHeader title={t("title")} description={t("description")} />
-      <NotificationsPanel topics={topics} subscriptions={subscriptions} />
+      <NotificationsPanel
+        topics={topics}
+        subscriptions={subscriptions}
+        users={users.map((u) => ({ email: u.email, displayName: u.displayName }))}
+      />
     </div>
   );
 }

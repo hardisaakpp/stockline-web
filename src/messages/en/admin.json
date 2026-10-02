@@ -132,13 +132,6 @@
     "metaTitle": "Notifications",
     "title": "Email notifications",
     "description": "Who gets an email when an order reaches each step.",
-    "audience": "For: {audience}",
-    "subscribers": "{count, plural, =0 {No subscribers} one {# subscriber} other {# subscribers}}",
-    "noSubscribers": "Nobody is subscribed yet.",
-    "addLabel": "Add an email to {topic}",
-    "emailPlaceholder": "name@company.com",
-    "add": "Add",
-    "remove": "Remove {email}",
     "removed": "Subscription removed.",
     "added": "Subscribed.",
     "preview": "Preview email",
@@ -150,7 +143,8 @@
     "audiences": {
       "Buyer": "Buyer",
       "Supplier": "Supplier",
-      "SupplierProduction": "Supplier production"
+      "SupplierProduction": "Supplier production",
+      "Technical": "Technical"
     },
     "topics": {
       "OrderSubmitted": {
@@ -172,8 +166,45 @@
       "OrderCancelledBySupplier": {
         "title": "Order cancelled by the supplier",
         "description": "The supplier cancelled an order after confirming production."
+      },
+      "ProductionConfirmed": {
+        "title": "Order confirmed by production",
+        "description": "Supplier production confirmed an order; the supplier administration can now review it."
+      },
+      "RedistributionConfirmed": {
+        "title": "Redistribution confirmed",
+        "description": "The buyer confirmed the redistribution of an order."
+      },
+      "ReadyForDispatch": {
+        "title": "Purchase order and transfers ready for dispatch",
+        "description": "The ERP documents of an order were created."
+      },
+      "ErpSubmissionFailed": {
+        "title": "ERP submission failed",
+        "description": "The ERP rejected or could not receive an order's documents."
       }
-    }
+    },
+    "searchLabel": "Find a person",
+    "searchPlaceholder": "Search a user or type an external email",
+    "clearSearch": "Clear search",
+    "noMatches": "No registered user matches. Press Enter to add this email.",
+    "allAudiences": "All audiences",
+    "noPeople": "Nobody receives emails yet. Search for a person above to start.",
+    "noPeopleFiltered": "Nobody receives emails for this audience.",
+    "noAssigned": "No emails assigned",
+    "removeTopic": "Remove {topic} from {email}",
+    "removePerson": "Remove {email}",
+    "confirmRemoveTitle": "Remove this person?",
+    "confirmRemoveBody": "{email} will stop receiving every notification email.",
+    "confirmRemove": "Remove",
+    "cancel": "Cancel",
+    "alreadySubscribed": "{email} already receives “{topic}”.",
+    "catalogTitle": "Email catalogue",
+    "catalogSearch": "Search an email or audience",
+    "catalogCount": "{shown} of {total}",
+    "catalogNoMatch": "No email matches the search.",
+    "noTopics": "There are no emails in the catalogue.",
+    "previewTopic": "Preview {topic}"
   },
   "errors": {
     "loadFailed": "We couldn't load this page.",

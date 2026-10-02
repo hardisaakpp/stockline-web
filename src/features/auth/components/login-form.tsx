@@ -2,11 +2,12 @@
 
 import { AlertCircle, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { loginAction, type LoginState } from "../actions";
 import { FormField } from "@/components/ui/form-field";
 import type { LoginProvider } from "../login-form-schema";
+import { loadRemembered, saveRemembered } from "../remembered-login";
 import { ProviderSwitch } from "./provider-switch";
 
 const initialState: LoginState = { identifier: "" };
@@ -60,11 +61,33 @@ export function LoginForm({
   const t = useTranslations("auth");
   // The directory is the organisation's way in, so it comes first whenever the API offers it.
   const [provider, setProvider] = useState<LoginProvider>(directoryEnabled ? "directory" : "local");
+  const [remembered, setRemembered] = useState("");
+  const [remember, setRemember] = useState(true);
   const viaDirectory = provider === "directory";
+
+  // Read after mount: localStorage does not exist on the server, and the first render must match it.
+  useEffect(() => {
+    const last = loadRemembered();
+    if (!last) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-off sync from an external store
+    setRemembered(last.identifier);
+    if (directoryEnabled || last.provider === "local") setProvider(last.provider);
+  }, [directoryEnabled]);
+
+  const rememberChoice = (form: HTMLFormElement) => {
+    const data = new FormData(form);
+    const identifier = String(data.get("identifier") ?? "").trim();
+    saveRemembered(remember && identifier ? { provider, identifier } : null);
+  };
   const fieldError = (key?: string) => (key ? t(`errors.${key as FieldErrorKey}`) : undefined);
 
   return (
-    <form action={formAction} className="flex flex-col gap-5" noValidate>
+    <form
+      action={formAction}
+      onSubmit={(event) => rememberChoice(event.currentTarget)}
+      className="flex flex-col gap-5"
+      noValidate
+    >
       {next && <input type="hidden" name="next" value={next} />}
       {directoryEnabled ? (
         <ProviderSwitch value={provider} onChange={setProvider} disabled={pending} />
@@ -76,7 +99,7 @@ export function LoginForm({
 
       <IdentifierField
         viaDirectory={viaDirectory}
-        value={state.identifier}
+        value={state.identifier || remembered}
         error={fieldError(state.fieldErrors?.identifier)}
       />
       <FormField
@@ -87,6 +110,16 @@ export function LoginForm({
         autoComplete="current-password"
         error={fieldError(state.fieldErrors?.password)}
       />
+
+      <label className="flex items-center gap-2 text-sm text-muted-foreground">
+        <input
+          type="checkbox"
+          checked={remember}
+          onChange={(event) => setRemember(event.target.checked)}
+          className="size-4 accent-primary"
+        />
+        {t("login.remember")}
+      </label>
 
       <Button type="submit" size="lg" className="h-10 w-full" disabled={pending}>
         {pending && <Loader2 className="size-4 animate-spin" />}
