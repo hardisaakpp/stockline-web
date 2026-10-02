@@ -1,0 +1,29 @@
+# Xia (the assistant's engine) for Stockline, as a long-running container that restarts by itself.
+# Host networking: Ollama only listens on 127.0.0.1, and Xia's database is published on 127.0.0.1:5433.
+# The knowledge base is mounted read-only; after editing a document run `npm run dev:xia -- index`.
+#   docker compose --env-file .env.local -f docker-compose.xia.yml up -d --build
+services:
+  xia:
+    build:
+      context: ../xia
+    image: xia-stockline:local
+    restart: unless-stopped
+    network_mode: host
+    command: ["uvicorn", "xia.api:app", "--host", "127.0.0.1", "--port", "8901"]
+    environment:
+      XIA_DATABASE_URL: postgresql://xia:xia@127.0.0.1:5433/${STOCKLINE_XIA_DB:-xia_stockline}
+      XIA_OLLAMA_URL: http://127.0.0.1:11434
+      XIA_SOURCES_FILE: /stockline/assistant/sources.yaml
+      XIA_ORGANIZACION: Stockline
+      XIA_AUTENTICACION: jwt
+      XIA_JWT_SECRET: ${XIA_JWT_SECRET:?set XIA_JWT_SECRET in .env}
+      XIA_JWT_ISSUER: stockline-web
+      XIA_JWT_AUDIENCE: xia
+    volumes:
+      - ./assistant:/stockline/assistant:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://127.0.0.1:8901/v1/salud', timeout=4)"]
+      interval: 30s
+      timeout: 6s
+      retries: 3
+      start_period: 30s

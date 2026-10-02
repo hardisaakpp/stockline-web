@@ -115,6 +115,12 @@ npm run dev:xia               # indexes assistant/knowledge, then serves Xia on 
 # .env.local:  XIA_URL=http://localhost:8901   XIA_JWT_SECRET=<same as the script, 32+ chars>
 ```
 
+To leave it running (restarts by itself, survives a reboot), use the container instead of the script:
+
+```bash
+docker compose --env-file .env.local -f docker-compose.xia.yml up -d --build
+```
+
 Edit a document or a permission in `assistant/` and re-run `npm run dev:xia -- index`. Browser tests for the assistant need the real engine and a local model, so they are opt-in: `E2E_XIA=1 npm run test:e2e`.
 
 ## Docker
