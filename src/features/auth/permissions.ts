@@ -6,6 +6,7 @@ export const PERMISSIONS = {
   erpSubmit: "erp.submit",
   dashboardView: "dashboard.view",
   adminUsers: "admin.users",
+  careersUse: "careers.use",
 } as const;
 
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];

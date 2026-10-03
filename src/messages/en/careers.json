@@ -1,0 +1,173 @@
+{
+  "cv": {
+    "metaTitle": "My CV",
+    "title": "My CV",
+    "description": "Write your details once. The PDF, the version tailored to each offer and the cover letters all come from here.",
+    "notSaved": "You haven't saved your CV yet. Fill it in and press Save.",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "CV saved.",
+    "preview": "Preview",
+    "previewing": "Generating…",
+    "previewEmpty": "Press “Preview” to see your CV as a PDF. The first time takes a few seconds.",
+    "previewTitle": "PDF preview",
+    "previewFailed": "The preview could not be generated.",
+    "problems": "Some fields need attention:",
+    "sections": {
+      "main": "Main details",
+      "contact": "Contact",
+      "experience": "Experience",
+      "projects": "Projects",
+      "education": "Education",
+      "skills": "Skills"
+    },
+    "fields": {
+      "fullName": "Full name",
+      "headline": "Headline",
+      "headlineHint": "One line: your role or speciality",
+      "summary": "Summary",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "linkLabel": "Link label",
+      "linkUrl": "Link address",
+      "role": "Role",
+      "organization": "Organization",
+      "from": "From",
+      "fromHint": "For example 2022-03",
+      "to": "To",
+      "toHint": "Leave empty if it is your current job",
+      "achievements": "Achievements",
+      "achievementsHint": "One per line, with measurable results when you have them",
+      "technologies": "Technologies",
+      "technologiesHint": "Separated by commas",
+      "oneItemPerLine": "One per line",
+      "commaSeparated": "Separated by commas",
+      "projectName": "Name",
+      "projectUrl": "Link",
+      "description": "Description",
+      "degree": "Degree",
+      "institution": "Institution",
+      "skillGroup": "Group",
+      "skillItems": "Skills"
+    },
+    "add": {
+      "link": "Add link",
+      "experience": "Add experience",
+      "project": "Add project",
+      "education": "Add education",
+      "skills": "Add group"
+    },
+    "remove": "Remove {item} {number}",
+    "items": {
+      "link": "link",
+      "experience": "experience",
+      "project": "project",
+      "education": "education",
+      "skills": "group"
+    }
+  },
+  "offers": {
+    "metaTitle": "Job offers",
+    "title": "Job offers",
+    "description": "Ordered by how close they are to your CV. Each one links to where it was published: that is where you apply.",
+    "refresh": "Look for new offers",
+    "refreshing": "Looking…",
+    "refreshSummary": "{source}: {outcome}",
+    "outcome": {
+      "Fetched": "{read} read, {added} new",
+      "Skipped": "checked recently",
+      "Failed": "unavailable"
+    },
+    "refreshNote": "Each source is asked at most once every 6 hours.",
+    "needCvTitle": "Start with your CV",
+    "needCvBody": "Offers are ranked against your CV, so it has to be saved first.",
+    "goToCv": "Go to my CV",
+    "summary": "{shown} shown of {total}; {excluded} excluded by your rules.",
+    "pending": "Working out how well {count} new offers fit you. This list updates by itself.",
+    "empty": "There are no offers yet.",
+    "emptyHint": "Press “Look for new offers” to fetch some.",
+    "score": "Fit with your CV: {score} out of 100",
+    "noMatches": "No technologies in common",
+    "viewOffer": "View offer",
+    "prepare": "Prepare application",
+    "preparing": "Preparing…",
+    "alsoOn": "Also on {sources}",
+    "sources": {
+      "remotive": "Remotive",
+      "remoteok": "Remote OK",
+      "weworkremotely": "We Work Remotely"
+    },
+    "rules": {
+      "title": "Rules that drop an offer",
+      "description": "An offer that breaks any of these is left out of the list.",
+      "excludeTitles": "Titles to exclude",
+      "excludeTitlesHint": "For example: sales, recruiter",
+      "excludeText": "Texts to exclude",
+      "excludeTextHint": "For example: security clearance",
+      "locations": "Accepted locations",
+      "locationsHint": "Empty means any. For example: worldwide, latam",
+      "requiredTechnologies": "Required technologies",
+      "requiredTechnologiesHint": "The offer must mention all of them",
+      "save": "Save rules",
+      "saved": "Rules saved."
+    }
+  },
+  "applications": {
+    "metaTitle": "Applications",
+    "title": "Applications",
+    "description": "What you prepared for each offer. Careers never sends anything: you apply on the offer's page and record it here.",
+    "empty": "You haven't prepared any application yet.",
+    "emptyHint": "Start from the job offers.",
+    "goToOffers": "See job offers",
+    "back": "Applications",
+    "never": "Careers sends nothing. Review your CV and the letter, apply on the offer's page, then mark it here.",
+    "letter": "Cover letter",
+    "letterHint": "It comes from a template filled with your own CV data and only names technologies you declared. You can rewrite it.",
+    "saveLetter": "Save letter",
+    "letterSaved": "Letter saved.",
+    "next": "Next step",
+    "openOffer": "Open the offer to apply",
+    "final": "This status is final.",
+    "cv": "CV for this offer",
+    "cvHint": "The same CV, showing first what matters most for this offer.",
+    "showPdf": "Show PDF",
+    "refreshPdf": "Refresh",
+    "status": {
+      "Draft": "Draft",
+      "Confirmed": "Confirmed",
+      "Sent": "Sent",
+      "Discarded": "Discarded"
+    },
+    "actions": {
+      "confirm": "I reviewed it",
+      "sent": "Mark as sent",
+      "discard": "Discard"
+    },
+    "done": {
+      "confirm": "Marked as reviewed.",
+      "sent": "Marked as sent.",
+      "discard": "Application discarded."
+    },
+    "prepared": "Draft ready."
+  },
+  "validation": {
+    "required": "required",
+    "invalid-email": "not a valid email",
+    "invalid-url": "must be an http(s) address",
+    "tooLong": "too long (max {max})",
+    "tooMany": "too many items (max {max})",
+    "other": "not valid"
+  },
+  "errors": {
+    "cv-missing": "Save your CV first.",
+    "ai-unavailable": "The AI service is not available right now. Nothing was saved; try again in a moment.",
+    "invalid-transition": "That step is not allowed from the application's current status.",
+    "already-prepared": "This offer already has a draft.",
+    "unavailable": "The Careers service is not available right now.",
+    "notConfigured": "The Careers module is not configured."
+  },
+  "loadFailed": "Careers could not be loaded.",
+  "retry": "Try again",
+  "pdfFailed": "The PDF could not be generated."
+}

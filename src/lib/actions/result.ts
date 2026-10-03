@@ -19,6 +19,10 @@ export type ActionError = {
   message?: string;
   /** Rule violations found by the API, e.g. quantities that do not add up. */
   issues: ValidationIssue[];
+  /** The API's own stable code (e.g. `cv-missing`), when it sent one: lets a module word a specific case. */
+  apiCode?: string;
+  /** Per-field problems (`field` -> codes), when the API sent them. */
+  fieldErrors?: Record<string, string[]>;
 };
 
 export type ActionFailure = { ok: false; error: ActionError };
@@ -27,6 +31,7 @@ export type ActionResult<T = void> = { ok: true; data: T } | ActionFailure;
 export const ok = <T>(data: T): ActionResult<T> => ({ ok: true, data });
 
 const issuesSchema = z.array(issueSchema);
+const fieldErrorsSchema = z.record(z.string(), z.array(z.string()));
 
 function codeForStatus(status: number): ErrorCode {
   if (status === 401) return "unauthorized";
@@ -41,12 +46,16 @@ function codeForStatus(status: number): ErrorCode {
 export function toActionError(error: unknown): ActionFailure {
   if (error instanceof ApiError) {
     const issues = issuesSchema.safeParse(error.extensions.issues);
+    const fieldErrors = fieldErrorsSchema.safeParse(error.extensions.errors);
+    const apiCode = typeof error.extensions.code === "string" ? error.extensions.code : undefined;
     return {
       ok: false,
       error: {
         code: codeForStatus(error.status),
         message: error.message,
         issues: issues.success ? issues.data : [],
+        ...(apiCode && { apiCode }),
+        ...(fieldErrors.success && { fieldErrors: fieldErrors.data }),
       },
     };
   }

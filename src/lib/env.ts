@@ -7,6 +7,8 @@ const schema = z.object({
   /** Xia, the assistant engine. The assistant is switched off unless both values are set. */
   XIA_URL: z.url().optional(),
   XIA_JWT_SECRET: z.string().min(32).optional(),
+  /** api-careers, behind the Careers module. The module is hidden unless this is set. */
+  CAREERS_API_URL: z.url().optional(),
 });
 
 const parsed = schema.safeParse(process.env);
@@ -20,6 +22,10 @@ export const env = {
   secureCookies: parsed.data.COOKIE_SECURE
     ? parsed.data.COOKIE_SECURE === "true"
     : process.env.NODE_ENV === "production",
+  /** api-careers, or `null` when the Careers module is not configured (the interface then hides it). */
+  careersApiUrl: parsed.data.CAREERS_API_URL
+    ? parsed.data.CAREERS_API_URL.replace(/\/+$/, "")
+    : null,
   /** Connection to Xia, or `null` when the assistant is not configured (the interface then hides it). */
   assistant:
     parsed.data.XIA_URL && parsed.data.XIA_JWT_SECRET

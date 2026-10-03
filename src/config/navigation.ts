@@ -1,8 +1,11 @@
 import {
   Bell,
+  Briefcase,
+  FileText,
   LayoutDashboard,
   MapPin,
   PackageSearch,
+  Send,
   ShieldCheck,
   Users,
   type LucideIcon,
@@ -11,14 +14,25 @@ import { PERMISSIONS, type Permission } from "@/features/auth";
 
 export type NavItem = {
   /** Key under `nav` in the message catalogs. */
-  labelKey: "dashboard" | "orders" | "users" | "roles" | "locations" | "notifications";
+  labelKey:
+    | "dashboard"
+    | "orders"
+    | "myCv"
+    | "jobOffers"
+    | "applications"
+    | "users"
+    | "roles"
+    | "locations"
+    | "notifications";
   href: string;
   icon: LucideIcon;
   /** The item is shown when the user holds at least one of these. */
   anyOf: readonly Permission[];
+  /** Hidden unless that optional module is configured (see `features` in the app shell). */
+  feature?: "careers";
 };
 
-export type NavSection = { titleKey?: "administration"; items: readonly NavItem[] };
+export type NavSection = { titleKey?: "careers" | "administration"; items: readonly NavItem[] };
 
 export const NAVIGATION: readonly NavSection[] = [
   {
@@ -30,6 +44,32 @@ export const NAVIGATION: readonly NavSection[] = [
         anyOf: [PERMISSIONS.dashboardView],
       },
       { labelKey: "orders", href: "/orders", icon: PackageSearch, anyOf: [PERMISSIONS.ordersView] },
+    ],
+  },
+  {
+    titleKey: "careers",
+    items: [
+      {
+        labelKey: "myCv",
+        href: "/careers/cv",
+        icon: FileText,
+        anyOf: [PERMISSIONS.careersUse],
+        feature: "careers",
+      },
+      {
+        labelKey: "jobOffers",
+        href: "/careers/offers",
+        icon: Briefcase,
+        anyOf: [PERMISSIONS.careersUse],
+        feature: "careers",
+      },
+      {
+        labelKey: "applications",
+        href: "/careers/applications",
+        icon: Send,
+        anyOf: [PERMISSIONS.careersUse],
+        feature: "careers",
+      },
     ],
   },
   {

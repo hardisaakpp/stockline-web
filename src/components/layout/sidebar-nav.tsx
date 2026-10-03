@@ -8,14 +8,26 @@ import type { User } from "@/features/auth";
 import { NAVIGATION } from "@/config/navigation";
 import { cn } from "@/lib/utils";
 
-export function SidebarNav({ user, onNavigate }: { user: User; onNavigate?: () => void }) {
+export type Features = { careers: boolean };
+
+export function SidebarNav({
+  user,
+  features,
+  onNavigate,
+}: {
+  user: User;
+  features: Features;
+  onNavigate?: () => void;
+}) {
   const pathname = usePathname();
   const t = useTranslations("nav");
 
   return (
     <nav aria-label={t("main")} className="flex flex-col gap-6">
       {NAVIGATION.map((section) => {
-        const items = section.items.filter((item) => canAny(user, item.anyOf));
+        const items = section.items.filter(
+          (item) => canAny(user, item.anyOf) && (!item.feature || features[item.feature]),
+        );
         if (items.length === 0) return null;
 
         return (

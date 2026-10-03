@@ -85,7 +85,8 @@
     "ordersAct": "Act on orders (confirm, edit, redistribute)",
     "erpSubmit": "Send orders to the ERP",
     "dashboardView": "View the dashboard",
-    "adminUsers": "Administer the system"
+    "adminUsers": "Administer the system",
+    "careersUse": "Use the Careers module (CV, job offers, applications)"
   },
   "locations": {
     "metaTitle": "Locations",

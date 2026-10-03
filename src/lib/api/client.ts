@@ -8,6 +8,8 @@ export type RequestOptions = {
   body?: unknown;
   accessToken?: string;
   signal?: AbortSignal;
+  /** Another service of the product (e.g. api-careers). Defaults to api-stockline. */
+  baseUrl?: string;
 };
 
 /** The API answered successfully but not with the shape this client was built against. */
@@ -25,7 +27,7 @@ async function send(path: string, options: RequestOptions): Promise<Response> {
 
   let response: Response;
   try {
-    response = await fetch(`${env.apiUrl}${path}`, {
+    response = await fetch(`${options.baseUrl ?? env.apiUrl}${path}`, {
       method: options.method ?? "GET",
       headers,
       body: options.body === undefined ? undefined : JSON.stringify(options.body),
@@ -50,6 +52,14 @@ export async function apiRequest<S extends z.ZodType>(
   const parsed = schema.safeParse(await response.json());
   if (!parsed.success) throw new ApiContractError(path, parsed.error.message);
   return parsed.data;
+}
+
+/** Calls the API for an endpoint that answers with a file (e.g. a PDF). */
+export async function apiRequestBytes(
+  path: string,
+  options: RequestOptions = {},
+): Promise<ArrayBuffer> {
+  return (await send(path, { ...options })).arrayBuffer();
 }
 
 /** Calls api-stockline for an endpoint that answers with no body (204). */

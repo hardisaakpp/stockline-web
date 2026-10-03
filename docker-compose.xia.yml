@@ -22,7 +22,13 @@ services:
     volumes:
       - ./assistant:/stockline/assistant:ro
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://127.0.0.1:8901/v1/salud', timeout=4)"]
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request as u; u.urlopen('http://127.0.0.1:8901/v1/salud', timeout=4)",
+        ]
       interval: 30s
       timeout: 6s
       retries: 3

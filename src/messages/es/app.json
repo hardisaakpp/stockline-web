@@ -23,7 +23,11 @@
     "users": "Usuarios",
     "roles": "Roles",
     "locations": "Ubicaciones",
-    "notifications": "Notificaciones"
+    "notifications": "Notificaciones",
+    "careers": "Careers",
+    "myCv": "Mi hoja de vida",
+    "jobOffers": "Ofertas de empleo",
+    "applications": "Postulaciones"
   },
   "auth": {
     "login": {

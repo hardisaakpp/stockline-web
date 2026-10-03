@@ -85,7 +85,8 @@
     "ordersAct": "Actuar sobre órdenes (confirmar, editar, redistribuir)",
     "erpSubmit": "Enviar órdenes al ERP",
     "dashboardView": "Ver el panel",
-    "adminUsers": "Administrar el sistema"
+    "adminUsers": "Administrar el sistema",
+    "careersUse": "Usar el módulo Careers (hoja de vida, ofertas y postulaciones)"
   },
   "locations": {
     "metaTitle": "Ubicaciones",

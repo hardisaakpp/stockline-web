@@ -10,6 +10,7 @@ Web client for **Stockline**, a purchase-order management system. Buyers import 
 - **Dashboard**: what is waiting for you, open orders, ERP failures, a 30-day volume chart and the status breakdown.
 - **Administration**: users (create, edit, reset password, last-administrator protection), a read-only roles and permissions matrix, locations, and email notification subscriptions with a sandboxed preview.
 - **Xia, the assistant**: a side panel that explains how Stockline works from its own documentation (citing it) and looks up your own orders, read-only, with your own permissions. It remembers the conversation, speaks the interface language and never answers from memory. See [The assistant](#the-assistant-xia).
+- **Careers**: your own CV as data (edit it once, get a PDF), job offers from public sources ranked by how close they are to it, and a draft for each application you decide to make. It never sends anything. See [Careers](#careers).
 - **English and Spanish**, switchable at any time; dates follow the language, numbers always read `1,234.56`.
 
 ## Stack
@@ -122,6 +123,27 @@ docker compose --env-file .env.local -f docker-compose.xia.yml up -d --build
 ```
 
 Edit a document or a permission in `assistant/` and re-run `npm run dev:xia -- index`. Browser tests for the assistant need the real engine and a local model, so they are opt-in: `E2E_XIA=1 npm run test:e2e`.
+
+## Careers
+
+A module inside this app (`src/features/careers`, pages under `/careers`), backed by two separate services:
+
+```
+this app ──your api-stockline token──▶ api-careers (.NET) ──▶ careers-ai (Python) ──▶ Ollama, LaTeX
+```
+
+- **My CV**: a form per section with a PDF preview of what is on screen (nothing is stored until you save).
+- **Job offers**: ordered by affinity with your CV, showing which of your technologies each one mentions and linking to where it was published. You set the rules that drop an offer (titles, texts, locations, required technologies). The first ranking can take minutes (embeddings are computed in the background); the list fills itself.
+- **Applications**: the CV tailored to the offer, an editable cover letter, and the status (`Draft → Confirmed → Sent`, or `Discarded`). Careers sends nothing: you apply on the offer's own page and record it here. Nothing can be marked sent without being confirmed first.
+- **One sign-in.** api-careers accepts the tokens api-stockline issues, so there is nothing new to sign in to; the module shows up for anyone holding the `careers.use` permission, and everything is per person (someone else's application looks like one that does not exist).
+- **Off unless configured**: without `CAREERS_API_URL` the menu entry and the pages disappear, the same way the assistant does.
+
+```bash
+# .env.local:  CAREERS_API_URL=http://localhost:5190
+# api-careers (../api-careers):  docker compose up -d --build        # needs careers-ai (../careers-ai/dev.sh)
+```
+
+Browser tests for it need both services, Ollama and Docker, so they are opt-in: `E2E_CAREERS=1 npm run test:e2e`.
 
 ## Docker
 

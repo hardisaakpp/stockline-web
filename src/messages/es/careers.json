@@ -1,0 +1,173 @@
+{
+  "cv": {
+    "metaTitle": "Mi hoja de vida",
+    "title": "Mi hoja de vida",
+    "description": "Escribe tus datos una sola vez. De aquí salen el PDF, la versión adaptada a cada oferta y las cartas.",
+    "notSaved": "Aún no guardaste tu hoja de vida. Complétala y pulsa Guardar.",
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "saved": "Hoja de vida guardada.",
+    "preview": "Vista previa",
+    "previewing": "Generando…",
+    "previewEmpty": "Pulsa «Vista previa» para ver tu hoja de vida como PDF. La primera vez tarda unos segundos.",
+    "previewTitle": "Vista previa del PDF",
+    "previewFailed": "No se pudo generar la vista previa.",
+    "problems": "Algunos campos necesitan atención:",
+    "sections": {
+      "main": "Datos principales",
+      "contact": "Contacto",
+      "experience": "Experiencia",
+      "projects": "Proyectos",
+      "education": "Educación",
+      "skills": "Habilidades"
+    },
+    "fields": {
+      "fullName": "Nombre completo",
+      "headline": "Titular",
+      "headlineHint": "Una línea: tu puesto o especialidad",
+      "summary": "Resumen",
+      "email": "Correo",
+      "phone": "Teléfono",
+      "location": "Ubicación",
+      "linkLabel": "Etiqueta del enlace",
+      "linkUrl": "Dirección del enlace",
+      "role": "Cargo",
+      "organization": "Organización",
+      "from": "Desde",
+      "fromHint": "Por ejemplo 2022-03",
+      "to": "Hasta",
+      "toHint": "Vacío si es tu trabajo actual",
+      "achievements": "Logros",
+      "achievementsHint": "Uno por línea, con resultados medibles si los hay",
+      "technologies": "Tecnologías",
+      "technologiesHint": "Separadas por comas",
+      "oneItemPerLine": "Uno por línea",
+      "commaSeparated": "Separadas por comas",
+      "projectName": "Nombre",
+      "projectUrl": "Enlace",
+      "description": "Descripción",
+      "degree": "Título",
+      "institution": "Institución",
+      "skillGroup": "Grupo",
+      "skillItems": "Habilidades"
+    },
+    "add": {
+      "link": "Añadir enlace",
+      "experience": "Añadir experiencia",
+      "project": "Añadir proyecto",
+      "education": "Añadir estudio",
+      "skills": "Añadir grupo"
+    },
+    "remove": "Quitar {item} {number}",
+    "items": {
+      "link": "enlace",
+      "experience": "experiencia",
+      "project": "proyecto",
+      "education": "estudio",
+      "skills": "grupo"
+    }
+  },
+  "offers": {
+    "metaTitle": "Ofertas de empleo",
+    "title": "Ofertas de empleo",
+    "description": "Ordenadas por cercanía a tu hoja de vida. Cada una enlaza a donde se publicó: allí aplicas tú.",
+    "refresh": "Buscar ofertas nuevas",
+    "refreshing": "Buscando…",
+    "refreshSummary": "{source}: {outcome}",
+    "outcome": {
+      "Fetched": "{read} leídas, {added} nuevas",
+      "Skipped": "consultada hace poco",
+      "Failed": "no disponible"
+    },
+    "refreshNote": "Cada fuente se consulta como máximo una vez cada 6 horas.",
+    "needCvTitle": "Empieza por tu hoja de vida",
+    "needCvBody": "Las ofertas se ordenan contra tu hoja de vida, así que primero hay que guardarla.",
+    "goToCv": "Ir a mi hoja de vida",
+    "summary": "{shown} mostradas de {total}; {excluded} descartadas por tus reglas.",
+    "pending": "Calculando qué tanto encajan {count} ofertas nuevas. Esta lista se actualiza sola.",
+    "empty": "Todavía no hay ofertas.",
+    "emptyHint": "Pulsa «Buscar ofertas nuevas» para traer algunas.",
+    "score": "Afinidad con tu hoja de vida: {score} de 100",
+    "noMatches": "Sin tecnologías en común",
+    "viewOffer": "Ver oferta",
+    "prepare": "Preparar postulación",
+    "preparing": "Preparando…",
+    "alsoOn": "También en {sources}",
+    "sources": {
+      "remotive": "Remotive",
+      "remoteok": "Remote OK",
+      "weworkremotely": "We Work Remotely"
+    },
+    "rules": {
+      "title": "Reglas que descartan una oferta",
+      "description": "Una oferta que incumpla alguna queda fuera de la lista.",
+      "excludeTitles": "Títulos a excluir",
+      "excludeTitlesHint": "Por ejemplo: sales, recruiter",
+      "excludeText": "Textos a excluir",
+      "excludeTextHint": "Por ejemplo: security clearance",
+      "locations": "Ubicaciones aceptadas",
+      "locationsHint": "Vacío = cualquiera. Por ejemplo: worldwide, latam",
+      "requiredTechnologies": "Tecnologías obligatorias",
+      "requiredTechnologiesHint": "La oferta debe mencionarlas todas",
+      "save": "Guardar reglas",
+      "saved": "Reglas guardadas."
+    }
+  },
+  "applications": {
+    "metaTitle": "Postulaciones",
+    "title": "Postulaciones",
+    "description": "Lo que preparaste para cada oferta. Careers no envía nada: aplicas en la página de la oferta y lo registras aquí.",
+    "empty": "Todavía no preparaste ninguna postulación.",
+    "emptyHint": "Empieza desde las ofertas.",
+    "goToOffers": "Ver ofertas",
+    "back": "Postulaciones",
+    "never": "Careers no envía nada. Revisa tu hoja de vida y la carta, aplica en la página de la oferta y después márcala aquí.",
+    "letter": "Carta de presentación",
+    "letterHint": "Sale de una plantilla con datos de tu propia hoja de vida y solo nombra tecnologías que declaraste. Puedes reescribirla.",
+    "saveLetter": "Guardar carta",
+    "letterSaved": "Carta guardada.",
+    "next": "Siguiente paso",
+    "openOffer": "Abrir la oferta para aplicar",
+    "final": "Este estado es definitivo.",
+    "cv": "Hoja de vida para esta oferta",
+    "cvHint": "Es la misma hoja de vida, mostrando primero lo más relevante para esta oferta.",
+    "showPdf": "Ver PDF",
+    "refreshPdf": "Actualizar",
+    "status": {
+      "Draft": "Borrador",
+      "Confirmed": "Confirmada",
+      "Sent": "Enviada",
+      "Discarded": "Descartada"
+    },
+    "actions": {
+      "confirm": "Ya la revisé",
+      "sent": "Marcar como enviada",
+      "discard": "Descartar"
+    },
+    "done": {
+      "confirm": "Marcada como revisada.",
+      "sent": "Marcada como enviada.",
+      "discard": "Postulación descartada."
+    },
+    "prepared": "Borrador listo."
+  },
+  "validation": {
+    "required": "obligatorio",
+    "invalid-email": "no es un correo válido",
+    "invalid-url": "debe ser una dirección http(s)",
+    "tooLong": "demasiado largo (máx. {max})",
+    "tooMany": "demasiados elementos (máx. {max})",
+    "other": "no es válido"
+  },
+  "errors": {
+    "cv-missing": "Guarda primero tu hoja de vida.",
+    "ai-unavailable": "El servicio de IA no está disponible ahora. No se guardó nada; inténtalo en un momento.",
+    "invalid-transition": "Ese paso no está permitido desde el estado actual de la postulación.",
+    "already-prepared": "Esta oferta ya tiene un borrador.",
+    "unavailable": "El servicio de Careers no está disponible ahora.",
+    "notConfigured": "El módulo Careers no está configurado."
+  },
+  "loadFailed": "No se pudo cargar Careers.",
+  "retry": "Reintentar",
+  "pdfFailed": "No se pudo generar el PDF."
+}

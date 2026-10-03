@@ -13,9 +13,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import type { User } from "@/features/auth";
-import { SidebarNav } from "./sidebar-nav";
+import { SidebarNav, type Features } from "./sidebar-nav";
 
-export function MobileNav({ user }: { user: User }) {
+export function MobileNav({ user, features }: { user: User; features: Features }) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("nav");
 
@@ -38,7 +38,7 @@ export function MobileNav({ user }: { user: User }) {
           <Logo />
         </div>
         <div className="px-3">
-          <SidebarNav user={user} onNavigate={() => setOpen(false)} />
+          <SidebarNav user={user} features={features} onNavigate={() => setOpen(false)} />
         </div>
       </SheetContent>
     </Sheet>
