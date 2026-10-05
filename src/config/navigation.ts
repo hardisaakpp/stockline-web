@@ -1,6 +1,7 @@
 import {
   Bell,
   Briefcase,
+  Eye,
   FileText,
   LayoutDashboard,
   MapPin,
@@ -18,6 +19,7 @@ export type NavItem = {
     | "dashboard"
     | "orders"
     | "myCv"
+    | "savedCv"
     | "jobOffers"
     | "applications"
     | "users"
@@ -53,6 +55,13 @@ export const NAVIGATION: readonly NavSection[] = [
         labelKey: "myCv",
         href: "/careers/cv",
         icon: FileText,
+        anyOf: [PERMISSIONS.careersUse],
+        feature: "careers",
+      },
+      {
+        labelKey: "savedCv",
+        href: "/careers/cv-view",
+        icon: Eye,
         anyOf: [PERMISSIONS.careersUse],
         feature: "careers",
       },

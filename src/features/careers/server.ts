@@ -5,6 +5,7 @@ export { careersApi } from "./api";
 export { ApplicationDetailView } from "./components/application-detail";
 export { ApplicationsList } from "./components/applications-list";
 export { CvEditor } from "./components/cv-editor";
+export { CvViewer } from "./components/cv-viewer";
 export { OffersView } from "./components/offers-view";
 
 /** Whether api-careers is configured. When it is not, the interface simply does not offer the module. */

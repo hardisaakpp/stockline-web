@@ -29,7 +29,8 @@
     "jobOffers": "Ofertas de empleo",
     "applications": "Postulaciones",
     "hideSidebar": "Ocultar menú lateral",
-    "showSidebar": "Mostrar menú lateral"
+    "showSidebar": "Mostrar menú lateral",
+    "savedCv": "Hoja de vida guardada"
   },
   "auth": {
     "login": {

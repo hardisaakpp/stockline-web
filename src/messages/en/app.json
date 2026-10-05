@@ -29,7 +29,8 @@
     "jobOffers": "Job offers",
     "applications": "Applications",
     "hideSidebar": "Hide sidebar",
-    "showSidebar": "Show sidebar"
+    "showSidebar": "Show sidebar",
+    "savedCv": "Saved CV"
   },
   "auth": {
     "login": {

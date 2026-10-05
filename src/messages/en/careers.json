@@ -196,5 +196,24 @@
   },
   "loadFailed": "Careers could not be loaded.",
   "retry": "Try again",
-  "pdfFailed": "The PDF could not be generated."
+  "pdfFailed": "The PDF could not be generated.",
+  "view": {
+    "metaTitle": "Saved CV",
+    "title": "Saved CV",
+    "description": "This is how your CV is saved. To change anything, use Edit.",
+    "emptyTitle": "There is no saved CV yet",
+    "emptyBody": "Fill in the form and press Save to see it here.",
+    "emptyAction": "Go to the form",
+    "edit": "Edit",
+    "showPdf": "View PDF",
+    "loadingPdf": "Generating…",
+    "refreshPdf": "Refresh PDF",
+    "pdfEmpty": "Press “View PDF” to see how it looks as a PDF. The first time takes a few seconds.",
+    "pdfTitle": "PDF of the saved CV",
+    "notInPdf": "Not in the PDF",
+    "current": "present",
+    "none": "No data",
+    "contact": "Contact",
+    "legend": "Anything marked “Not in the PDF” is saved but left out of the document."
+  }
 }

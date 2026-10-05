@@ -196,5 +196,24 @@
   },
   "loadFailed": "No se pudo cargar Careers.",
   "retry": "Reintentar",
-  "pdfFailed": "No se pudo generar el PDF."
+  "pdfFailed": "No se pudo generar el PDF.",
+  "view": {
+    "metaTitle": "Hoja de vida guardada",
+    "title": "Hoja de vida guardada",
+    "description": "Así está guardada tu hoja de vida. Para cambiar algo, usa Editar.",
+    "emptyTitle": "Aún no hay una hoja de vida guardada",
+    "emptyBody": "Completa el formulario y pulsa Guardar para verla aquí.",
+    "emptyAction": "Ir al formulario",
+    "edit": "Editar",
+    "showPdf": "Ver PDF",
+    "loadingPdf": "Generando…",
+    "refreshPdf": "Actualizar PDF",
+    "pdfEmpty": "Pulsa «Ver PDF» para ver cómo queda en el PDF. La primera vez tarda unos segundos.",
+    "pdfTitle": "PDF de la hoja de vida guardada",
+    "notInPdf": "No sale en el PDF",
+    "current": "actual",
+    "none": "Sin datos",
+    "contact": "Contacto",
+    "legend": "Lo marcado como «No sale en el PDF» está guardado pero fuera del documento."
+  }
 }

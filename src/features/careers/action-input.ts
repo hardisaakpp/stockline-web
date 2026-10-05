@@ -7,6 +7,7 @@ const id = z.uuid();
 export const inputs = {
   saveCv: z.tuple([cvSchema]),
   previewCv: z.tuple([cvSchema]),
+  none: z.tuple([]),
   savePreferences: z.tuple([preferencesSchema]),
   refreshOffers: z.tuple([z.boolean()]),
   prepare: z.tuple([id]),

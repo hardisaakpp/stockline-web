@@ -21,6 +21,11 @@ export async function previewCv(values: unknown) {
   );
 }
 
+/** The PDF of the CV as it is saved (what the viewer page shows), as base64. */
+export async function savedCvPdf() {
+  return runAction(inputs.none, [], async () => toBase64(await careersApi.cvPdf()));
+}
+
 export async function savePreferences(values: unknown) {
   return runAction(inputs.savePreferences, [values], async ([preferences]) => {
     await careersApi.savePreferences(preferences);
