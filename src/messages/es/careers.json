@@ -19,7 +19,10 @@
       "experience": "Experiencia",
       "projects": "Proyectos",
       "education": "Educación",
-      "skills": "Habilidades"
+      "skills": "Habilidades",
+      "research": "Investigación",
+      "certifications": "Certificaciones",
+      "languages": "Idiomas"
     },
     "fields": {
       "fullName": "Nombre completo",
@@ -49,14 +52,26 @@
       "degree": "Título",
       "institution": "Institución",
       "skillGroup": "Grupo",
-      "skillItems": "Habilidades"
+      "skillItems": "Habilidades",
+      "city": "Ciudad y país",
+      "certName": "Certificación",
+      "issuer": "Emisor",
+      "year": "Año",
+      "language": "Idioma",
+      "level": "Nivel",
+      "levelHint": "Por ejemplo B2, Nativo",
+      "researchRole": "Rol",
+      "researchOrg": "Laboratorio o institución"
     },
     "add": {
       "link": "Añadir enlace",
       "experience": "Añadir experiencia",
       "project": "Añadir proyecto",
       "education": "Añadir estudio",
-      "skills": "Añadir grupo"
+      "skills": "Añadir grupo",
+      "research": "Añadir investigación",
+      "certification": "Añadir certificación",
+      "language": "Añadir idioma"
     },
     "remove": "Quitar {item} {number}",
     "items": {
@@ -64,7 +79,19 @@
       "experience": "experiencia",
       "project": "proyecto",
       "education": "estudio",
-      "skills": "grupo"
+      "skills": "grupo",
+      "research": "investigación",
+      "certification": "certificación",
+      "language": "idioma"
+    },
+    "includeInPdf": "Incluir en el PDF",
+    "includeSection": "Mostrar esta sección en el PDF",
+    "includeHint": "Todo se guarda; esto solo decide qué sale en el PDF.",
+    "hiddenNote": "Esta sección no saldrá en el PDF, pero se conserva.",
+    "contactShow": {
+      "phone": "Mostrar teléfono en el PDF",
+      "location": "Mostrar ubicación en el PDF",
+      "links": "Mostrar enlaces en el PDF"
     }
   },
   "offers": {

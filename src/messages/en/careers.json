@@ -19,7 +19,10 @@
       "experience": "Experience",
       "projects": "Projects",
       "education": "Education",
-      "skills": "Skills"
+      "skills": "Skills",
+      "research": "Research",
+      "certifications": "Certifications",
+      "languages": "Languages"
     },
     "fields": {
       "fullName": "Full name",
@@ -49,14 +52,26 @@
       "degree": "Degree",
       "institution": "Institution",
       "skillGroup": "Group",
-      "skillItems": "Skills"
+      "skillItems": "Skills",
+      "city": "City and country",
+      "certName": "Certification",
+      "issuer": "Issuer",
+      "year": "Year",
+      "language": "Language",
+      "level": "Level",
+      "levelHint": "For example B2, Native",
+      "researchRole": "Role",
+      "researchOrg": "Lab or institution"
     },
     "add": {
       "link": "Add link",
       "experience": "Add experience",
       "project": "Add project",
       "education": "Add education",
-      "skills": "Add group"
+      "skills": "Add group",
+      "research": "Add research",
+      "certification": "Add certification",
+      "language": "Add language"
     },
     "remove": "Remove {item} {number}",
     "items": {
@@ -64,7 +79,19 @@
       "experience": "experience",
       "project": "project",
       "education": "education",
-      "skills": "group"
+      "skills": "group",
+      "research": "research",
+      "certification": "certification",
+      "language": "language"
+    },
+    "includeInPdf": "Include in the PDF",
+    "includeSection": "Show this section in the PDF",
+    "includeHint": "Everything is saved; this only decides what appears in the PDF.",
+    "hiddenNote": "This section will not appear in the PDF, but it is kept.",
+    "contactShow": {
+      "phone": "Show phone in the PDF",
+      "location": "Show location in the PDF",
+      "links": "Show links in the PDF"
     }
   },
   "offers": {

@@ -2,18 +2,43 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { SwitchField } from "@/components/ui/form-controls";
 import { FormField } from "@/components/ui/form-field";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import type { Cv } from "../schemas";
+import type { Cv, HiddenKey } from "../schemas";
 import { LinesInput, ListInput, Repeater } from "./list-inputs";
 
 type SectionProps<K extends keyof Cv> = { value: Cv[K]; onChange: (value: Cv[K]) => void };
 const orNull = (text: string) => text || null;
 
+/** Per-entry switch: an entry that is off stays in the CV but is left out of the PDF. */
+export function IncludeToggle({
+  id,
+  checked,
+  onChange,
+}: {
+  id: string;
+  checked: boolean;
+  onChange: (include: boolean) => void;
+}) {
+  const t = useTranslations("careers.cv");
+  return (
+    <SwitchField id={id} label={t("includeInPdf")} checked={checked} onCheckedChange={onChange} />
+  );
+}
+
 type LinkRow = { label: string; url: string };
 
-export function ContactSection({ value, onChange }: SectionProps<"contact">) {
+/** What the person can switch off in the contact block; `shown` says whether each is currently in the PDF. */
+type ContactVisibility = {
+  shown: (key: HiddenKey) => boolean;
+  setShown: (key: HiddenKey, shown: boolean) => void;
+};
+
+export function ContactSection({
+  value,
+  onChange,
+  visibility,
+}: SectionProps<"contact"> & { visibility: ContactVisibility }) {
   const t = useTranslations("careers.cv");
   // Rows live here because a new row has no label yet, and the stored shape (label -> url) cannot hold that.
   const [rows, setRows] = useState<LinkRow[]>(() =>
@@ -54,6 +79,26 @@ export function ContactSection({ value, onChange }: SectionProps<"contact">) {
           onChange={(e) => onChange({ ...value, location: orNull(e.target.value) })}
         />
       </div>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <SwitchField
+          id="show-phone"
+          label={t("contactShow.phone")}
+          checked={visibility.shown("contacto.telefono")}
+          onCheckedChange={(on) => visibility.setShown("contacto.telefono", on)}
+        />
+        <SwitchField
+          id="show-location"
+          label={t("contactShow.location")}
+          checked={visibility.shown("contacto.ubicacion")}
+          onCheckedChange={(on) => visibility.setShown("contacto.ubicacion", on)}
+        />
+        <SwitchField
+          id="show-links"
+          label={t("contactShow.links")}
+          checked={visibility.shown("contacto.enlaces")}
+          onCheckedChange={(on) => visibility.setShown("contacto.enlaces", on)}
+        />
+      </div>
       <Repeater
         items={rows}
         onChange={setLinks}
@@ -83,46 +128,66 @@ export function ContactSection({ value, onChange }: SectionProps<"contact">) {
   );
 }
 
-export function ExperienceSection({ value, onChange }: SectionProps<"experience">) {
+/** Work and research share a shape (role, organization, dates, achievements); `kind` only changes ids and labels. */
+export function ExperienceSection({
+  value,
+  onChange,
+  kind = "experience",
+}: SectionProps<"experience"> & { kind?: "experience" | "research" }) {
   const t = useTranslations("careers.cv");
+  const prefix = kind === "research" ? "res" : "exp";
   return (
     <Repeater
       items={value}
       onChange={onChange}
-      addLabel={t("add.experience")}
-      itemLabel={t("items.experience")}
+      addLabel={t(`add.${kind}`)}
+      itemLabel={t(`items.${kind}`)}
       blank={() => ({
         role: "",
         organization: "",
         from: "",
         to: null,
+        location: null,
         achievements: [],
         technologies: [],
+        include: true,
       })}
       render={(item, i, update) => (
         <>
+          <IncludeToggle
+            id={`${prefix}-include-${i}`}
+            checked={item.include}
+            onChange={(include) => update({ include })}
+          />
           <div className="grid gap-4 sm:grid-cols-2">
             <FormField
-              id={`exp-role-${i}`}
+              id={`${prefix}-role-${i}`}
               label={t("fields.role")}
               value={item.role}
               onChange={(e) => update({ role: e.target.value })}
             />
             <FormField
-              id={`exp-org-${i}`}
+              id={`${prefix}-org-${i}`}
               label={t("fields.organization")}
               value={item.organization}
               onChange={(e) => update({ organization: e.target.value })}
             />
             <FormField
-              id={`exp-from-${i}`}
+              id={`${prefix}-city-${i}`}
+              label={t("fields.city")}
+              value={item.location ?? ""}
+              onChange={(e) => update({ location: orNull(e.target.value) })}
+            />
+            <div className="hidden sm:block" />
+            <FormField
+              id={`${prefix}-from-${i}`}
               label={t("fields.from")}
               hint={t("fields.fromHint")}
               value={item.from}
               onChange={(e) => update({ from: e.target.value })}
             />
             <FormField
-              id={`exp-to-${i}`}
+              id={`${prefix}-to-${i}`}
               label={t("fields.to")}
               hint={t("fields.toHint")}
               value={item.to ?? ""}
@@ -130,135 +195,19 @@ export function ExperienceSection({ value, onChange }: SectionProps<"experience"
             />
           </div>
           <LinesInput
-            id={`exp-ach-${i}`}
+            id={`${prefix}-ach-${i}`}
             label={t("fields.achievements")}
             hint={t("fields.achievementsHint")}
             value={item.achievements}
             onChange={(achievements) => update({ achievements })}
           />
           <ListInput
-            id={`exp-tech-${i}`}
+            id={`${prefix}-tech-${i}`}
             label={t("fields.technologies")}
             value={item.technologies}
             onChange={(technologies) => update({ technologies })}
           />
         </>
-      )}
-    />
-  );
-}
-
-export function ProjectsSection({ value, onChange }: SectionProps<"projects">) {
-  const t = useTranslations("careers.cv");
-  return (
-    <Repeater
-      items={value}
-      onChange={onChange}
-      addLabel={t("add.project")}
-      itemLabel={t("items.project")}
-      blank={() => ({ name: "", description: "", url: null, technologies: [] })}
-      render={(item, i, update) => (
-        <>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <FormField
-              id={`prj-name-${i}`}
-              label={t("fields.projectName")}
-              value={item.name}
-              onChange={(e) => update({ name: e.target.value })}
-            />
-            <FormField
-              id={`prj-url-${i}`}
-              label={t("fields.projectUrl")}
-              value={item.url ?? ""}
-              onChange={(e) => update({ url: orNull(e.target.value) })}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={`prj-desc-${i}`}>{t("fields.description")}</Label>
-            <Textarea
-              id={`prj-desc-${i}`}
-              rows={2}
-              value={item.description}
-              onChange={(e) => update({ description: e.target.value })}
-            />
-          </div>
-          <ListInput
-            id={`prj-tech-${i}`}
-            label={t("fields.technologies")}
-            value={item.technologies}
-            onChange={(technologies) => update({ technologies })}
-          />
-        </>
-      )}
-    />
-  );
-}
-
-export function EducationSection({ value, onChange }: SectionProps<"education">) {
-  const t = useTranslations("careers.cv");
-  return (
-    <Repeater
-      items={value}
-      onChange={onChange}
-      addLabel={t("add.education")}
-      itemLabel={t("items.education")}
-      blank={() => ({ title: "", institution: "", from: "", to: null })}
-      render={(item, i, update) => (
-        <div className="grid gap-4 sm:grid-cols-2">
-          <FormField
-            id={`edu-title-${i}`}
-            label={t("fields.degree")}
-            value={item.title}
-            onChange={(e) => update({ title: e.target.value })}
-          />
-          <FormField
-            id={`edu-inst-${i}`}
-            label={t("fields.institution")}
-            value={item.institution}
-            onChange={(e) => update({ institution: e.target.value })}
-          />
-          <FormField
-            id={`edu-from-${i}`}
-            label={t("fields.from")}
-            value={item.from}
-            onChange={(e) => update({ from: e.target.value })}
-          />
-          <FormField
-            id={`edu-to-${i}`}
-            label={t("fields.to")}
-            value={item.to ?? ""}
-            onChange={(e) => update({ to: orNull(e.target.value) })}
-          />
-        </div>
-      )}
-    />
-  );
-}
-
-export function SkillsSection({ value, onChange }: SectionProps<"skills">) {
-  const t = useTranslations("careers.cv");
-  return (
-    <Repeater
-      items={value}
-      onChange={onChange}
-      addLabel={t("add.skills")}
-      itemLabel={t("items.skills")}
-      blank={() => ({ name: "", items: [] })}
-      render={(item, i, update) => (
-        <div className="grid gap-4 sm:grid-cols-[1fr_2fr]">
-          <FormField
-            id={`skill-name-${i}`}
-            label={t("fields.skillGroup")}
-            value={item.name}
-            onChange={(e) => update({ name: e.target.value })}
-          />
-          <ListInput
-            id={`skill-items-${i}`}
-            label={t("fields.skillItems")}
-            value={item.items}
-            onChange={(items) => update({ items })}
-          />
-        </div>
       )}
     />
   );

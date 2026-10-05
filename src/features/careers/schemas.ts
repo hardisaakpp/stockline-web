@@ -2,6 +2,34 @@ import { z } from "zod";
 
 /** The shapes api-careers answers with. Every response is validated: a contract change fails loudly, not as a blank screen. */
 
+/** Sections and contact details a person can keep out of the PDF (stored either way). Mirrors CvDocument.HiddenKeys in api-careers. */
+export const HIDDEN_KEYS = [
+  "resumen",
+  "experiencia",
+  "investigacion",
+  "proyectos",
+  "educacion",
+  "habilidades",
+  "certificaciones",
+  "idiomas",
+  "contacto.telefono",
+  "contacto.ubicacion",
+  "contacto.enlaces",
+] as const;
+export type HiddenKey = (typeof HIDDEN_KEYS)[number];
+
+const experienceSchema = z.object({
+  role: z.string(),
+  organization: z.string(),
+  from: z.string(),
+  to: z.string().nullable(),
+  location: z.string().nullable(),
+  achievements: z.array(z.string()),
+  technologies: z.array(z.string()),
+  /** False = kept in the CV but left out of the PDF. */
+  include: z.boolean(),
+});
+
 export const cvSchema = z.object({
   fullName: z.string(),
   headline: z.string(),
@@ -12,22 +40,15 @@ export const cvSchema = z.object({
     phone: z.string().nullable(),
     location: z.string().nullable(),
   }),
-  experience: z.array(
-    z.object({
-      role: z.string(),
-      organization: z.string(),
-      from: z.string(),
-      to: z.string().nullable(),
-      achievements: z.array(z.string()),
-      technologies: z.array(z.string()),
-    }),
-  ),
+  experience: z.array(experienceSchema),
+  research: z.array(experienceSchema),
   projects: z.array(
     z.object({
       name: z.string(),
       description: z.string(),
       url: z.string().nullable(),
       technologies: z.array(z.string()),
+      include: z.boolean(),
     }),
   ),
   education: z.array(
@@ -36,11 +57,20 @@ export const cvSchema = z.object({
       institution: z.string(),
       from: z.string(),
       to: z.string().nullable(),
+      location: z.string().nullable(),
+      include: z.boolean(),
     }),
   ),
   skills: z.array(z.object({ name: z.string(), items: z.array(z.string()) })),
+  certifications: z.array(
+    z.object({ name: z.string(), issuer: z.string(), year: z.string(), include: z.boolean() }),
+  ),
+  languages: z.array(z.object({ name: z.string(), level: z.string(), include: z.boolean() })),
+  /** Keys of what stays out of the PDF; empty = the recommended default. */
+  hidden: z.array(z.string()),
 });
 export type Cv = z.infer<typeof cvSchema>;
+export type CvExperience = z.infer<typeof experienceSchema>;
 
 export const cvResponseSchema = z.object({ cv: cvSchema, saved: z.boolean() });
 
