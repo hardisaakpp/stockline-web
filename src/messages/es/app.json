@@ -27,7 +27,9 @@
     "careers": "Careers",
     "myCv": "Mi hoja de vida",
     "jobOffers": "Ofertas de empleo",
-    "applications": "Postulaciones"
+    "applications": "Postulaciones",
+    "hideSidebar": "Ocultar menú lateral",
+    "showSidebar": "Mostrar menú lateral"
   },
   "auth": {
     "login": {
