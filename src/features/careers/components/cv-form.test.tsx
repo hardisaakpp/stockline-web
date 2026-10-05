@@ -19,6 +19,7 @@ const empty: Cv = {
   skills: [],
   certifications: [],
   languages: [],
+  references: [],
   hidden: [],
 };
 
@@ -48,7 +49,7 @@ describe("CvForm PDF switches", () => {
 
   it("switching a section off hides it from the PDF and switching it on again restores it", async () => {
     renderForm();
-    expect(screen.getAllByRole("switch", { name: /show this section/i })).toHaveLength(7);
+    expect(screen.getAllByRole("switch", { name: /show this section/i })).toHaveLength(8);
 
     await userEvent.click(document.getElementById("show-investigacion")!);
     expect(latest().hidden).toEqual(["investigacion"]);

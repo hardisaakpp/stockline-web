@@ -176,6 +176,13 @@ export function CvSummary({ cv }: { cv: Cv }) {
           {(l, i) => <Entry key={i} out={!l.include} title={l.name} meta={l.level} />}
         </Rows>
       </Block>
+      <Block title={t("cv.sections.references")} out={out("referencias")}>
+        <Rows items={cv.references}>
+          {(r, i) => (
+            <Entry key={i} out={!r.include} title={r.name} meta={joined(r.role, r.contact)} />
+          )}
+        </Rows>
+      </Block>
     </div>
   );
 }

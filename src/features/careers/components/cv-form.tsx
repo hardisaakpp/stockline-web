@@ -14,6 +14,7 @@ import {
   EducationSection,
   LanguagesSection,
   ProjectsSection,
+  ReferencesSection,
   SkillsSection,
 } from "./cv-sections-more";
 
@@ -131,6 +132,9 @@ export function CvForm({ cv, onChange: edit }: { cv: Cv; onChange: (patch: Parti
       </Section>
       <Section title={t("sections.languages")} toggle={toggle("idiomas")}>
         <LanguagesSection value={cv.languages} onChange={(languages) => edit({ languages })} />
+      </Section>
+      <Section title={t("sections.references")} toggle={toggle("referencias")}>
+        <ReferencesSection value={cv.references} onChange={(references) => edit({ references })} />
       </Section>
     </div>
   );

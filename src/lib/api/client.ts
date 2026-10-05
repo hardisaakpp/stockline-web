@@ -6,6 +6,8 @@ export type RequestOptions = {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   /** Serialized as JSON. */
   body?: unknown;
+  /** A file sent as it is (instead of JSON), e.g. an uploaded CV. */
+  file?: { bytes: ArrayBuffer; contentType: string };
   accessToken?: string;
   signal?: AbortSignal;
   /** Another service of the product (e.g. api-careers). Defaults to api-stockline. */
@@ -23,14 +25,19 @@ export class ApiContractError extends Error {
 async function send(path: string, options: RequestOptions): Promise<Response> {
   const headers: Record<string, string> = { accept: "application/json" };
   if (options.accessToken) headers.authorization = `Bearer ${options.accessToken}`;
-  if (options.body !== undefined) headers["content-type"] = "application/json";
+  if (options.file) headers["content-type"] = options.file.contentType;
+  else if (options.body !== undefined) headers["content-type"] = "application/json";
 
   let response: Response;
   try {
     response = await fetch(`${options.baseUrl ?? env.apiUrl}${path}`, {
       method: options.method ?? "GET",
       headers,
-      body: options.body === undefined ? undefined : JSON.stringify(options.body),
+      body: options.file
+        ? options.file.bytes
+        : options.body === undefined
+          ? undefined
+          : JSON.stringify(options.body),
       signal: options.signal,
       cache: "no-store",
     });

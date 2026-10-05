@@ -9,6 +9,7 @@ import {
   applicationListSchema,
   createdSchema,
   cvResponseSchema,
+  importResultSchema,
   offersSchema,
   preferencesSchema,
   refreshSchema,
@@ -17,7 +18,11 @@ import {
   type Preferences,
 } from "./schemas";
 
-type Options = { method?: "GET" | "POST" | "PUT"; body?: unknown };
+type Options = {
+  method?: "GET" | "POST" | "PUT";
+  body?: unknown;
+  file?: { bytes: ArrayBuffer; contentType: string };
+};
 
 function baseUrl(): string {
   if (!env.careersApiUrl) throw new ApiError(503, "The Careers module is not configured.");
@@ -54,6 +59,13 @@ export const careersApi = {
   saveCv: (cv: Cv) => authedVoid("/cv", { method: "PUT", body: cv }),
   /** PDF of the draft being edited (nothing is stored) or, without one, of the saved CV. */
   cvPdf: (draft?: Cv) => authedBytes("/cv/pdf", { method: "POST", body: draft }),
+
+  /** Reads a CV file (PDF, DOCX or a LinkedIn export) into a draft for the form: nothing is stored. */
+  importCv: (bytes: ArrayBuffer) =>
+    authed("/cv/import", importResultSchema, {
+      method: "POST",
+      file: { bytes, contentType: "application/octet-stream" },
+    }),
 
   preferences: () => authed("/preferences", preferencesSchema),
   savePreferences: (preferences: Preferences) =>

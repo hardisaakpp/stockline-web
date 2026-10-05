@@ -9,10 +9,12 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { previewCv, saveCv } from "../actions.server";
-import type { Cv } from "../schemas";
+import type { Cv, ImportResult } from "../schemas";
 import { useCareersError, useFieldProblems } from "../use-careers-error";
 import { usePdf } from "../use-pdf";
 import { CvForm } from "./cv-form";
+import { CvImport } from "./cv-import";
+import { CvImportNotice } from "./cv-import-notice";
 
 export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
   const t = useTranslations("careers.cv");
@@ -22,11 +24,23 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
   const [problems, setProblems] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [hasSaved, setHasSaved] = useState(saved);
+  const [imported, setImported] = useState<ImportResult | null>(null);
+  // The form's list inputs keep their own text, so a replaced CV needs a fresh form, not just new props.
+  const [formKey, setFormKey] = useState(0);
   const [busy, setBusy] = useState<"save" | "preview" | null>(null);
   const [, startTransition] = useTransition();
   const pdf = usePdf();
 
   const edit = (patch: Partial<Cv>) => setCv((current) => ({ ...current, ...patch }));
+
+  const onImported = (result: ImportResult) => {
+    setCv(result.cv);
+    setImported(result);
+    setFormKey((key) => key + 1);
+    setError(null);
+    setProblems([]);
+    toast.success(t("import.done"));
+  };
 
   const run = (kind: "save" | "preview") =>
     startTransition(async () => {
@@ -55,6 +69,7 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
         description={t("description")}
         actions={
           <>
+            <CvImport onImported={onImported} />
             <Button variant="outline" onClick={() => run("preview")} disabled={busy !== null}>
               {busy === "preview" && <Loader2 className="size-4 animate-spin" />}
               {busy === "preview" ? t("previewing") : t("preview")}
@@ -71,7 +86,8 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
         }
       />
 
-      {!hasSaved && (
+      {imported && <CvImportNotice result={imported} />}
+      {!hasSaved && !imported && (
         <Alert>
           <AlertDescription>{t("notSaved")}</AlertDescription>
         </Alert>
@@ -97,7 +113,7 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
       )}
 
       <div className="grid items-start gap-6 xl:grid-cols-2">
-        <CvForm cv={cv} onChange={edit} />
+        <CvForm key={formKey} cv={cv} onChange={edit} />
 
         <Card className="xl:sticky xl:top-24">
           <CardContent>

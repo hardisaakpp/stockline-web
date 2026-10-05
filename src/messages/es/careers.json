@@ -22,7 +22,8 @@
       "skills": "Habilidades",
       "research": "Investigación",
       "certifications": "Certificaciones",
-      "languages": "Idiomas"
+      "languages": "Idiomas",
+      "references": "Referencias"
     },
     "fields": {
       "fullName": "Nombre completo",
@@ -61,7 +62,10 @@
       "level": "Nivel",
       "levelHint": "Por ejemplo B2, Nativo",
       "researchRole": "Rol",
-      "researchOrg": "Laboratorio o institución"
+      "researchOrg": "Laboratorio o institución",
+      "refName": "Nombre",
+      "refRole": "Cargo o relación",
+      "refContact": "Teléfono o correo"
     },
     "add": {
       "link": "Añadir enlace",
@@ -71,7 +75,8 @@
       "skills": "Añadir grupo",
       "research": "Añadir investigación",
       "certification": "Añadir certificación",
-      "language": "Añadir idioma"
+      "language": "Añadir idioma",
+      "reference": "Añadir referencia"
     },
     "remove": "Quitar {item} {number}",
     "items": {
@@ -82,7 +87,8 @@
       "skills": "grupo",
       "research": "investigación",
       "certification": "certificación",
-      "language": "idioma"
+      "language": "idioma",
+      "reference": "referencia"
     },
     "includeInPdf": "Incluir en el PDF",
     "includeSection": "Mostrar esta sección en el PDF",
@@ -92,6 +98,35 @@
       "phone": "Mostrar teléfono en el PDF",
       "location": "Mostrar ubicación en el PDF",
       "links": "Mostrar enlaces en el PDF"
+    },
+    "import": {
+      "button": "Importar",
+      "title": "Importar una hoja de vida",
+      "description": "Sube un archivo y rellenamos el formulario por ti. No se guarda nada hasta que lo revises y pulses Guardar.",
+      "choose": "Elegir archivo",
+      "drop": "PDF, Word (.docx) o el ZIP de LinkedIn · máximo 5 MB",
+      "remove": "Quitar archivo",
+      "replaces": "Reemplazará lo que hay ahora en el formulario (lo que ya guardaste no cambia hasta que guardes).",
+      "slow": "Puede tardar hasta un minuto: la lectura se hace en este equipo, sin enviar tus datos a terceros.",
+      "run": "Importar",
+      "running": "Leyendo…",
+      "cancel": "Cancelar",
+      "linkedinTitle": "¿Tienes LinkedIn?",
+      "linkedinBody": "LinkedIn no permite conectarse directamente de forma gratuita, pero puedes descargar tus datos: Configuración → Privacidad de los datos → «Obtener una copia de tus datos» → elige Perfil, Puestos, Educación, Aptitudes, Certificaciones e Idiomas. Te llega un ZIP: súbelo tal cual.",
+      "onlyKnown": "Solo se aceptan archivos PDF, DOCX o el ZIP de LinkedIn.",
+      "tooLarge": "El archivo pesa más de 5 MB.",
+      "done": "Hoja de vida importada. Revisa cada sección y pulsa Guardar.",
+      "noticeTitle": "Importado desde {source}. Revisa los datos antes de guardar.",
+      "source": {
+        "pdf": "un PDF",
+        "docx": "un documento Word",
+        "linkedin": "LinkedIn"
+      },
+      "warnings": {
+        "unverified": "{count, plural, one {Un texto que la lectura no encontró en el documento se omitió} other {# textos que la lectura no encontró en el documento se omitieron}}: complétalo a mano si hacía falta.",
+        "linkedinNoAchievements": "LinkedIn no exporta logros con viñetas: añade los logros de cada experiencia.",
+        "referencesHidden": "Las referencias quedaron fuera del PDF; actívalas en su sección si quieres incluirlas."
+      }
     }
   },
   "offers": {
@@ -192,7 +227,14 @@
     "invalid-transition": "Ese paso no está permitido desde el estado actual de la postulación.",
     "already-prepared": "Esta oferta ya tiene un borrador.",
     "unavailable": "El servicio de Careers no está disponible ahora.",
-    "notConfigured": "El módulo Careers no está configurado."
+    "notConfigured": "El módulo Careers no está configurado.",
+    "import-sin-texto": "El PDF no tiene texto que se pueda leer (parece un escaneo). Prueba con otro archivo o llena el formulario a mano.",
+    "import-formato-desconocido": "No reconozco ese archivo. Usa un PDF, un Word (.docx) o el ZIP de LinkedIn.",
+    "import-demasiado-grande": "El archivo es demasiado grande (máximo 5 MB).",
+    "import-ilegible": "No se pudo leer el archivo: puede estar dañado o protegido.",
+    "import-vacio": "El archivo está vacío.",
+    "import-zip-sin-datos": "Ese ZIP no trae los archivos de perfil de LinkedIn (Profile, Positions, Education…).",
+    "import-ia-fallo": "No se pudo interpretar el documento ahora. Inténtalo de nuevo o llena el formulario a mano."
   },
   "loadFailed": "No se pudo cargar Careers.",
   "retry": "Reintentar",

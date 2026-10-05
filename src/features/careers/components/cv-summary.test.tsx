@@ -43,6 +43,7 @@ const cv: Cv = {
   skills: [{ name: "Languages", items: ["C#", "TypeScript"] }],
   certifications: [{ name: "Scrum", issuer: "Certiprof", year: "2024", include: true }],
   languages: [],
+  references: [],
   hidden: ["contacto.telefono", "habilidades"],
 };
 

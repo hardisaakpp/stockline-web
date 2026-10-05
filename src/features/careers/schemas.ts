@@ -12,6 +12,7 @@ export const HIDDEN_KEYS = [
   "habilidades",
   "certificaciones",
   "idiomas",
+  "referencias",
   "contacto.telefono",
   "contacto.ubicacion",
   "contacto.enlaces",
@@ -66,11 +67,28 @@ export const cvSchema = z.object({
     z.object({ name: z.string(), issuer: z.string(), year: z.string(), include: z.boolean() }),
   ),
   languages: z.array(z.object({ name: z.string(), level: z.string(), include: z.boolean() })),
+  references: z.array(
+    z.object({ name: z.string(), role: z.string(), contact: z.string(), include: z.boolean() }),
+  ),
   /** Keys of what stays out of the PDF; empty = the recommended default. */
   hidden: z.array(z.string()),
 });
 export type Cv = z.infer<typeof cvSchema>;
 export type CvExperience = z.infer<typeof experienceSchema>;
+
+/** The largest CV file api-careers reads (it enforces the same limit) and the kinds it accepts. */
+export const MAX_IMPORT_BYTES = 5 * 1024 * 1024;
+export const IMPORT_EXTENSIONS = [".pdf", ".docx", ".zip"] as const;
+
+/** A CV read from a file (PDF, DOCX or a LinkedIn export): a draft for the form, nothing is stored. */
+export const IMPORT_SOURCES = ["pdf", "docx", "linkedin"] as const;
+export const importResultSchema = z.object({
+  cv: cvSchema,
+  source: z.enum(IMPORT_SOURCES),
+  /** Stable codes (e.g. `no-verificado:3`) the interface words. */
+  warnings: z.array(z.string()),
+});
+export type ImportResult = z.infer<typeof importResultSchema>;
 
 export const cvResponseSchema = z.object({ cv: cvSchema, saved: z.boolean() });
 

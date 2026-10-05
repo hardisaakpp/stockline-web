@@ -230,3 +230,45 @@ export function LanguagesSection({ value, onChange }: SectionProps<"languages">)
     />
   );
 }
+
+export function ReferencesSection({ value, onChange }: SectionProps<"references">) {
+  const t = useTranslations("careers.cv");
+  return (
+    <Repeater
+      items={value}
+      onChange={onChange}
+      addLabel={t("add.reference")}
+      itemLabel={t("items.reference")}
+      blank={() => ({ name: "", role: "", contact: "", include: true })}
+      render={(item, i, update) => (
+        <>
+          <IncludeToggle
+            id={`ref-include-${i}`}
+            checked={item.include}
+            onChange={(include) => update({ include })}
+          />
+          <div className="grid gap-4 sm:grid-cols-3">
+            <FormField
+              id={`ref-name-${i}`}
+              label={t("fields.refName")}
+              value={item.name}
+              onChange={(e) => update({ name: e.target.value })}
+            />
+            <FormField
+              id={`ref-role-${i}`}
+              label={t("fields.refRole")}
+              value={item.role}
+              onChange={(e) => update({ role: e.target.value })}
+            />
+            <FormField
+              id={`ref-contact-${i}`}
+              label={t("fields.refContact")}
+              value={item.contact}
+              onChange={(e) => update({ contact: e.target.value })}
+            />
+          </div>
+        </>
+      )}
+    />
+  );
+}

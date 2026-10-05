@@ -26,6 +26,13 @@ export async function savedCvPdf() {
   return runAction(inputs.none, [], async () => toBase64(await careersApi.cvPdf()));
 }
 
+/** Reads an uploaded CV (PDF, DOCX or a LinkedIn ZIP) into a draft. Nothing is saved: the person reviews it first. */
+export async function importCv(formData: FormData) {
+  return runAction(inputs.importFile, [formData.get("file")], async ([file]) =>
+    careersApi.importCv(await file.arrayBuffer()),
+  );
+}
+
 export async function savePreferences(values: unknown) {
   return runAction(inputs.savePreferences, [values], async ([preferences]) => {
     await careersApi.savePreferences(preferences);

@@ -22,7 +22,8 @@
       "skills": "Skills",
       "research": "Research",
       "certifications": "Certifications",
-      "languages": "Languages"
+      "languages": "Languages",
+      "references": "References"
     },
     "fields": {
       "fullName": "Full name",
@@ -61,7 +62,10 @@
       "level": "Level",
       "levelHint": "For example B2, Native",
       "researchRole": "Role",
-      "researchOrg": "Lab or institution"
+      "researchOrg": "Lab or institution",
+      "refName": "Name",
+      "refRole": "Role or relationship",
+      "refContact": "Phone or email"
     },
     "add": {
       "link": "Add link",
@@ -71,7 +75,8 @@
       "skills": "Add group",
       "research": "Add research",
       "certification": "Add certification",
-      "language": "Add language"
+      "language": "Add language",
+      "reference": "Add reference"
     },
     "remove": "Remove {item} {number}",
     "items": {
@@ -82,7 +87,8 @@
       "skills": "group",
       "research": "research",
       "certification": "certification",
-      "language": "language"
+      "language": "language",
+      "reference": "reference"
     },
     "includeInPdf": "Include in the PDF",
     "includeSection": "Show this section in the PDF",
@@ -92,6 +98,35 @@
       "phone": "Show phone in the PDF",
       "location": "Show location in the PDF",
       "links": "Show links in the PDF"
+    },
+    "import": {
+      "button": "Import",
+      "title": "Import a CV",
+      "description": "Upload a file and we fill in the form for you. Nothing is saved until you review it and press Save.",
+      "choose": "Choose file",
+      "drop": "PDF, Word (.docx) or the LinkedIn ZIP · 5 MB maximum",
+      "remove": "Remove file",
+      "replaces": "It will replace what is in the form now (what you already saved does not change until you save).",
+      "slow": "It can take up to a minute: the file is read on this machine, without sending your data to third parties.",
+      "run": "Import",
+      "running": "Reading…",
+      "cancel": "Cancel",
+      "linkedinTitle": "Have LinkedIn?",
+      "linkedinBody": "LinkedIn does not offer a free direct connection, but you can download your data: Settings → Data privacy → “Get a copy of your data” → pick Profile, Positions, Education, Skills, Certifications and Languages. You get a ZIP: upload it as it is.",
+      "onlyKnown": "Only PDF, DOCX or the LinkedIn ZIP are accepted.",
+      "tooLarge": "The file is larger than 5 MB.",
+      "done": "CV imported. Review each section and press Save.",
+      "noticeTitle": "Imported from {source}. Review the data before saving.",
+      "source": {
+        "pdf": "a PDF",
+        "docx": "a Word document",
+        "linkedin": "LinkedIn"
+      },
+      "warnings": {
+        "unverified": "{count, plural, one {One text the reader could not find in the document was left out} other {# texts the reader could not find in the document were left out}}: fill it in by hand if it was needed.",
+        "linkedinNoAchievements": "LinkedIn does not export bulleted achievements: add the achievements of each position.",
+        "referencesHidden": "References were left out of the PDF; switch them on in their section to include them."
+      }
     }
   },
   "offers": {
@@ -192,7 +227,14 @@
     "invalid-transition": "That step is not allowed from the application's current status.",
     "already-prepared": "This offer already has a draft.",
     "unavailable": "The Careers service is not available right now.",
-    "notConfigured": "The Careers module is not configured."
+    "notConfigured": "The Careers module is not configured.",
+    "import-sin-texto": "The PDF has no readable text (it looks like a scan). Try another file or fill in the form by hand.",
+    "import-formato-desconocido": "I do not recognise that file. Use a PDF, a Word (.docx) or the LinkedIn ZIP.",
+    "import-demasiado-grande": "The file is too large (5 MB maximum).",
+    "import-ilegible": "The file could not be read: it may be damaged or protected.",
+    "import-vacio": "The file is empty.",
+    "import-zip-sin-datos": "That ZIP does not contain the LinkedIn profile files (Profile, Positions, Education…).",
+    "import-ia-fallo": "The document could not be interpreted right now. Try again or fill in the form by hand."
   },
   "loadFailed": "Careers could not be loaded.",
   "retry": "Try again",
