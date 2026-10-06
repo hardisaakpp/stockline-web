@@ -142,5 +142,9 @@
     "DIFFERENCE_NOT_ACKNOWLEDGED": "Faltan unidades. Omítelas o crea órdenes hijas.",
     "INVALID_SPLIT": "Las órdenes hijas deben cubrir exactamente las unidades faltantes.",
     "NO_DIFFERENCE": "No hay unidades faltantes que dividir."
+  },
+  "common": {
+    "download": "Descargar",
+    "generatingPdf": "Generando el PDF…"
   }
 }

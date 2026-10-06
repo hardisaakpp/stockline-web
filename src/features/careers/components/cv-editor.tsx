@@ -5,9 +5,9 @@ import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { PageHeader } from "@/components/feedback/page-header";
+import { PdfPreviewDialog } from "@/components/feedback/pdf-preview-dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { previewCv, saveCv } from "../actions.server";
 import type { Cv, ImportResult } from "../schemas";
 import { useCareersError, useFieldProblems } from "../use-careers-error";
@@ -28,6 +28,7 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
   // The form's list inputs keep their own text, so a replaced CV needs a fresh form, not just new props.
   const [formKey, setFormKey] = useState(0);
   const [busy, setBusy] = useState<"save" | "preview" | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const [, startTransition] = useTransition();
   const pdf = usePdf();
 
@@ -42,14 +43,18 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
     toast.success(t("import.done"));
   };
 
-  const run = (kind: "save" | "preview") =>
+  const run = (kind: "save" | "preview") => {
+    // Set before the transition: inside an async transition React commits every update only when it
+    // finishes, so the button label and the modal (with its spinner) would not appear while waiting.
+    setBusy(kind);
+    setError(null);
+    setProblems([]);
+    if (kind === "preview") setPreviewOpen(true);
     startTransition(async () => {
-      setBusy(kind);
-      setError(null);
-      setProblems([]);
       const result = kind === "save" ? await saveCv(cv) : await previewCv(cv);
       setBusy(null);
       if (!result.ok) {
+        setPreviewOpen(false);
         setError(describe(result.error));
         setProblems(result.error.fieldErrors ? problemsOf(result.error.fieldErrors) : []);
         return;
@@ -61,6 +66,7 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
         pdf.show(result.data as string);
       }
     });
+  };
 
   return (
     <div className="space-y-6">
@@ -112,25 +118,16 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
         </Alert>
       )}
 
-      <div className="grid items-start gap-6 xl:grid-cols-2">
-        <CvForm key={formKey} cv={cv} onChange={edit} />
+      <CvForm key={formKey} cv={cv} onChange={edit} />
 
-        <Card className="xl:sticky xl:top-24">
-          <CardContent>
-            {pdf.url ? (
-              <iframe
-                title={t("previewTitle")}
-                src={pdf.url}
-                className="h-[75vh] w-full rounded-lg border"
-              />
-            ) : (
-              <p className="px-6 py-16 text-center text-sm text-muted-foreground">
-                {t("previewEmpty")}
-              </p>
-            )}
-          </CardContent>
-        </Card>
-      </div>
+      <PdfPreviewDialog
+        open={previewOpen}
+        onOpenChange={setPreviewOpen}
+        title={t("previewTitle")}
+        url={pdf.url}
+        loading={busy === "preview"}
+        filename="hoja-de-vida.pdf"
+      />
     </div>
   );
 }

@@ -142,5 +142,9 @@
     "DIFFERENCE_NOT_ACKNOWLEDGED": "Some units are missing. Skip them or create child orders.",
     "INVALID_SPLIT": "The child orders must cover exactly the missing units.",
     "NO_DIFFERENCE": "There are no missing units to split."
+  },
+  "common": {
+    "download": "Download",
+    "generatingPdf": "Generating the PDF…"
   }
 }
