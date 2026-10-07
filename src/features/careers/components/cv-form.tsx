@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CollapseButton } from "@/components/ui/collapse-button";
@@ -10,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SwitchField } from "@/components/ui/form-controls";
 import type { Cv, HiddenKey } from "../schemas";
+import { sectionCounts, SECTION_IDS, type SectionCount, type SectionId } from "../cv-counts";
 import { useFolding } from "../use-folding";
 import { ContactSection, ExperienceSection } from "./cv-sections";
 import {
@@ -21,31 +23,43 @@ import {
   SkillsSection,
 } from "./cv-sections-more";
 
-const SECTION_IDS = [
-  "main",
-  "contact",
-  "education",
-  "experience",
-  "research",
-  "projects",
-  "skills",
-  "certifications",
-  "languages",
-  "references",
-] as const;
-type SectionId = (typeof SECTION_IDS)[number];
-
 type SectionProps = {
   id: SectionId;
   title: string;
   children: ReactNode;
+  /** What the section holds, shown as a number next to its title. */
+  count: SectionCount;
   collapsed: boolean;
   onToggleCollapse: () => void;
   /** When given, the section gets a switch deciding whether it appears in the PDF. */
   toggle?: { id: HiddenKey; shown: boolean; onChange: (shown: boolean) => void };
 };
 
-function Section({ id, title, children, collapsed, onToggleCollapse, toggle }: SectionProps) {
+/** The number beside a section title: entries it has, or fields filled out of its total. Muted at zero. */
+function CountBadge({ count }: { count: SectionCount }) {
+  const t = useTranslations("careers.cv.count");
+  const text = count.total === undefined ? `${count.filled}` : `${count.filled}/${count.total}`;
+  const spoken =
+    count.total === undefined
+      ? t("entries", { count: count.filled })
+      : t("fields", { filled: count.filled, total: count.total });
+  return (
+    <Badge variant={count.filled > 0 ? "secondary" : "outline"} className="tabular-nums">
+      <span aria-hidden>{text}</span>
+      <span className="sr-only">{spoken}</span>
+    </Badge>
+  );
+}
+
+function Section({
+  id,
+  title,
+  children,
+  count,
+  collapsed,
+  onToggleCollapse,
+  toggle,
+}: SectionProps) {
   const t = useTranslations("careers.cv");
   const off = toggle !== undefined && !toggle.shown;
   const panel = `section-${id}`;
@@ -59,6 +73,7 @@ function Section({ id, title, children, collapsed, onToggleCollapse, toggle }: S
           onClick={onToggleCollapse}
         >
           <CardTitle>{title}</CardTitle>
+          <CountBadge count={count} />
         </CollapseButton>
         {toggle && (
           <SwitchField
@@ -81,7 +96,11 @@ function Section({ id, title, children, collapsed, onToggleCollapse, toggle }: S
 /** Every section of the CV, each editing its own slice. */
 export function CvForm({ cv, onChange: edit }: { cv: Cv; onChange: (patch: Partial<Cv>) => void }) {
   const t = useTranslations("careers.cv");
-  const { fold, collapseAll, expandAll } = useFolding(SECTION_IDS);
+  const folding = useFolding(SECTION_IDS);
+  const counts = sectionCounts(cv);
+  // Props every section gets: its fold state and its count.
+  const fold = (id: SectionId) => ({ ...folding.fold(id), count: counts[id] });
+  const { collapseAll, expandAll } = folding;
   const shown = (key: HiddenKey) => !cv.hidden.includes(key);
   const setShown = (key: HiddenKey, on: boolean) =>
     edit({ hidden: on ? cv.hidden.filter((k) => k !== key) : [...new Set([...cv.hidden, key])] });

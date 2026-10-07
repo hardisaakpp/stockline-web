@@ -141,3 +141,42 @@ describe("collapsible entries", () => {
     expect(languageFields()).toHaveLength(1);
   });
 });
+
+describe("section counts", () => {
+  const badge = (title: string) =>
+    screen.getByRole("button", { name: new RegExp(`^collapse ${title}$`, "i") });
+
+  it("shows 0 in an empty list and X/total in the fixed sections", () => {
+    renderForm();
+    expect(badge("education")).toHaveTextContent("0");
+    expect(badge("education")).toHaveTextContent("no entries"); // read aloud, not just seen
+    expect(badge("contact")).toHaveTextContent("0/4");
+    expect(badge("contact")).toHaveTextContent("0 of 4 fields filled");
+  });
+
+  it("updates as the person types and only counts an entry once it has something", async () => {
+    renderForm();
+    await userEvent.click(screen.getByRole("button", { name: /add language/i }));
+    expect(badge("languages")).toHaveTextContent("no entries"); // added, still blank
+
+    await userEvent.type(screen.getByLabelText("Language"), "English");
+    expect(badge("languages")).toHaveTextContent("1 entry");
+
+    await userEvent.type(screen.getByLabelText("Email"), "ana@example.com");
+    expect(badge("contact")).toHaveTextContent("1/4");
+  });
+
+  it("stays visible while the section is collapsed, so what is missing can be seen at a glance", async () => {
+    renderForm({
+      ...empty,
+      languages: [
+        { name: "English", level: "B2", include: true },
+        { name: "Spanish", level: "Native", include: true },
+      ],
+    });
+    await userEvent.click(screen.getByRole("button", { name: /collapse all/i }));
+
+    expect(screen.getByRole("button", { name: /expand languages/i })).toHaveTextContent("2");
+    expect(screen.getByRole("button", { name: /expand education/i })).toHaveTextContent("0");
+  });
+});
