@@ -127,7 +127,11 @@
         "linkedinNoAchievements": "LinkedIn no exporta logros con viñetas: añade los logros de cada experiencia.",
         "referencesHidden": "Las referencias quedaron fuera del PDF; actívalas en su sección si quieres incluirlas."
       }
-    }
+    },
+    "collapse": "Colapsar {title}",
+    "expand": "Expandir {title}",
+    "collapseAll": "Colapsar todo",
+    "expandAll": "Expandir todo"
   },
   "offers": {
     "metaTitle": "Ofertas de empleo",

@@ -127,7 +127,11 @@
         "linkedinNoAchievements": "LinkedIn does not export bulleted achievements: add the achievements of each position.",
         "referencesHidden": "References were left out of the PDF; switch them on in their section to include them."
       }
-    }
+    },
+    "collapse": "Collapse {title}",
+    "expand": "Expand {title}",
+    "collapseAll": "Collapse all",
+    "expandAll": "Expand all"
   },
   "offers": {
     "metaTitle": "Job offers",

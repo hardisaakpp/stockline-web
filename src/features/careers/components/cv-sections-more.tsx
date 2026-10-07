@@ -19,6 +19,7 @@ export function ProjectsSection({ value, onChange }: SectionProps<"projects">) {
       onChange={onChange}
       addLabel={t("add.project")}
       itemLabel={t("items.project")}
+      summary={(item) => item.name}
       blank={() => ({ name: "", description: "", url: null, technologies: [], include: true })}
       render={(item, i, update) => (
         <>
@@ -70,6 +71,7 @@ export function EducationSection({ value, onChange }: SectionProps<"education">)
       onChange={onChange}
       addLabel={t("add.education")}
       itemLabel={t("items.education")}
+      summary={(item) => [item.title, item.institution].filter(Boolean).join(" · ")}
       blank={() => ({
         title: "",
         institution: "",
@@ -131,6 +133,7 @@ export function SkillsSection({ value, onChange }: SectionProps<"skills">) {
       onChange={onChange}
       addLabel={t("add.skills")}
       itemLabel={t("items.skills")}
+      summary={(item) => item.name}
       blank={() => ({ name: "", items: [] })}
       render={(item, i, update) => (
         <div className="grid gap-4 sm:grid-cols-[1fr_2fr]">
@@ -160,6 +163,7 @@ export function CertificationsSection({ value, onChange }: SectionProps<"certifi
       onChange={onChange}
       addLabel={t("add.certification")}
       itemLabel={t("items.certification")}
+      summary={(item) => item.name}
       blank={() => ({ name: "", issuer: "", year: "", include: true })}
       render={(item, i, update) => (
         <>
@@ -202,6 +206,7 @@ export function LanguagesSection({ value, onChange }: SectionProps<"languages">)
       onChange={onChange}
       addLabel={t("add.language")}
       itemLabel={t("items.language")}
+      summary={(item) => item.name}
       blank={() => ({ name: "", level: "", include: true })}
       render={(item, i, update) => (
         <>
@@ -239,6 +244,7 @@ export function ReferencesSection({ value, onChange }: SectionProps<"references"
       onChange={onChange}
       addLabel={t("add.reference")}
       itemLabel={t("items.reference")}
+      summary={(item) => item.name}
       blank={() => ({ name: "", role: "", contact: "", include: true })}
       render={(item, i, update) => (
         <>

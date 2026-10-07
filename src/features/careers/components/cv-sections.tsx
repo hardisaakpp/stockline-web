@@ -111,6 +111,7 @@ export function ContactSection({
         blank={() => ({ label: "", url: "" })}
         addLabel={t("add.link")}
         itemLabel={t("items.link")}
+        summary={(item) => item.label || item.url}
         render={(row, index, update) => (
           <div className="grid gap-4 sm:grid-cols-[1fr_2fr]">
             <FormField
@@ -148,6 +149,7 @@ export function ExperienceSection({
       onChange={onChange}
       addLabel={t(`add.${kind}`)}
       itemLabel={t(`items.${kind}`)}
+      summary={(item) => [item.role, item.organization].filter(Boolean).join(" · ")}
       blank={() => ({
         role: "",
         organization: "",

@@ -2,12 +2,15 @@
 
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CollapseButton } from "@/components/ui/collapse-button";
 import { FormField } from "@/components/ui/form-field";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SwitchField } from "@/components/ui/form-controls";
 import type { Cv, HiddenKey } from "../schemas";
+import { useFolding } from "../use-folding";
 import { ContactSection, ExperienceSection } from "./cv-sections";
 import {
   CertificationsSection,
@@ -18,20 +21,45 @@ import {
   SkillsSection,
 } from "./cv-sections-more";
 
+const SECTION_IDS = [
+  "main",
+  "contact",
+  "education",
+  "experience",
+  "research",
+  "projects",
+  "skills",
+  "certifications",
+  "languages",
+  "references",
+] as const;
+type SectionId = (typeof SECTION_IDS)[number];
+
 type SectionProps = {
+  id: SectionId;
   title: string;
   children: ReactNode;
+  collapsed: boolean;
+  onToggleCollapse: () => void;
   /** When given, the section gets a switch deciding whether it appears in the PDF. */
   toggle?: { id: HiddenKey; shown: boolean; onChange: (shown: boolean) => void };
 };
 
-function Section({ title, children, toggle }: SectionProps) {
+function Section({ id, title, children, collapsed, onToggleCollapse, toggle }: SectionProps) {
   const t = useTranslations("careers.cv");
   const off = toggle !== undefined && !toggle.shown;
+  const panel = `section-${id}`;
   return (
     <Card>
       <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-3">
-        <CardTitle>{title}</CardTitle>
+        <CollapseButton
+          expanded={!collapsed}
+          controls={panel}
+          label={t(collapsed ? "expand" : "collapse", { title })}
+          onClick={onToggleCollapse}
+        >
+          <CardTitle>{title}</CardTitle>
+        </CollapseButton>
         {toggle && (
           <SwitchField
             id={`show-${toggle.id}`}
@@ -41,7 +69,8 @@ function Section({ title, children, toggle }: SectionProps) {
           />
         )}
       </CardHeader>
-      <CardContent className="space-y-4">
+      {/* Hidden, not unmounted: what was typed in a collapsed section is still there when it opens. */}
+      <CardContent id={panel} hidden={collapsed} className="space-y-4">
         {off && <p className="text-xs text-muted-foreground">{t("hiddenNote")}</p>}
         <div className={off ? "space-y-4 opacity-60" : "space-y-4"}>{children}</div>
       </CardContent>
@@ -52,6 +81,7 @@ function Section({ title, children, toggle }: SectionProps) {
 /** Every section of the CV, each editing its own slice. */
 export function CvForm({ cv, onChange: edit }: { cv: Cv; onChange: (patch: Partial<Cv>) => void }) {
   const t = useTranslations("careers.cv");
+  const { fold, collapseAll, expandAll } = useFolding(SECTION_IDS);
   const shown = (key: HiddenKey) => !cv.hidden.includes(key);
   const setShown = (key: HiddenKey, on: boolean) =>
     edit({ hidden: on ? cv.hidden.filter((k) => k !== key) : [...new Set([...cv.hidden, key])] });
@@ -62,7 +92,15 @@ export function CvForm({ cv, onChange: edit }: { cv: Cv; onChange: (patch: Parti
   });
   return (
     <div className="space-y-6">
-      <Section title={t("sections.main")}>
+      <div className="flex justify-end gap-1">
+        <Button variant="ghost" size="sm" onClick={collapseAll}>
+          {t("collapseAll")}
+        </Button>
+        <Button variant="ghost" size="sm" onClick={expandAll}>
+          {t("expandAll")}
+        </Button>
+      </div>
+      <Section {...fold("main")} title={t("sections.main")}>
         <div className="grid gap-4 sm:grid-cols-2">
           <FormField
             id="cv-fullName"
@@ -98,42 +136,58 @@ export function CvForm({ cv, onChange: edit }: { cv: Cv; onChange: (patch: Parti
         </div>
         <p className="text-xs text-muted-foreground">{t("includeHint")}</p>
       </Section>
-      <Section title={t("sections.contact")}>
+      <Section {...fold("contact")} title={t("sections.contact")}>
         <ContactSection
           value={cv.contact}
           onChange={(contact) => edit({ contact })}
           visibility={{ shown, setShown }}
         />
       </Section>
-      <Section title={t("sections.education")} toggle={toggle("educacion")}>
+      <Section {...fold("education")} title={t("sections.education")} toggle={toggle("educacion")}>
         <EducationSection value={cv.education} onChange={(education) => edit({ education })} />
       </Section>
-      <Section title={t("sections.experience")} toggle={toggle("experiencia")}>
+      <Section
+        {...fold("experience")}
+        title={t("sections.experience")}
+        toggle={toggle("experiencia")}
+      >
         <ExperienceSection value={cv.experience} onChange={(experience) => edit({ experience })} />
       </Section>
-      <Section title={t("sections.research")} toggle={toggle("investigacion")}>
+      <Section
+        {...fold("research")}
+        title={t("sections.research")}
+        toggle={toggle("investigacion")}
+      >
         <ExperienceSection
           kind="research"
           value={cv.research}
           onChange={(research) => edit({ research })}
         />
       </Section>
-      <Section title={t("sections.projects")} toggle={toggle("proyectos")}>
+      <Section {...fold("projects")} title={t("sections.projects")} toggle={toggle("proyectos")}>
         <ProjectsSection value={cv.projects} onChange={(projects) => edit({ projects })} />
       </Section>
-      <Section title={t("sections.skills")} toggle={toggle("habilidades")}>
+      <Section {...fold("skills")} title={t("sections.skills")} toggle={toggle("habilidades")}>
         <SkillsSection value={cv.skills} onChange={(skills) => edit({ skills })} />
       </Section>
-      <Section title={t("sections.certifications")} toggle={toggle("certificaciones")}>
+      <Section
+        {...fold("certifications")}
+        title={t("sections.certifications")}
+        toggle={toggle("certificaciones")}
+      >
         <CertificationsSection
           value={cv.certifications}
           onChange={(certifications) => edit({ certifications })}
         />
       </Section>
-      <Section title={t("sections.languages")} toggle={toggle("idiomas")}>
+      <Section {...fold("languages")} title={t("sections.languages")} toggle={toggle("idiomas")}>
         <LanguagesSection value={cv.languages} onChange={(languages) => edit({ languages })} />
       </Section>
-      <Section title={t("sections.references")} toggle={toggle("referencias")}>
+      <Section
+        {...fold("references")}
+        title={t("sections.references")}
+        toggle={toggle("referencias")}
+      >
         <ReferencesSection value={cv.references} onChange={(references) => edit({ references })} />
       </Section>
     </div>
