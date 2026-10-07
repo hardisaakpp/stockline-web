@@ -9,7 +9,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { savePreferences } from "../actions.server";
 import type { Preferences } from "../schemas";
 import { useCareersError } from "../use-careers-error";
+import { FormField } from "@/components/ui/form-field";
 import { ListInput } from "./list-inputs";
+
+/** The years typed in the limit field: empty means no limit, anything else is a whole number within what api-careers accepts. */
+export function parseYears(text: string): number | null {
+  if (text.trim() === "") return null;
+  const years = Math.trunc(Number(text));
+  return Number.isFinite(years) ? Math.min(30, Math.max(0, years)) : null;
+}
 
 /** The hard rules: an offer that breaks any of them never appears in the list. */
 export function PreferencesPanel({ initial }: { initial: Preferences }) {
@@ -60,6 +68,17 @@ export function PreferencesPanel({ initial }: { initial: Preferences }) {
             hint={t("requiredTechnologiesHint")}
             value={value.requiredTechnologies}
             onChange={(requiredTechnologies) => setValue({ ...value, requiredTechnologies })}
+          />
+          <FormField
+            id="rule-max-years"
+            label={t("maxYears")}
+            hint={t("maxYearsHint")}
+            type="number"
+            min={0}
+            max={30}
+            inputMode="numeric"
+            value={value.maxYears ?? ""}
+            onChange={(e) => setValue({ ...value, maxYears: parseYears(e.target.value) })}
           />
         </div>
         <Button onClick={save} disabled={pending}>

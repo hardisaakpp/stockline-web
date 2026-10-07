@@ -180,7 +180,9 @@
       "requiredTechnologies": "Tecnologías obligatorias",
       "requiredTechnologiesHint": "La oferta debe mencionarlas todas",
       "save": "Guardar reglas",
-      "saved": "Reglas guardadas."
+      "saved": "Reglas guardadas.",
+      "maxYears": "Experiencia máxima que piden (años)",
+      "maxYearsHint": "Vacío = sin límite. Con 3 se ocultan los puestos Senior y los que piden más de 3 años."
     }
   },
   "applications": {

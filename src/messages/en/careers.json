@@ -180,7 +180,9 @@
       "requiredTechnologies": "Required technologies",
       "requiredTechnologiesHint": "The offer must mention all of them",
       "save": "Save rules",
-      "saved": "Rules saved."
+      "saved": "Rules saved.",
+      "maxYears": "Most experience they ask for (years)",
+      "maxYearsHint": "Empty = no limit. With 3, Senior roles and those asking for more than 3 years are hidden."
     }
   },
   "applications": {

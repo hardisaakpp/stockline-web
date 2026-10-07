@@ -98,6 +98,8 @@ export const preferencesSchema = z.object({
   excludeText: z.array(z.string()),
   locations: z.array(z.string()),
   requiredTechnologies: z.array(z.string()),
+  /** Most years of experience an offer may ask for (null = no limit). A «Senior» title counts as 5. */
+  maxYears: z.number().int().min(0).max(30).nullable(),
 });
 export type Preferences = z.infer<typeof preferencesSchema>;
 
