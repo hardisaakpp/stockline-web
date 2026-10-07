@@ -96,7 +96,8 @@
     "contactShow": {
       "phone": "Mostrar teléfono en el PDF",
       "location": "Mostrar ubicación en el PDF",
-      "links": "Mostrar enlaces en el PDF"
+      "links": "Mostrar enlaces en el PDF",
+      "icons": "Iconos en el encabezado del PDF"
     },
     "import": {
       "button": "Importar",

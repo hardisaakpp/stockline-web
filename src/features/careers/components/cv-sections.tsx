@@ -79,7 +79,7 @@ export function ContactSection({
           onChange={(e) => onChange({ ...value, location: orNull(e.target.value) })}
         />
       </div>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <SwitchField
           id="show-phone"
           label={t("contactShow.phone")}
@@ -97,6 +97,12 @@ export function ContactSection({
           label={t("contactShow.links")}
           checked={visibility.shown("contacto.enlaces")}
           onCheckedChange={(on) => visibility.setShown("contacto.enlaces", on)}
+        />
+        <SwitchField
+          id="show-icons"
+          label={t("contactShow.icons")}
+          checked={visibility.shown("contacto.iconos")}
+          onCheckedChange={(on) => visibility.setShown("contacto.iconos", on)}
         />
       </div>
       <Repeater

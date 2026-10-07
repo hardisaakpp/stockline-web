@@ -65,6 +65,19 @@ describe("CvForm PDF switches", () => {
     expect(latest().hidden.sort()).toEqual(["contacto.telefono", "resumen"]);
   });
 
+  it("has the header icons on by default and lets the person turn them off and on", async () => {
+    renderForm();
+    const icons = screen.getByRole("switch", { name: /icons in the pdf header/i });
+    expect(icons).toBeChecked();
+
+    await userEvent.click(icons);
+    expect(latest().hidden).toEqual(["contacto.iconos"]);
+    expect(icons).not.toBeChecked();
+
+    await userEvent.click(icons);
+    expect(latest().hidden).toEqual([]);
+  });
+
   it("new entries start included, and an entry can be left out without being deleted", async () => {
     renderForm();
     await userEvent.click(screen.getByRole("button", { name: /add language/i }));

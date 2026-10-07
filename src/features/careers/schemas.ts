@@ -16,6 +16,7 @@ export const HIDDEN_KEYS = [
   "contacto.telefono",
   "contacto.ubicacion",
   "contacto.enlaces",
+  "contacto.iconos",
 ] as const;
 export type HiddenKey = (typeof HIDDEN_KEYS)[number];
 
