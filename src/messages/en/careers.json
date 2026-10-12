@@ -166,7 +166,11 @@
     "sources": {
       "remotive": "Remotive",
       "remoteok": "Remote OK",
-      "weworkremotely": "We Work Remotely"
+      "weworkremotely": "We Work Remotely",
+      "jobicy": "Jobicy",
+      "himalayas": "Himalayas",
+      "getonbrd": "Get on Board",
+      "linkedin": "LinkedIn"
     },
     "rules": {
       "title": "Rules that drop an offer",
