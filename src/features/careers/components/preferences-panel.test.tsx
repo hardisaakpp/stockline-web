@@ -84,8 +84,15 @@ describe("PreferencesPanel", () => {
     ).toBeInTheDocument();
   });
 
+  it("offers up to 2 years for someone with a couple of years of experience", async () => {
+    renderPanel();
+    await userEvent.click(screen.getByRole("button", { name: "Up to 2 years" }));
+    await userEvent.click(apply());
+    await waitFor(() => expect(savePreferences).toHaveBeenCalledWith({ ...none, maxYears: 2 }));
+  });
+
   it("a saved limit outside the presets is still shown, selected", () => {
-    renderPanel({ ...none, maxYears: 2 });
+    renderPanel({ ...none, maxYears: 4 });
     return userEvent.click(screen.getByRole("button", { name: "Show filters" })).then(() => {
       expect(screen.getByRole("button", { name: "Up to 2 years" })).toHaveAttribute(
         "aria-pressed",

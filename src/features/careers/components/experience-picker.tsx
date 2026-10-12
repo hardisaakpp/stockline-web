@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 /** The limits worth offering as one click; a saved value outside them still shows, selected. */
-const PRESETS = [null, 1, 3, 5] as const;
+const PRESETS = [null, 1, 2, 3, 5] as const;
 
 /** «How much experience may an offer ask for»: a few choices instead of a bare number. */
 export function ExperiencePicker({
