@@ -1,22 +1,20 @@
 "use client";
 
-import { Loader2, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { PageHeader } from "@/components/feedback/page-header";
 import { PdfPreviewDialog } from "@/components/feedback/pdf-preview-dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
 import { previewCv, saveCv } from "../actions.server";
 import type { Cv, ImportResult } from "../schemas";
 import { useCareersError, useFieldProblems } from "../use-careers-error";
 import { useCvDraft } from "../use-cv-draft";
 import { usePdf } from "../use-pdf";
+import { CvActionBar } from "./cv-action-bar";
 import { CvDraftNotice } from "./cv-draft-notice";
 import { CvErrorAlert } from "./cv-error-alert";
 import { CvForm } from "./cv-form";
-import { CvImport } from "./cv-import";
 import { CvImportNotice } from "./cv-import-notice";
 
 export function CvEditor({
@@ -96,26 +94,13 @@ export function CvEditor({
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        title={t("title")}
-        description={t("description")}
-        actions={
-          <>
-            <CvImport onImported={onImported} />
-            <Button variant="outline" onClick={() => run("preview")} disabled={busy !== null}>
-              {busy === "preview" && <Loader2 className="size-4 animate-spin" />}
-              {busy === "preview" ? t("previewing") : t("preview")}
-            </Button>
-            <Button onClick={() => run("save")} disabled={busy !== null}>
-              {busy === "save" ? (
-                <Loader2 className="size-4 animate-spin" />
-              ) : (
-                <Save className="size-4" />
-              )}
-              {busy === "save" ? t("saving") : t("save")}
-            </Button>
-          </>
-        }
+      <PageHeader title={t("title")} description={t("description")} />
+      <CvActionBar
+        status={draft.dirty ? t("draft.dirty") : hasSaved ? t("draft.clean") : null}
+        busy={busy}
+        onImported={onImported}
+        onPreview={() => run("preview")}
+        onSave={() => run("save")}
       />
 
       {draft.offer && (
@@ -132,10 +117,6 @@ export function CvEditor({
         </Alert>
       )}
       {error && <CvErrorAlert message={error} problems={problems} />}
-      <p role="status" className="text-xs text-muted-foreground">
-        {draft.dirty ? t("draft.dirty") : hasSaved ? t("draft.clean") : null}
-      </p>
-
       <CvForm key={formKey} cv={cv} onChange={edit} />
 
       <PdfPreviewDialog
