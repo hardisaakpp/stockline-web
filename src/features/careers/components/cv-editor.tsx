@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertCircle, Loader2, Save } from "lucide-react";
+import { Loader2, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -11,12 +11,24 @@ import { Button } from "@/components/ui/button";
 import { previewCv, saveCv } from "../actions.server";
 import type { Cv, ImportResult } from "../schemas";
 import { useCareersError, useFieldProblems } from "../use-careers-error";
+import { useCvDraft } from "../use-cv-draft";
 import { usePdf } from "../use-pdf";
+import { CvDraftNotice } from "./cv-draft-notice";
+import { CvErrorAlert } from "./cv-error-alert";
 import { CvForm } from "./cv-form";
 import { CvImport } from "./cv-import";
 import { CvImportNotice } from "./cv-import-notice";
 
-export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
+export function CvEditor({
+  initial,
+  saved,
+  userId,
+}: {
+  initial: Cv;
+  saved: boolean;
+  /** Whose draft is kept in this browser. */
+  userId: string;
+}) {
   const t = useTranslations("careers.cv");
   const describe = useCareersError();
   const problemsOf = useFieldProblems();
@@ -31,10 +43,22 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [, startTransition] = useTransition();
   const pdf = usePdf();
+  const draft = useCvDraft({ userId, cv, initial });
 
-  const edit = (patch: Partial<Cv>) => setCv((current) => ({ ...current, ...patch }));
+  const edit = (patch: Partial<Cv>) => {
+    draft.touch();
+    setCv((current) => ({ ...current, ...patch }));
+  };
+
+  const restoreDraft = () => {
+    const restored = draft.restore();
+    if (!restored) return;
+    setCv(restored);
+    setFormKey((key) => key + 1);
+  };
 
   const onImported = (result: ImportResult) => {
+    draft.touch();
     setCv(result.cv);
     setImported(result);
     setFormKey((key) => key + 1);
@@ -50,8 +74,9 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
     setError(null);
     setProblems([]);
     if (kind === "preview") setPreviewOpen(true);
+    const sent = cv;
     startTransition(async () => {
-      const result = kind === "save" ? await saveCv(cv) : await previewCv(cv);
+      const result = kind === "save" ? await saveCv(sent) : await previewCv(cv);
       setBusy(null);
       if (!result.ok) {
         setPreviewOpen(false);
@@ -61,6 +86,7 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
       }
       if (kind === "save") {
         setHasSaved(true);
+        draft.markSaved(sent);
         toast.success(t("saved"));
       } else {
         pdf.show(result.data as string);
@@ -92,31 +118,23 @@ export function CvEditor({ initial, saved }: { initial: Cv; saved: boolean }) {
         }
       />
 
+      {draft.offer && (
+        <CvDraftNotice
+          savedAt={draft.offer.savedAt}
+          onRestore={restoreDraft}
+          onDiscard={draft.discard}
+        />
+      )}
       {imported && <CvImportNotice result={imported} />}
       {!hasSaved && !imported && (
         <Alert>
           <AlertDescription>{t("notSaved")}</AlertDescription>
         </Alert>
       )}
-      {error && (
-        <Alert variant="destructive" role="alert">
-          <AlertCircle className="size-4" />
-          <AlertDescription>
-            {error}
-            {problems.length > 0 && (
-              <>
-                {" "}
-                {t("problems")}
-                <ul className="mt-1 list-disc pl-5">
-                  {problems.map((problem) => (
-                    <li key={problem}>{problem}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </AlertDescription>
-        </Alert>
-      )}
+      {error && <CvErrorAlert message={error} problems={problems} />}
+      <p role="status" className="text-xs text-muted-foreground">
+        {draft.dirty ? t("draft.dirty") : hasSaved ? t("draft.clean") : null}
+      </p>
 
       <CvForm key={formKey} cv={cv} onChange={edit} />
 

@@ -188,7 +188,7 @@ describe("CvEditor import", () => {
         },
       ],
     };
-    wrap(<CvEditor initial={before} saved />);
+    wrap(<CvEditor initial={before} saved userId="u1" />);
     expect(screen.getByLabelText("Achievements")).toHaveValue("Old achievement");
 
     await chooseFile(pdf());

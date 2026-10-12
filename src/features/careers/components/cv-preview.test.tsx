@@ -82,7 +82,7 @@ describe("CvEditor preview", () => {
   it("opens the modal at once, then shows the PDF in it", async () => {
     let finish!: (r: ActionResult<string>) => void;
     previewCv.mockReturnValue(new Promise((resolve) => (finish = resolve)));
-    wrap(<CvEditor initial={cv} saved />);
+    wrap(<CvEditor initial={cv} saved userId="u1" />);
 
     await userEvent.click(screen.getByRole("button", { name: /^preview$/i }));
     // Still generating: the modal is already open with a spinner.
@@ -101,7 +101,7 @@ describe("CvEditor preview", () => {
       ok: false,
       error: { code: "unavailable", issues: [], apiCode: "ai-unavailable" },
     });
-    wrap(<CvEditor initial={cv} saved />);
+    wrap(<CvEditor initial={cv} saved userId="u1" />);
 
     await userEvent.click(screen.getByRole("button", { name: /^preview$/i }));
 
@@ -110,7 +110,7 @@ describe("CvEditor preview", () => {
   });
 
   it("no longer keeps a cramped preview panel next to the form", () => {
-    wrap(<CvEditor initial={cv} saved />);
+    wrap(<CvEditor initial={cv} saved userId="u1" />);
     expect(screen.queryByTitle("PDF preview")).not.toBeInTheDocument();
     expect(screen.queryByText(/press “preview”/i)).not.toBeInTheDocument();
   });

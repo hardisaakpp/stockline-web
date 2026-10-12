@@ -135,6 +135,14 @@
     "count": {
       "entries": "{count, plural, =0 {no entries} one {# entry} other {# entries}}",
       "fields": "{filled} of {total} fields filled"
+    },
+    "draft": {
+      "title": "You have unsaved changes from {when}",
+      "text": "They were kept in this browser because the page was closed or reloaded before saving. Do you want them back?",
+      "restore": "Restore",
+      "discard": "Discard",
+      "dirty": "Unsaved changes. They are kept as a draft in this browser until you press Save.",
+      "clean": "Everything saved."
     }
   },
   "offers": {
