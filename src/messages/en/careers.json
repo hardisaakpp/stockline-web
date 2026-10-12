@@ -214,7 +214,14 @@
         "hintMore": "Roles asking for more than {years} years (Lead, Staff, Manager…) are hidden. Offers that state no level are still shown."
       },
       "active": "{count, plural, one {1 active} other {# active}}"
-    }
+    },
+    "experience": {
+      "asks": "Asks for {years}+ years of experience",
+      "none": "No experience stated"
+    },
+    "viewed": "Viewed",
+    "unview": "Mark as not viewed",
+    "reopen": "Reopen"
   },
   "applications": {
     "metaTitle": "Applications",
@@ -245,12 +252,14 @@
     "actions": {
       "confirm": "I reviewed it",
       "sent": "Mark as sent",
-      "discard": "Discard"
+      "discard": "Discard",
+      "reopen": "Reopen as draft"
     },
     "done": {
       "confirm": "Marked as reviewed.",
       "sent": "Marked as sent.",
-      "discard": "Application discarded."
+      "discard": "Application discarded.",
+      "reopen": "Application reopened as a draft."
     },
     "prepared": "Draft ready."
   },

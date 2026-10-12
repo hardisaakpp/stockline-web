@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { EmptyState } from "@/components/feedback/empty-state";
 import { PageHeader } from "@/components/feedback/page-header";
 import { ButtonLink } from "@/components/ui/button-link";
+import { requireUser } from "@/features/auth/server";
 import { careersApi, OffersView } from "@/features/careers/server";
 import { ApiError } from "@/lib/api/problem";
 
@@ -24,8 +25,12 @@ async function load() {
 }
 
 export default async function OffersPage() {
-  const [t, data] = await Promise.all([getTranslations("careers.offers"), load()]);
-  if (data) return <OffersView list={data.list} preferences={data.preferences} />;
+  const [t, data, user] = await Promise.all([
+    getTranslations("careers.offers"),
+    load(),
+    requireUser(),
+  ]);
+  if (data) return <OffersView list={data.list} preferences={data.preferences} userId={user.id} />;
   return (
     <div className="space-y-6">
       <PageHeader title={t("title")} description={t("description")} />

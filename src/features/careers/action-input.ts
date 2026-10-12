@@ -13,6 +13,6 @@ export const inputs = {
   refreshOffers: z.tuple([z.boolean()]),
   prepare: z.tuple([id]),
   editLetter: z.tuple([id, z.string().max(8000)]),
-  act: z.tuple([id, z.enum(["confirm", "sent", "discard"])]),
+  act: z.tuple([id, z.enum(["confirm", "sent", "discard", "reopen"])]),
   idOnly: z.tuple([id]),
 };

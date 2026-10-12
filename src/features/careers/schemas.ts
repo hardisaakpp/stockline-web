@@ -126,6 +126,8 @@ export const offersSchema = z.object({
       matches: z.array(z.string()),
       applicationId: z.uuid().nullable(),
       applicationStatus: statusSchema.nullable(),
+      /** Years of experience the offer says it asks for; null when it does not say. */
+      requiredYears: z.number().int().nullable().default(null),
     }),
   ),
 });

@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import type { ActionResult } from "@/lib/actions/result";
 import { actOnApplication, applicationPdf, editLetter } from "../actions.server";
 import type { ApplicationDetail } from "../schemas";
-import { isFinal, nextActions, statusVariant } from "../status";
+import { isEditable, isFinal, nextActions, statusVariant } from "../status";
 import { useCareersError } from "../use-careers-error";
 import { usePdf } from "../use-pdf";
 
@@ -27,7 +27,7 @@ export function ApplicationDetailView({ detail }: { detail: ApplicationDetail })
   const [busy, setBusy] = useState<string | null>(null);
   const [, startTransition] = useTransition();
   const pdf = usePdf();
-  const open = !isFinal(detail.status);
+  const open = isEditable(detail.status);
   const letterChanged = letter !== detail.coverLetter;
 
   /** Runs one action: shows what went wrong, or the success message, and refreshes what the server knows. */
@@ -117,7 +117,7 @@ export function ApplicationDetailView({ detail }: { detail: ApplicationDetail })
                 {nextActions(detail.status).map((action) => (
                   <Button
                     key={action}
-                    variant={action === "discard" ? "outline" : "default"}
+                    variant={action === "discard" || action === "reopen" ? "outline" : "default"}
                     disabled={busy !== null}
                     onClick={() =>
                       run(action, () => actOnApplication(detail.id, action), t(`done.${action}`))
@@ -127,7 +127,9 @@ export function ApplicationDetailView({ detail }: { detail: ApplicationDetail })
                     {t(`actions.${action}`)}
                   </Button>
                 ))}
-                {!open && <p className="text-sm text-muted-foreground">{t("final")}</p>}
+                {isFinal(detail.status) && (
+                  <p className="text-sm text-muted-foreground">{t("final")}</p>
+                )}
               </div>
             </CardContent>
           </Card>

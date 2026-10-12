@@ -214,7 +214,14 @@
         "hintMore": "Se ocultan los puestos que piden más de {years} años (Lead, Staff, Manager…). Las ofertas que no indican nivel se siguen mostrando."
       },
       "active": "{count, plural, one {1 activo} other {# activos}}"
-    }
+    },
+    "experience": {
+      "asks": "Pide {years}+ años de experiencia",
+      "none": "No indica experiencia"
+    },
+    "viewed": "Vista",
+    "unview": "Marcar como no vista",
+    "reopen": "Reabrir"
   },
   "applications": {
     "metaTitle": "Postulaciones",
@@ -245,12 +252,14 @@
     "actions": {
       "confirm": "Ya la revisé",
       "sent": "Marcar como enviada",
-      "discard": "Descartar"
+      "discard": "Descartar",
+      "reopen": "Reabrir como borrador"
     },
     "done": {
       "confirm": "Marcada como revisada.",
       "sent": "Marcada como enviada.",
-      "discard": "Postulación descartada."
+      "discard": "Postulación descartada.",
+      "reopen": "Postulación reabierta como borrador."
     },
     "prepared": "Borrador listo."
   },

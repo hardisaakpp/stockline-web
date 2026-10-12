@@ -85,7 +85,7 @@ export const careersApi = {
       method: "PUT",
       body: { coverLetter },
     }),
-  act: (id: string, action: "confirm" | "sent" | "discard") =>
+  act: (id: string, action: "confirm" | "sent" | "discard" | "reopen") =>
     authed(`/applications/${encodeURIComponent(id)}/${action}`, statusResultSchema, {
       method: "POST",
     }),
