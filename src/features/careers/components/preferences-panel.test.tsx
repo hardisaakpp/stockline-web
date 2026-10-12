@@ -94,7 +94,7 @@ describe("PreferencesPanel", () => {
   it("a saved limit outside the presets is still shown, selected", () => {
     renderPanel({ ...none, maxYears: 4 });
     return userEvent.click(screen.getByRole("button", { name: "Show filters" })).then(() => {
-      expect(screen.getByRole("button", { name: "Up to 2 years" })).toHaveAttribute(
+      expect(screen.getByRole("button", { name: "Up to 4 years" })).toHaveAttribute(
         "aria-pressed",
         "true",
       );
