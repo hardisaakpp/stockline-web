@@ -135,7 +135,7 @@ export function ContactSection({
   );
 }
 
-/** Work and research share a shape (role, organization, dates, achievements); `kind` only changes ids and labels. */
+/** Work and research share a shape (role, organization, dates, achievements); `kind` changes ids and labels, and only research asks for the project name. */
 export function ExperienceSection({
   value,
   onChange,
@@ -149,8 +149,9 @@ export function ExperienceSection({
       onChange={onChange}
       addLabel={t(`add.${kind}`)}
       itemLabel={t(`items.${kind}`)}
-      summary={(item) => [item.role, item.organization].filter(Boolean).join(" · ")}
+      summary={(item) => [item.project, item.role, item.organization].filter(Boolean).join(" · ")}
       blank={() => ({
+        project: null,
         role: "",
         organization: "",
         from: "",
@@ -168,6 +169,17 @@ export function ExperienceSection({
             onChange={(include) => update({ include })}
           />
           <div className="grid gap-4 sm:grid-cols-2">
+            {kind === "research" && (
+              <div className="sm:col-span-2">
+                <FormField
+                  id={`${prefix}-project-${i}`}
+                  label={t("fields.researchProject")}
+                  hint={t("fields.researchProjectHint")}
+                  value={item.project ?? ""}
+                  onChange={(e) => update({ project: orNull(e.target.value) })}
+                />
+              </div>
+            )}
             <FormField
               id={`${prefix}-role-${i}`}
               label={t("fields.role")}

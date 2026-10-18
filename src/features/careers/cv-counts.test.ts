@@ -26,6 +26,7 @@ const job = (over: Partial<Cv["experience"][number]> = {}): Cv["experience"][num
   achievements: [],
   technologies: [],
   include: true,
+  project: null,
   ...over,
 });
 
@@ -115,5 +116,12 @@ describe("sectionCounts", () => {
     expect(counts.skills.filled).toBe(2);
     expect(counts.certifications.filled).toBe(1);
     expect(counts.references.filled).toBe(1);
+  });
+});
+
+describe("research entries named by project", () => {
+  it("counts an entry that only has a project name", () => {
+    const counts = sectionCounts({ ...empty, research: [job({ project: "Smart Lab" })] });
+    expect(counts.research.filled).toBe(1);
   });
 });

@@ -32,7 +32,7 @@ export function sectionCounts(cv: Cv): Record<SectionId, SectionCount> {
     [cv.contact.email, cv.contact.phone, cv.contact.location].filter(has).length +
     (Object.keys(cv.contact.links).length > 0 ? 1 : 0);
   const work = (item: Cv["experience"][number]) =>
-    anyOf(item.role, item.organization) || item.achievements.some(has);
+    anyOf(item.role, item.organization, item.project) || item.achievements.some(has);
 
   return {
     main: { filled: main, total: 3 },

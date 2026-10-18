@@ -34,6 +34,8 @@
       "location": "Location",
       "linkLabel": "Link label",
       "linkUrl": "Link address",
+      "researchProject": "Project name",
+      "researchProjectHint": "Shown in bold at the start of the entry, with the organization in brackets",
       "role": "Role",
       "organization": "Organization",
       "from": "From",
@@ -130,6 +132,8 @@
     },
     "collapse": "Collapse {title}",
     "expand": "Expand {title}",
+    "reorder": "Move {title} (position {number} of {total}). Drag, or use the ↑ ↓ arrow keys",
+    "reorderHint": "Drag to reorder",
     "collapseAll": "Collapse all",
     "expandAll": "Expand all",
     "count": {
@@ -143,6 +147,31 @@
       "discard": "Discard",
       "dirty": "Unsaved changes. They are kept as a draft in this browser until you press Save.",
       "clean": "Everything saved."
+    },
+    "language": {
+      "label": "CV version",
+      "es": "Español",
+      "en": "English"
+    },
+    "english": {
+      "title": "English CV",
+      "description": "The English version is a separate document: translate it from your Spanish CV, fix whatever you like and save it.",
+      "notSaved": "You have not saved the English version yet. Press Translate to create a draft from your Spanish CV and review it before saving."
+    },
+    "translate": {
+      "button": "Translate from Spanish",
+      "running": "Translating…",
+      "confirm": "You have unsaved changes in this version. The translation will replace them. Continue?",
+      "done": "Translation ready. Review each section and press Save.",
+      "noticeTitle": "Automatically translated draft. Review it before saving.",
+      "noticeBody": "The translation runs on this machine, without sending your data to third parties. Proper names, companies and technologies are not translated; check degree titles and job titles above all.",
+      "warnings": {
+        "untranslated": "{count, plural, one {One text was left in Spanish} other {# texts were left in Spanish}}: translate them by hand."
+      }
+    },
+    "emphasis": {
+      "button": "Bold",
+      "title": "Prints the selected text in bold in the PDF (Ctrl+B). With no selection, the word under the cursor."
     }
   },
   "offers": {
@@ -304,6 +333,8 @@
     "current": "present",
     "none": "No data",
     "contact": "Contact",
-    "legend": "Anything marked “Not in the PDF” is saved but left out of the document."
+    "legend": "Anything marked “Not in the PDF” is saved but left out of the document.",
+    "emptyTitleEn": "There is no English CV yet",
+    "emptyBodyEn": "Translate it from the Spanish version, review it and save it to see it here."
   }
 }

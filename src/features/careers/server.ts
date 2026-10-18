@@ -5,6 +5,7 @@ export { careersApi } from "./api";
 export { ApplicationDetailView } from "./components/application-detail";
 export { ApplicationsList } from "./components/applications-list";
 export { CvEditor } from "./components/cv-editor";
+export { CvLanguageTabs } from "./components/cv-language-tabs";
 export { CvViewer } from "./components/cv-viewer";
 export { OffersView } from "./components/offers-view";
 

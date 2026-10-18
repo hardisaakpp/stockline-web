@@ -3,29 +3,32 @@
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
-import { PageHeader } from "@/components/feedback/page-header";
-import { PdfPreviewDialog } from "@/components/feedback/pdf-preview-dialog";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { previewCv, saveCv } from "../actions.server";
-import type { Cv, ImportResult } from "../schemas";
+import type { Cv, CvLanguage, ImportResult } from "../schemas";
 import { useCareersError, useFieldProblems } from "../use-careers-error";
 import { useCvDraft } from "../use-cv-draft";
 import { usePdf } from "../use-pdf";
+import { useTranslateCv } from "../use-translate-cv";
 import { CvActionBar } from "./cv-action-bar";
 import { CvDraftNotice } from "./cv-draft-notice";
+import { CvEditorHeader } from "./cv-editor-header";
+import { CvPdfDialog } from "./cv-pdf-dialog";
 import { CvErrorAlert } from "./cv-error-alert";
 import { CvForm } from "./cv-form";
-import { CvImportNotice } from "./cv-import-notice";
+import { CvStatusNotices, type CvNotice } from "./cv-status-notices";
 
 export function CvEditor({
   initial,
   saved,
   userId,
+  lang = "es",
 }: {
   initial: Cv;
   saved: boolean;
   /** Whose draft is kept in this browser. */
   userId: string;
+  /** Which version is being edited: each language is its own saved document, with its own local draft. */
+  lang?: CvLanguage;
 }) {
   const t = useTranslations("careers.cv");
   const describe = useCareersError();
@@ -34,14 +37,15 @@ export function CvEditor({
   const [problems, setProblems] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [hasSaved, setHasSaved] = useState(saved);
-  const [imported, setImported] = useState<ImportResult | null>(null);
+  const [notice, setNotice] = useState<CvNotice>(null);
   // The form's list inputs keep their own text, so a replaced CV needs a fresh form, not just new props.
   const [formKey, setFormKey] = useState(0);
-  const [busy, setBusy] = useState<"save" | "preview" | null>(null);
+  const [busy, setBusy] = useState<"save" | "preview" | "translate" | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [, startTransition] = useTransition();
   const pdf = usePdf();
-  const draft = useCvDraft({ userId, cv, initial });
+  // The Spanish key stays as it was, so drafts left before the English version existed still restore.
+  const draft = useCvDraft({ userId: lang === "es" ? userId : `${userId}.${lang}`, cv, initial });
 
   const edit = (patch: Partial<Cv>) => {
     draft.touch();
@@ -55,13 +59,17 @@ export function CvEditor({
     setFormKey((key) => key + 1);
   };
 
+  const clearErrors = () => {
+    setError(null);
+    setProblems([]);
+  };
+
   const onImported = (result: ImportResult) => {
     draft.touch();
     setCv(result.cv);
-    setImported(result);
+    setNotice({ kind: "import", result });
     setFormKey((key) => key + 1);
-    setError(null);
-    setProblems([]);
+    clearErrors();
     toast.success(t("import.done"));
   };
 
@@ -69,12 +77,11 @@ export function CvEditor({
     // Set before the transition: inside an async transition React commits every update only when it
     // finishes, so the button label and the modal (with its spinner) would not appear while waiting.
     setBusy(kind);
-    setError(null);
-    setProblems([]);
+    clearErrors();
     if (kind === "preview") setPreviewOpen(true);
     const sent = cv;
     startTransition(async () => {
-      const result = kind === "save" ? await saveCv(sent) : await previewCv(cv);
+      const result = kind === "save" ? await saveCv(sent, lang) : await previewCv(cv, lang);
       setBusy(null);
       if (!result.ok) {
         setPreviewOpen(false);
@@ -92,17 +99,37 @@ export function CvEditor({
     });
   };
 
+  const translate = useTranslateCv({
+    dirty: draft.dirty,
+    onStart: () => {
+      setBusy("translate");
+      clearErrors();
+    },
+    onDone: (result) => {
+      setBusy(null);
+      draft.touch();
+      setCv(result.cv);
+      setNotice({ kind: "translation", result });
+      setFormKey((key) => key + 1);
+      toast.success(t("translate.done"));
+    },
+    onError: (failure) => {
+      setBusy(null);
+      setError(describe(failure));
+    },
+  });
+
   return (
     <div className="space-y-6">
-      <PageHeader title={t("title")} description={t("description")} />
+      <CvEditorHeader lang={lang} />
       <CvActionBar
         status={draft.dirty ? t("draft.dirty") : hasSaved ? t("draft.clean") : null}
         busy={busy}
         onImported={onImported}
         onPreview={() => run("preview")}
         onSave={() => run("save")}
+        onTranslate={lang === "en" ? translate : undefined}
       />
-
       {draft.offer && (
         <CvDraftNotice
           savedAt={draft.offer.savedAt}
@@ -110,22 +137,15 @@ export function CvEditor({
           onDiscard={draft.discard}
         />
       )}
-      {imported && <CvImportNotice result={imported} />}
-      {!hasSaved && !imported && (
-        <Alert>
-          <AlertDescription>{t("notSaved")}</AlertDescription>
-        </Alert>
-      )}
+      <CvStatusNotices lang={lang} hasSaved={hasSaved} notice={notice} />
       {error && <CvErrorAlert message={error} problems={problems} />}
       <CvForm key={formKey} cv={cv} onChange={edit} />
-
-      <PdfPreviewDialog
+      <CvPdfDialog
         open={previewOpen}
         onOpenChange={setPreviewOpen}
-        title={t("previewTitle")}
         url={pdf.url}
         loading={busy === "preview"}
-        filename="hoja-de-vida.pdf"
+        lang={lang}
       />
     </div>
   );

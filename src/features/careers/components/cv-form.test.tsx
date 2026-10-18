@@ -93,6 +93,20 @@ describe("CvForm PDF switches", () => {
     await userEvent.click(screen.getByRole("button", { name: /add certification/i }));
     await userEvent.click(screen.getByRole("button", { name: /add research/i }));
     expect(latest().certifications).toHaveLength(1);
-    expect(latest().research[0]).toMatchObject({ include: true, location: null });
+    expect(latest().research[0]).toMatchObject({ include: true, location: null, project: null });
+  });
+
+  it("asks for the project name in research only, and stores it", async () => {
+    renderForm();
+    await userEvent.click(screen.getByRole("button", { name: /add experience/i }));
+    expect(screen.queryByLabelText("Project name")).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: /add research/i }));
+    await userEvent.type(screen.getByLabelText("Project name"), "Smart Lab");
+    expect(latest().research[0]!.project).toBe("Smart Lab");
+    expect(latest().experience[0]!.project).toBeNull();
+
+    await userEvent.clear(screen.getByLabelText("Project name"));
+    expect(latest().research[0]!.project).toBeNull();
   });
 });

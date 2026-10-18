@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CollapseButton } from "@/components/ui/collapse-button";
 import { FormField } from "@/components/ui/form-field";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { EmphasisTextarea } from "./emphasis-textarea";
 import { SwitchField } from "@/components/ui/form-controls";
 import type { Cv, HiddenKey } from "../schemas";
 import { sectionCounts, SECTION_IDS, type SectionCount, type SectionId } from "../cv-counts";
@@ -96,7 +96,7 @@ function Section({
 /** Every section of the CV, each editing its own slice. */
 export function CvForm({ cv, onChange: edit }: { cv: Cv; onChange: (patch: Partial<Cv>) => void }) {
   const t = useTranslations("careers.cv");
-  const folding = useFolding(SECTION_IDS);
+  const folding = useFolding(SECTION_IDS, "stockline.careers.cv-sections");
   const counts = sectionCounts(cv);
   // Props every section gets: its fold state and its count.
   const fold = (id: SectionId) => ({ ...folding.fold(id), count: counts[id] });
@@ -146,7 +146,7 @@ export function CvForm({ cv, onChange: edit }: { cv: Cv; onChange: (patch: Parti
               onCheckedChange={(on) => setShown("resumen", on)}
             />
           </div>
-          <Textarea
+          <EmphasisTextarea
             id="cv-summary"
             rows={4}
             value={cv.summary}

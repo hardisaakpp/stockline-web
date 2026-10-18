@@ -1,9 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { EmphasisTextarea } from "./emphasis-textarea";
 import { FormField } from "@/components/ui/form-field";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import type { Cv } from "../schemas";
 import { IncludeToggle } from "./cv-sections";
 import { ListInput, Repeater } from "./list-inputs";
@@ -44,7 +44,7 @@ export function ProjectsSection({ value, onChange }: SectionProps<"projects">) {
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor={`prj-desc-${i}`}>{t("fields.description")}</Label>
-            <Textarea
+            <EmphasisTextarea
               id={`prj-desc-${i}`}
               rows={2}
               value={item.description}
@@ -134,6 +134,7 @@ export function SkillsSection({ value, onChange }: SectionProps<"skills">) {
       addLabel={t("add.skills")}
       itemLabel={t("items.skills")}
       summary={(item) => item.name}
+      reorderable
       blank={() => ({ name: "", items: [] })}
       render={(item, i, update) => (
         <div className="grid gap-4 sm:grid-cols-[1fr_2fr]">

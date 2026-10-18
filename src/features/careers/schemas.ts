@@ -30,6 +30,8 @@ const experienceSchema = z.object({
   technologies: z.array(z.string()),
   /** False = kept in the CV but left out of the PDF. */
   include: z.boolean(),
+  /** Name of the project or lab (research only): it heads the entry, with the organization in brackets. */
+  project: z.string().nullable(),
 });
 
 export const cvSchema = z.object({
@@ -90,6 +92,23 @@ export const importResultSchema = z.object({
   warnings: z.array(z.string()),
 });
 export type ImportResult = z.infer<typeof importResultSchema>;
+
+/** The versions of the CV: Spanish is the original, English a translation the person edits and saves on its own. */
+export const CV_LANGUAGES = ["es", "en"] as const;
+export const cvLanguageSchema = z.enum(CV_LANGUAGES);
+export type CvLanguage = z.infer<typeof cvLanguageSchema>;
+
+/** Reads `?lang=` from the address: anything unknown is Spanish. */
+export const parseCvLanguage = (value: string | string[] | undefined): CvLanguage =>
+  value === "en" ? "en" : "es";
+
+/** An English draft of the Spanish CV: nothing is stored until the person reviews and saves it. */
+export const translationSchema = z.object({
+  cv: cvSchema,
+  /** Stable codes (e.g. `no-traducido:2`) the interface words. */
+  warnings: z.array(z.string()),
+});
+export type Translation = z.infer<typeof translationSchema>;
 
 export const cvResponseSchema = z.object({ cv: cvSchema, saved: z.boolean() });
 

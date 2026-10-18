@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, Save } from "lucide-react";
+import { Languages, Loader2, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import type { ImportResult } from "../schemas";
@@ -8,7 +8,7 @@ import { CvImport } from "./cv-import";
 
 /**
  * Import, preview and save, pinned under the app header so they stay in reach however far down the form is.
- * `status` says whether there is unsaved work.
+ * `status` says whether there is unsaved work. `onTranslate` is only given on the English version.
  */
 export function CvActionBar({
   status,
@@ -16,12 +16,14 @@ export function CvActionBar({
   onImported,
   onPreview,
   onSave,
+  onTranslate,
 }: {
   status: string | null;
-  busy: "save" | "preview" | null;
+  busy: "save" | "preview" | "translate" | null;
   onImported: (result: ImportResult) => void;
   onPreview: () => void;
   onSave: () => void;
+  onTranslate?: () => void;
 }) {
   const t = useTranslations("careers.cv");
   return (
@@ -30,6 +32,16 @@ export function CvActionBar({
         {status}
       </p>
       <div className="ml-auto flex items-center gap-2">
+        {onTranslate && (
+          <Button variant="outline" onClick={onTranslate} disabled={busy !== null}>
+            {busy === "translate" ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <Languages className="size-4" />
+            )}
+            {busy === "translate" ? t("translate.running") : t("translate.button")}
+          </Button>
+        )}
         <CvImport onImported={onImported} />
         <Button variant="outline" onClick={onPreview} disabled={busy !== null}>
           {busy === "preview" && <Loader2 className="size-4 animate-spin" />}

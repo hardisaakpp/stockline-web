@@ -9,13 +9,14 @@ import { PdfPreviewDialog } from "@/components/feedback/pdf-preview-dialog";
 import { Button } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { savedCvPdf } from "../actions.server";
-import type { Cv } from "../schemas";
+import type { Cv, CvLanguage } from "../schemas";
 import { useCareersError } from "../use-careers-error";
 import { usePdf } from "../use-pdf";
+import { CvLanguageTabs } from "./cv-language-tabs";
 import { CvSummary } from "./cv-summary";
 
 /** The saved CV, read-only, next to its PDF. Editing happens in the form. */
-export function CvViewer({ cv }: { cv: Cv }) {
+export function CvViewer({ cv, lang = "es" }: { cv: Cv; lang?: CvLanguage }) {
   const t = useTranslations("careers.view");
   const describe = useCareersError();
   const [busy, startTransition] = useTransition();
@@ -27,7 +28,7 @@ export function CvViewer({ cv }: { cv: Cv }) {
     // finishes, so the modal (with its spinner) would not appear while the PDF is generated.
     setOpen(true);
     startTransition(async () => {
-      const result = await savedCvPdf();
+      const result = await savedCvPdf(lang);
       if (result.ok) {
         pdf.show(result.data as string);
       } else {
@@ -44,7 +45,11 @@ export function CvViewer({ cv }: { cv: Cv }) {
         description={t("description")}
         actions={
           <>
-            <ButtonLink href="/careers/cv" variant="outline">
+            <CvLanguageTabs lang={lang} path="/careers/cv-view" />
+            <ButtonLink
+              href={lang === "en" ? "/careers/cv?lang=en" : "/careers/cv"}
+              variant="outline"
+            >
               <Pencil className="size-4" />
               {t("edit")}
             </ButtonLink>
@@ -64,7 +69,7 @@ export function CvViewer({ cv }: { cv: Cv }) {
         title={t("pdfTitle")}
         url={pdf.url}
         loading={busy}
-        filename="hoja-de-vida.pdf"
+        filename={lang === "en" ? "resume-en.pdf" : "hoja-de-vida.pdf"}
       />
     </div>
   );

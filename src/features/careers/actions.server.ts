@@ -7,23 +7,30 @@ import { inputs } from "./action-input";
 
 const toBase64 = (bytes: ArrayBuffer) => Buffer.from(bytes).toString("base64");
 
-export async function saveCv(values: unknown) {
-  return runAction(inputs.saveCv, [values], async ([cv]) => {
-    await careersApi.saveCv(cv);
+export async function saveCv(values: unknown, lang: unknown = "es") {
+  return runAction(inputs.saveCv, [values, lang], async ([cv, language]) => {
+    await careersApi.saveCv(cv, language);
     revalidatePath("/careers", "layout");
   });
 }
 
 /** The PDF of what is on screen right now, as base64: nothing is saved. */
-export async function previewCv(values: unknown) {
-  return runAction(inputs.previewCv, [values], async ([cv]) =>
-    toBase64(await careersApi.cvPdf(cv)),
+export async function previewCv(values: unknown, lang: unknown = "es") {
+  return runAction(inputs.previewCv, [values, lang], async ([cv, language]) =>
+    toBase64(await careersApi.cvPdf(cv, language)),
   );
 }
 
-/** The PDF of the CV as it is saved (what the viewer page shows), as base64. */
-export async function savedCvPdf() {
-  return runAction(inputs.none, [], async () => toBase64(await careersApi.cvPdf()));
+/** The PDF of the CV as it is saved in that language (what the viewer page shows), as base64. */
+export async function savedCvPdf(lang: unknown = "es") {
+  return runAction(inputs.language, [lang], async ([language]) =>
+    toBase64(await careersApi.cvPdf(undefined, language)),
+  );
+}
+
+/** An English draft of the saved Spanish CV. Nothing is saved: the person edits it first. */
+export async function translateCv() {
+  return runAction(inputs.none, [], async () => careersApi.translateCv());
 }
 
 /** Reads an uploaded CV (PDF, DOCX or a LinkedIn ZIP) into a draft. Nothing is saved: the person reviews it first. */

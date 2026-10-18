@@ -34,6 +34,8 @@
       "location": "Ubicación",
       "linkLabel": "Etiqueta del enlace",
       "linkUrl": "Dirección del enlace",
+      "researchProject": "Nombre del proyecto",
+      "researchProjectHint": "Aparece en negrita al inicio de la entrada; la organización va entre paréntesis",
       "role": "Cargo",
       "organization": "Organización",
       "from": "Desde",
@@ -130,6 +132,8 @@
     },
     "collapse": "Colapsar {title}",
     "expand": "Expandir {title}",
+    "reorder": "Mover {title} (posición {number} de {total}). Arrastra o usa las flechas ↑ ↓",
+    "reorderHint": "Arrastra para reordenar",
     "collapseAll": "Colapsar todo",
     "expandAll": "Expandir todo",
     "count": {
@@ -143,6 +147,31 @@
       "discard": "Descartar",
       "dirty": "Cambios sin guardar. Se conservan como borrador en este navegador hasta que pulses Guardar.",
       "clean": "Todo guardado."
+    },
+    "language": {
+      "label": "Versión de la hoja de vida",
+      "es": "Español",
+      "en": "English"
+    },
+    "english": {
+      "title": "Hoja de vida en inglés",
+      "description": "La versión en inglés es un documento aparte: tradúcela desde tu hoja de vida en español, corrige lo que quieras y guárdala.",
+      "notSaved": "Aún no guardaste la versión en inglés. Pulsa Traducir para crear un borrador a partir de tu hoja de vida en español y revísalo antes de guardar."
+    },
+    "translate": {
+      "button": "Traducir desde el español",
+      "running": "Traduciendo…",
+      "confirm": "Tienes cambios sin guardar en esta versión. La traducción los reemplazará. ¿Continuar?",
+      "done": "Traducción lista. Revisa cada sección y pulsa Guardar.",
+      "noticeTitle": "Borrador traducido automáticamente. Revísalo antes de guardar.",
+      "noticeBody": "La traducción se hace en este equipo, sin enviar tus datos a terceros. Nombres propios, empresas y tecnologías no se traducen; revisa sobre todo los títulos académicos y los cargos.",
+      "warnings": {
+        "untranslated": "{count, plural, one {Un texto quedó en español} other {# textos quedaron en español}}: tradúcelos a mano."
+      }
+    },
+    "emphasis": {
+      "button": "Negrita",
+      "title": "Pone en negrita en el PDF el texto seleccionado (Ctrl+B). Si no hay selección, la palabra donde está el cursor."
     }
   },
   "offers": {
@@ -304,6 +333,8 @@
     "current": "actual",
     "none": "Sin datos",
     "contact": "Contacto",
-    "legend": "Lo marcado como «No sale en el PDF» está guardado pero fuera del documento."
+    "legend": "Lo marcado como «No sale en el PDF» está guardado pero fuera del documento.",
+    "emptyTitleEn": "Aún no hay una hoja de vida en inglés",
+    "emptyBodyEn": "Tradúcela desde la versión en español, revísala y guárdala para verla aquí."
   }
 }

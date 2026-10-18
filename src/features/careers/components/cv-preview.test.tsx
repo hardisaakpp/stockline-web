@@ -66,10 +66,23 @@ describe("PdfPreviewDialog", () => {
         filename="cv.pdf"
       />,
     );
-    expect(screen.getByTitle("Preview")).toHaveAttribute("src", "blob:fake-pdf");
+    expect(screen.getByTitle("Preview")).toHaveAttribute(
+      "src",
+      "blob:fake-pdf#pagemode=none&navpanes=0",
+    );
     const download = screen.getByRole("link", { name: /download/i });
     expect(download).toHaveAttribute("href", "blob:fake-pdf");
     expect(download).toHaveAttribute("download", "cv.pdf");
+  });
+
+  it("toggles between the default and the maximized size", async () => {
+    wrap(<PdfPreviewDialog open onOpenChange={vi.fn()} title="Preview" url="blob:fake-pdf" />);
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveClass("h-[92dvh]");
+    await userEvent.click(screen.getByRole("button", { name: /maximize/i }));
+    expect(dialog).not.toHaveClass("h-[92dvh]");
+    await userEvent.click(screen.getByRole("button", { name: /restore size/i }));
+    expect(dialog).toHaveClass("h-[92dvh]");
   });
 
   it("renders nothing while closed", () => {
@@ -91,7 +104,10 @@ describe("CvEditor preview", () => {
 
     finish({ ok: true, data: btoa("%PDF-1.4") });
     await waitFor(() =>
-      expect(screen.getByTitle("PDF preview")).toHaveAttribute("src", "blob:fake-pdf"),
+      expect(screen.getByTitle("PDF preview")).toHaveAttribute(
+        "src",
+        "blob:fake-pdf#pagemode=none&navpanes=0",
+      ),
     );
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });
@@ -128,7 +144,10 @@ describe("CvViewer PDF", () => {
 
     finish({ ok: true, data: btoa("%PDF-1.4") });
     await waitFor(() =>
-      expect(screen.getByTitle("PDF of the saved CV")).toHaveAttribute("src", "blob:fake-pdf"),
+      expect(screen.getByTitle("PDF of the saved CV")).toHaveAttribute(
+        "src",
+        "blob:fake-pdf#pagemode=none&navpanes=0",
+      ),
     );
   });
 

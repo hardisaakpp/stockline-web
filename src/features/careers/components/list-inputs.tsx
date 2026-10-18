@@ -7,7 +7,11 @@ import { Button } from "@/components/ui/button";
 import { CollapseButton } from "@/components/ui/collapse-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
+import { moveItem } from "../reorder";
+import { DragHandle } from "./drag-handle";
+import { EmphasisTextarea } from "./emphasis-textarea";
+import { useRowDrag } from "./use-row-drag";
 
 const parts = (text: string, separator: RegExp) =>
   text
@@ -85,7 +89,7 @@ export function LinesInput({
   const [text, setText] = useState(value.join("\n"));
   return (
     <Labelled id={id} label={label} hint={hint ?? t("oneItemPerLine")}>
-      <Textarea
+      <EmphasisTextarea
         id={id}
         rows={Math.max(3, value.length + 1)}
         value={text}
@@ -109,7 +113,21 @@ type RepeaterProps<T> = {
   /** One line that stands for an entry while it is collapsed (e.g. «Developer · Acme»). */
   summary: (item: T) => string;
   render: (item: T, index: number, update: (patch: Partial<T>) => void) => ReactNode;
+  /** Lets the person drag entries (or use ↑ ↓ on the handle) to put them in any order. */
+  reorderable?: boolean;
 };
+
+/** Each entry keeps the same key for its whole life, so its inputs and collapsed state follow it when it moves. */
+type Keys = { list: number[]; next: number };
+
+/** The keys always match the items: when the list is replaced from outside, they are cut or extended at the end. */
+function syncKeys(keys: Keys, count: number): Keys {
+  if (keys.list.length === count) return keys;
+  const list = keys.list.slice(0, count);
+  let next = keys.next;
+  while (list.length < count) list.push(next++);
+  return { list, next };
+}
 
 export function Repeater<T>({
   items,
@@ -119,43 +137,87 @@ export function Repeater<T>({
   itemLabel,
   summary,
   render,
+  reorderable = false,
 }: RepeaterProps<T>) {
   const t = useTranslations("careers.cv");
   const base = useId();
-  // Collapsed entries by position. The body stays mounted (just hidden), so what was typed is not lost.
+  const [stored, setStored] = useState<Keys>(() => ({
+    list: items.map((_, i) => i),
+    next: items.length,
+  }));
+  const keys = syncKeys(stored, items.length);
+  if (keys !== stored) setStored(keys);
+  // Collapsed entries by key. The body stays mounted (just hidden), so what was typed is not lost.
   const [collapsed, setCollapsed] = useState<ReadonlySet<number>>(new Set());
 
-  const toggle = (index: number) =>
+  const toggle = (key: number) =>
     setCollapsed((current) => {
       const next = new Set(current);
-      if (!next.delete(index)) next.add(index);
+      if (!next.delete(key)) next.add(key);
       return next;
     });
 
+  const add = () => {
+    onChange([...items, blank()]);
+    setStored({ list: [...keys.list, keys.next], next: keys.next + 1 });
+  };
+
   const remove = (index: number) => {
     onChange(items.filter((_, i) => i !== index));
-    // Entries after the removed one move up a position: their collapsed state follows them.
-    setCollapsed((current) => {
-      const shifted = [...current].filter((i) => i !== index).map((i) => (i > index ? i - 1 : i));
-      return new Set(shifted);
-    });
+    setStored({ ...keys, list: keys.list.filter((_, i) => i !== index) });
   };
+
+  const move = (from: number, to: number) => {
+    if (from === to) return;
+    onChange(moveItem(items, from, to));
+    setStored({ ...keys, list: moveItem(keys.list, from, to) });
+  };
+
+  const rows = useRowDrag(items.length, move);
 
   return (
     <div className="space-y-4">
       {items.map((item, index) => {
-        const open = !collapsed.has(index);
-        const panel = `${base}-${index}`;
+        const key = keys.list[index] ?? index;
+        const open = !collapsed.has(key);
+        const panel = `${base}-${key}`;
         const title = summary(item).trim() || `${itemLabel} ${index + 1}`;
+        const bar = rows.bar(index);
         return (
-          // Index keys are safe: rows have no identity of their own and are only removed on request.
-          <div key={index} className="space-y-4 rounded-lg border bg-muted/30 p-4">
+          <div
+            key={key}
+            data-reorder-card
+            onDragOver={reorderable ? (event) => rows.over(event, index) : undefined}
+            onDrop={reorderable ? rows.drop : undefined}
+            className={cn(
+              "relative space-y-4 rounded-lg border bg-muted/30 p-4",
+              rows.dragging === index && "opacity-50",
+            )}
+          >
+            {bar && (
+              <div
+                aria-hidden
+                className={cn(
+                  "pointer-events-none absolute inset-x-0 h-0.5 rounded bg-primary",
+                  bar === "after" ? "-bottom-2.5" : "-top-2.5",
+                )}
+              />
+            )}
             <div className="flex items-center justify-between gap-2">
+              {reorderable && (
+                <DragHandle
+                  label={t("reorder", { title, number: index + 1, total: items.length })}
+                  hint={t("reorderHint")}
+                  onKeyDown={(event) => rows.keyboard(event, index)}
+                  onStart={() => rows.start(index)}
+                  onEnd={rows.end}
+                />
+              )}
               <CollapseButton
                 expanded={open}
                 controls={panel}
                 label={t(open ? "collapse" : "expand", { title })}
-                onClick={() => toggle(index)}
+                onClick={() => toggle(key)}
                 className="flex-1"
               >
                 <span className="truncate text-sm font-medium">{title}</span>
@@ -180,7 +242,7 @@ export function Repeater<T>({
           </div>
         );
       })}
-      <Button type="button" variant="outline" onClick={() => onChange([...items, blank()])}>
+      <Button type="button" variant="outline" onClick={add}>
         <Plus className="size-4" />
         {addLabel}
       </Button>

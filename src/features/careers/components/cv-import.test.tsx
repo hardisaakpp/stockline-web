@@ -167,6 +167,7 @@ describe("CvEditor import", () => {
             achievements: ["Cut a query from 8 s to 300 ms"],
             technologies: [".NET", "SQL Server"],
             include: true,
+            project: null,
           },
         ],
       }),
@@ -185,6 +186,7 @@ describe("CvEditor import", () => {
           achievements: ["Old achievement"],
           technologies: ["COBOL"],
           include: true,
+          project: null,
         },
       ],
     };

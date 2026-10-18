@@ -145,6 +145,8 @@
   },
   "common": {
     "download": "Descargar",
-    "generatingPdf": "Generando el PDF…"
+    "generatingPdf": "Generando el PDF…",
+    "maximize": "Maximizar",
+    "restore": "Restaurar tamaño"
   }
 }

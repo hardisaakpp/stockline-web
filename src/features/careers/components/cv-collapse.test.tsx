@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { NextIntlClientProvider } from "next-intl";
 import { useState } from "react";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import messages from "@/messages/en";
 import type { Cv } from "../schemas";
 import { CvForm } from "./cv-form";
@@ -37,6 +37,8 @@ const renderForm = (initial: Cv = empty) =>
 
 // Role queries leave out what is hidden, so these count only the entries that are open.
 const languageFields = () => screen.queryAllByRole("textbox", { name: "Language" });
+
+beforeEach(() => window.localStorage.clear());
 
 describe("collapsible sections", () => {
   it("starts expanded and every section has a button saying what it will do", () => {
@@ -80,6 +82,43 @@ describe("collapsible sections", () => {
     await userEvent.click(screen.getByRole("button", { name: /expand all/i }));
     expect(screen.getByLabelText("Email")).toBeVisible();
     expect(screen.getByLabelText("Full name")).toBeVisible();
+  });
+});
+
+describe("remembered sections", () => {
+  it("restores the last choice of each section on the next visit", async () => {
+    const first = renderForm();
+    await userEvent.click(screen.getByRole("button", { name: /collapse contact/i }));
+    first.unmount();
+
+    renderForm();
+    expect(await screen.findByRole("button", { name: /expand contact/i })).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
+    expect(screen.getByRole("button", { name: /collapse education/i })).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+  });
+
+  it("a section reopened by the person stays open the next time", async () => {
+    const first = renderForm();
+    await userEvent.click(screen.getByRole("button", { name: /collapse contact/i }));
+    await userEvent.click(screen.getByRole("button", { name: /expand contact/i }));
+    first.unmount();
+
+    renderForm();
+    expect(screen.getByRole("button", { name: /collapse contact/i })).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+  });
+
+  it("ignores a corrupt saved value and starts expanded", () => {
+    window.localStorage.setItem("stockline.careers.cv-sections", "{not json");
+    renderForm();
+    expect(screen.getByRole("button", { name: /collapse contact/i })).toBeInTheDocument();
   });
 });
 

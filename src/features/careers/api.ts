@@ -14,7 +14,9 @@ import {
   preferencesSchema,
   refreshSchema,
   statusResultSchema,
+  translationSchema,
   type Cv,
+  type CvLanguage,
   type Preferences,
 } from "./schemas";
 
@@ -55,10 +57,15 @@ async function authedBytes(path: string, options: Options = {}) {
 }
 
 export const careersApi = {
-  cv: () => authed("/cv", cvResponseSchema),
-  saveCv: (cv: Cv) => authedVoid("/cv", { method: "PUT", body: cv }),
-  /** PDF of the draft being edited (nothing is stored) or, without one, of the saved CV. */
-  cvPdf: (draft?: Cv) => authedBytes("/cv/pdf", { method: "POST", body: draft }),
+  /** The CV in one language (`es`, the original, or `en`); an unsaved version comes back empty. */
+  cv: (lang: CvLanguage = "es") => authed(`/cv?lang=${lang}`, cvResponseSchema),
+  saveCv: (cv: Cv, lang: CvLanguage = "es") =>
+    authedVoid(`/cv?lang=${lang}`, { method: "PUT", body: cv }),
+  /** PDF of the draft being edited (nothing is stored) or, without one, of the saved CV in that language. */
+  cvPdf: (draft?: Cv, lang: CvLanguage = "es") =>
+    authedBytes(`/cv/pdf?lang=${lang}`, { method: "POST", body: draft }),
+  /** An English draft of the saved Spanish CV: nothing is stored. */
+  translateCv: () => authed("/cv/translate", translationSchema, { method: "POST" }),
 
   /** Reads a CV file (PDF, DOCX or a LinkedIn export) into a draft for the form: nothing is stored. */
   importCv: (bytes: ArrayBuffer) =>

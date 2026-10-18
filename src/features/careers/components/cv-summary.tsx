@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Cv, CvExperience, HiddenKey } from "../schemas";
+import { EmphasisText } from "./emphasis-text";
 
 /** Read-only view of the saved CV: the same sections as the form, marking what stays out of the PDF. */
 function Block({
@@ -85,13 +86,15 @@ function Work({ items }: { items: CvExperience[] }) {
         <Entry
           key={i}
           out={!e.include}
-          title={joined(e.role, e.organization)}
+          title={joined(e.project, e.role, e.organization)}
           meta={joined(`${e.from} – ${e.to ?? t("current")}`, e.location)}
         >
           {e.achievements.length > 0 && (
             <ul className="list-disc space-y-0.5 pl-5">
               {e.achievements.map((a, j) => (
-                <li key={j}>{a}</li>
+                <li key={j}>
+                  <EmphasisText text={a} />
+                </li>
               ))}
             </ul>
           )}
@@ -113,7 +116,11 @@ export function CvSummary({ cv }: { cv: Cv }) {
       <Block title={t("cv.sections.main")} out={out("resumen") && cv.summary !== ""}>
         <p className="text-base font-semibold">{cv.fullName}</p>
         {cv.headline && <p className="text-muted-foreground">{cv.headline}</p>}
-        {cv.summary && <p className={out("resumen") ? "opacity-60" : undefined}>{cv.summary}</p>}
+        {cv.summary && (
+          <p className={out("resumen") ? "opacity-60" : undefined}>
+            <EmphasisText text={cv.summary} />
+          </p>
+        )}
       </Block>
       <Block title={t("view.contact")}>
         <p>{cv.contact.email || t("view.none")}</p>
@@ -147,7 +154,9 @@ export function CvSummary({ cv }: { cv: Cv }) {
         <Rows items={cv.projects}>
           {(p, i) => (
             <Entry key={i} out={!p.include} title={p.name} meta={p.url ?? undefined}>
-              <p>{p.description}</p>
+              <p>
+                <EmphasisText text={p.description} />
+              </p>
               {p.technologies.length > 0 && (
                 <p className="text-muted-foreground italic">{p.technologies.join(", ")}</p>
               )}

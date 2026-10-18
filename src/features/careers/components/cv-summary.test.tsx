@@ -25,6 +25,7 @@ const cv: Cv = {
       achievements: ["Cut a query from 8 s to 300 ms"],
       technologies: [".NET"],
       include: true,
+      project: null,
     },
     {
       role: "Intern",
@@ -35,6 +36,7 @@ const cv: Cv = {
       achievements: [],
       technologies: [],
       include: false,
+      project: null,
     },
   ],
   research: [],
@@ -47,10 +49,10 @@ const cv: Cv = {
   hidden: ["contacto.telefono", "habilidades"],
 };
 
-const renderSummary = () =>
+const renderSummary = (over: Partial<Cv> = {}) =>
   render(
     <NextIntlClientProvider locale="en" messages={messages}>
-      <CvSummary cv={cv} />
+      <CvSummary cv={{ ...cv, ...over }} />
     </NextIntlClientProvider>,
   );
 
@@ -77,6 +79,25 @@ describe("CvSummary", () => {
     // included things carry no flag
     const certs = screen.getByText("Certifications").closest("[data-slot='card']") as HTMLElement;
     expect(within(certs).queryByText("Not in the PDF")).not.toBeInTheDocument();
+  });
+
+  it("leads a research entry with its project name", () => {
+    renderSummary({
+      research: [
+        {
+          role: "Researcher",
+          organization: "EPN",
+          from: "2025-10",
+          to: null,
+          location: null,
+          achievements: [],
+          technologies: [],
+          include: true,
+          project: "Smart Lab",
+        },
+      ],
+    });
+    expect(screen.getByText("Smart Lab · Researcher · EPN")).toBeInTheDocument();
   });
 
   it("says so when a section has no data", () => {
